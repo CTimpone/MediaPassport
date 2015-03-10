@@ -35,6 +35,7 @@ season            | integer   | not null
 position          | integer   | not null
 airdate           | date/time | not null
 description       | text      | not null
+image_url         | string    |
 maze_id           | integer   | 3rd-Party facing foreign key
 
 ## posts

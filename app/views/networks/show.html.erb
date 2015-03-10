@@ -1,0 +1,9 @@
+<h1><%= @network.name%></h1>
+<ul>
+  <% @shows.each do |show| %>
+  <li>
+    <a href="<%= show_url(show)%>"><%= show.title  %></a>
+    <p><%= show.description%></p>
+  </li>
+  <% end %>
+</ul>

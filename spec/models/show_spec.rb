@@ -22,4 +22,5 @@ RSpec.describe Show, type: :model do
   it { should validate_presence_of(:network_id) }
 
   it { should validate_uniqueness_of(:title) }
+  it { should validate_uniqueness_of(:maze_id) }
 end
