@@ -1,0 +1,15 @@
+<form class="new-post" action="<%= posts_url %>" method="post">
+  <%= auth_token %>
+  <input type="hidden" name="post[episode_id]" value="<%= params[:id] %>">
+  <label>
+    Title
+    <input type="text" name="post[title]">
+  </label>
+<br>
+  <label>
+    Body
+    <textarea name="post[content]" rows="8" cols="40"></textarea>
+  </label>
+<br>
+  <button>Create New Post</button>
+</form>

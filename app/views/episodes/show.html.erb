@@ -1,0 +1,19 @@
+<h1><%= @episode.title %></h1>
+<p>
+  <%= @episode.description %>
+</p>
+<img src="<%=@episode.image_url%>"/>
+
+<% if @posts %>
+  <ul>
+    <% @posts.each do |post| %>
+      <li>
+        <a href="<%=post_url(post)%>"><%= post.title %></a>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if signed_in? %>
+  <%= render partial: "posts/new" %>
+<% end %>

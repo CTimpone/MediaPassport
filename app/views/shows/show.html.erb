@@ -3,3 +3,16 @@
   <%= @show.description %>
 </p>
 <img src="<%=@show.image_url%>"/>
+
+<% if @episodes %>
+<ul>
+  <% @episodes.each do |episode| %>
+    <li>
+      <a href="<%=show_episode_url(@show, episode)%>"><%= episode.title %></a>
+      <% if episode.description %>
+        <p><%= episode %></p>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+<% end %>
