@@ -1,22 +1,4 @@
 <h1>Create User</h1>
-
+<%= render partial: "layouts/errors" %>
 <form class="user-form" action="<%= users_url %>" method="post">
-  <%= auth_token %>
-
-  <label>
-    Email
-    <input type="text" name="user[email]">
-  </label>
-<br>
-  <label>
-    Username
-    <input type="text" name="user[username]">
-  </label>
-<br>
-  <label>
-    Password
-    <input type="text" name="user[password]">
-  </label>
-<br>
-  <button>Submit</button>
-</form>
+<%= render partial: "layouts/user_form" %>
