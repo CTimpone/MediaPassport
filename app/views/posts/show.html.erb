@@ -3,4 +3,13 @@
   <%= @post.content %>
 </p>
 <br>
+<ul>
+  <% comment_tree = @post.comment_tree %>
+  <% comment_tree[nil].each do |comment| %>
+    <li>
+      <%= render partial: "comments/comment", locals: {comment: comment, comment_tree: comment_tree} %>
+    </li>
+  <% end %>
+</ul>
+<br>
 <%= button_to "Return to Episode Page", show_episode_url(@post.episode_id, @post.episode.show_id), method: :get %>

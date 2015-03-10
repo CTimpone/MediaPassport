@@ -3,28 +3,28 @@ class Comment < ActiveRecord::Base
 
   belongs_to(
     :author,
-    class_type: "User",
+    class_name: "User",
     foreign_key: :user_id,
     primary_key: :id
   )
 
   belongs_to(
     :post,
-    class_type: "Post",
+    class_name: "Post",
     foreign_key: :post_id,
     primary_key: :id
   )
 
   has_many(
     :children,
-    class_type: "Comment",
+    class_name: "Comment",
     foreign_key: :parent_id,
     primary_key: :id
   )
 
   belongs_to(
     :parent,
-    class_type: "Comment",
+    class_name: "Comment",
     foreign_key: :parent_id,
     primary_key: :id
   )

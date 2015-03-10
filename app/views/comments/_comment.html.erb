@@ -1,0 +1,8 @@
+<%= comment.author.username + ": " + comment.content %>
+<ul>
+  <% comment_tree[comment.id].each do |child| %>
+    <li>
+      <%= render partial: "comments/comment", locals: {comment: child, comment_tree: comment_tree} %>
+    </li>
+  <% end %>
+</ul>

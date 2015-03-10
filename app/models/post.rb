@@ -18,7 +18,7 @@ class Post < ActiveRecord::Base
 
   has_many(
     :comments,
-    class_type: "Comment",
+    class_name: "Comment",
     foreign_key: :post_id,
     primary_key: :id
   )
