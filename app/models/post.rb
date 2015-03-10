@@ -15,4 +15,21 @@ class Post < ActiveRecord::Base
     foreign_key: :episode_id,
     primary_key: :id
   )
+
+  has_many(
+    :comments,
+    class_type: "Comment",
+    foreign_key: :post_id,
+    primary_key: :id
+  )
+
+  def comment_tree
+    tree = Hash.new { |h, k| h[k] = [] }
+
+    self.comments.includes(:author).each do |comment|
+      tree[comment.parent_id] << comment
+    end
+
+    tree
+  end
 end
