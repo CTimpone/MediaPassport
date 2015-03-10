@@ -1,0 +1,16 @@
+<%= auth_token %>
+<label>
+  Comment Body
+  <textarea name="comment[content]" rows="8" cols="40"><%=@comment.content%></textarea>
+</label>
+
+<% if params[:parent] %>
+  <input type="hidden" name="comment[parent_id]" value="<%=params[:parent]%>">
+<% end %>
+
+<% if params[:post] %>
+  <input type="hidden" name="comment[post_id]" value="<%=params[:post]%>">
+<% end %>
+<br>
+<button>Submit</button>
+</form>

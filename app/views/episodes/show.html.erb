@@ -4,6 +4,8 @@
 </p>
 <img src="<%=@episode.image_url%>"/>
 
+<%= render partial: "layouts/errors" %>
+
 <% if @episode.posts %>
   <ul>
     <% @episode.posts.each do |post| %>

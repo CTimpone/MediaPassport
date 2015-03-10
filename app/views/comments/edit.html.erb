@@ -1,0 +1,6 @@
+<h1>Edit Comment</h1>
+<%= render partial: "layouts/errors" %>
+
+<form action="<%=comment_url(@comment)%>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <%= render partial: "comment_form" %>

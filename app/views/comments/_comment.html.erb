@@ -1,5 +1,10 @@
 <%= comment.author.username + ": " + comment.content %>
-<%= link_to "Reply", new_comment_url(parent: comment.id, post: comment.post_id) %>
+<% if signed_in? && comment.author != current_user %>
+  <%= link_to "Reply", new_comment_url(parent: comment.id, post: comment.post_id) %>
+<% elsif comment.author == current_user %>
+  <%= link_to "Edit", edit_comment_url(comment) %>
+<% end %>
+
 <ul>
   <% comment_tree[comment.id].each do |child| %>
     <li>
