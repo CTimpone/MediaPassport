@@ -16,4 +16,22 @@ class Show < ActiveRecord::Base
     foreign_key: :show_id,
     primary_key: :id
   )
+
+  def most_recent_episode
+    episodes.order(airdate: :desc).limit(1)
+  end
+
+  def timeframe
+    sorted = episodes.order(:airdate)
+    return sorted.first.airdate.strftime('%a %d %b %Y') + " to " +
+           sorted.last.airdate.strftime('%a %d %b %Y')
+  end
+
+  def seasons
+    episodes.pluck(:season).max
+  end
+
+  def num_episodes
+    episodes.length
+  end
 end

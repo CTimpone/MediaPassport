@@ -15,4 +15,12 @@ class Episode < ActiveRecord::Base
     foreign_key: :episode_id,
     primary_key: :id
   )
+
+  def self.this_week
+    self.all.where("airdate >= ?", Date.today - 7)
+  end
+
+  def self.today
+    self.all.where("airdate = ?", Date.today)
+  end
 end
