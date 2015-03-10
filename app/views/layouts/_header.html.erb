@@ -1,7 +1,7 @@
 <table>
   <tr>
     <% if signed_in? %>
-      <td><%= current_user.username %></td>
+      <td><a href="<%=user_url(current_user)%>"><%= current_user.username %></a></td>
       <td><%= button_to "Sign Out", session_url, method: :delete %></td>
     <% else %>
       <td><%= button_to "Sign In", new_session_url, method: :get %></td>
