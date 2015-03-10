@@ -1,7 +1,6 @@
 class EpisodesController < ApplicationController
   def show
-    @episode = Episode.find(params[:id])
-    @posts = @episode.posts
+    @episode = Episode.includes(:posts).find(params[:id])
     render :show
   end
 end

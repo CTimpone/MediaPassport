@@ -4,9 +4,9 @@
 </p>
 <img src="<%=@show.image_url%>"/>
 
-<% if @episodes %>
+<% if @show.episodes %>
 <ul>
-  <% @episodes.each do |episode| %>
+  <% @show.episodes.each do |episode| %>
     <li>
       <a href="<%=show_episode_url(@show, episode)%>"><%= episode.title %></a>
       <% if episode.description %>
@@ -16,3 +16,5 @@
   <% end %>
 </ul>
 <% end %>
+<br>
+<%= button_to "Other Shows on Network", network_url(@show.network_id), method: :get %>

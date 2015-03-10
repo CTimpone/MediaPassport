@@ -4,9 +4,9 @@
 </p>
 <img src="<%=@episode.image_url%>"/>
 
-<% if @posts %>
+<% if @episode.posts %>
   <ul>
-    <% @posts.each do |post| %>
+    <% @episode.posts.each do |post| %>
       <li>
         <a href="<%=post_url(post)%>"><%= post.title %></a>
       </li>
@@ -17,3 +17,6 @@
 <% if signed_in? %>
   <%= render partial: "posts/new" %>
 <% end %>
+
+<br>
+<%= button_to "Return to Show", show_url(@episode.show_id), method: :get %>

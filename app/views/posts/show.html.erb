@@ -1,0 +1,6 @@
+<h1><%= @post.title %></h1>
+<p>
+  <%= @post.content %>
+</p>
+<br>
+<%= button_to "Return to Episode Page", show_episode_url(@post.episode_id, @post.episode.show_id), method: :get %>

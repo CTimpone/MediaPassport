@@ -9,6 +9,12 @@ class PostsController < ApplicationController
     end
   end
 
+  def show
+    @post = Post.includes(:episode).find(params[:id])
+    render :show
+  end
+
+
   private
     def post_params
       params.require(:post).permit(:title, :content, :episode_id)

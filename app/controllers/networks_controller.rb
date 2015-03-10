@@ -1,8 +1,7 @@
 class NetworksController < ApplicationController
 
   def show
-    @network = Network.find(params[:id])
-    @shows = @network.shows
+    @network = Network.includes(:shows).find(params[:id])
     render :show
   end
 end
