@@ -23,5 +23,10 @@ RSpec.describe Episode, type: :model do
   it { should validate_presence_of(:position) }
   it { should validate_presence_of(:airdate) }
 
-  it { should validate_uniqueness_of(:maze_id) }
+  it { should allow_value(nil).for(:maze_id) }
+
+  describe "otherwise has unique maze id" do
+    before { episode.update_attribute :maze_id, 12}
+    it { should validate_uniqueness_of(:maze_id)}
+  end
 end

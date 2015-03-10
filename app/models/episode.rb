@@ -8,4 +8,11 @@ class Episode < ActiveRecord::Base
     foreign_key: :show_id,
     primary_key: :id
   )
+
+  has_many(
+    :posts,
+    class_name: "Post",
+    foreign_key: :episode_id,
+    primary_key: :id
+  )
 end

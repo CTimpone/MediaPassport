@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Show, type: :model do
-  let (:user) { FactoryGirl.build(:show) }
+  let (:show) { FactoryGirl.build(:show) }
 
   before (:each) do
-    user.save
+    show.save
   end
 
   it "does not require an image url" do
@@ -22,5 +22,10 @@ RSpec.describe Show, type: :model do
   it { should validate_presence_of(:network_id) }
 
   it { should validate_uniqueness_of(:title) }
-  it { should validate_uniqueness_of(:maze_id) }
+  it { should allow_value(nil).for(:maze_id) }
+
+  describe "otherwise has unique maze id" do
+    before { show.update_attribute :maze_id, 12}
+    it { should validate_uniqueness_of(:maze_id)}
+  end
 end
