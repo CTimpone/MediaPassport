@@ -1,0 +1,19 @@
+<h1>New Comment</h1>
+
+<form action="<%=comments_url%>" method="post">
+  <%= auth_token %>
+  <label>
+    Comment Body
+    <textarea name="comment[content]" rows="8" cols="40"></textarea>
+  </label>
+
+  <% if params[:parent] %>
+    <input type="hidden" name="comment[parent_id]" value="<%=params[:parent]%>">
+  <% end %>
+
+  <% if params[:post] %>
+    <input type="hidden" name="comment[post_id]" value="<%=params[:post]%>">
+  <% end %>
+  <br>
+  <button>Submit</button>
+</form>

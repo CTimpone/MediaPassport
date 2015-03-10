@@ -5,5 +5,6 @@ Rails.application.routes.draw do
     resources :episodes, only: [:show]
   end
   resources :posts, only: [:create, :new, :show]
+  resources :comments, only: [:new, :create, :edit, :update]
   resources :networks, only: [:show]
 end

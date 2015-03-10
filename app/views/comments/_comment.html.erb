@@ -1,4 +1,5 @@
 <%= comment.author.username + ": " + comment.content %>
+<%= link_to "Reply", new_comment_url(parent: comment.id, post: comment.post_id) %>
 <ul>
   <% comment_tree[comment.id].each do |child| %>
     <li>

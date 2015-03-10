@@ -11,5 +11,6 @@
     </li>
   <% end %>
 </ul>
+<%= link_to "Reply to Post", new_comment_url(post: @post.id) %>
 <br>
 <%= button_to "Return to Episode Page", show_episode_url(@post.episode_id, @post.episode.show_id), method: :get %>
