@@ -13,7 +13,7 @@ RSpec.describe User, type: :model do
   end
 
   it "does not store the password as plain text" do
-    expect(User.first.password).to be_falsy
+    expect(User.last.password).to be_falsy
   end
 
   it { should validate_presence_of(:username) }

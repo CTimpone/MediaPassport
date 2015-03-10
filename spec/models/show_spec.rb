@@ -7,6 +7,16 @@ RSpec.describe Show, type: :model do
     user.save
   end
 
+  it "does not require an image url" do
+    expect(Show.last.image_url).to be_falsy
+  end
+
+  it "does not require a maze id" do
+    expect(Show.last.maze_id).to be_falsy
+  end
+
+  it { should belong_to(:network)}
+
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:description) }
   it { should validate_presence_of(:network_id) }

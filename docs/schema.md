@@ -13,8 +13,7 @@ session_token     | string    | not null
 column name       | data type | details
 ------------------|-----------|------------------------
 id                | integer   | not null, primary key
-full_name         | string    | not null
-abbreviation      | string    | not null
+name              | string    | not null
 
 ## shows
 column name       | data type | details
