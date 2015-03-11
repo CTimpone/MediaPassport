@@ -1,13 +1,13 @@
 MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
-  initialize: function () {
-    this._shows = new MediaPassport.Collections.Shows();
-    this._results = new MediaPassport.Collections.ApiShows({title: "Office"});
+  initialize: function (options) {
+    this._shows = options.shows;
+    this._results = new MediaPassport.Collections.ApiShows({title: "Flash"});
 
     this._loadedTables = 0;
 
-    this._shows.fetch({success: function () {
-      this._loadedTables += 1;
-    }.bind(this)});
+    // this._shows.fetch({success: function () {
+    //   this._loadedTables += 1;
+    // }.bind(this)});
     this._results.fetch({success: function () {
       this._loadedTables += 1;
     }.bind(this)});
@@ -26,7 +26,8 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
   },
 
   renderItems: function () {
-    if (this._loadedTables === 2) {
+    $('.results-list').empty();
+    if (this._loadedTables === 1) {
       this._results.each(function (show) {
         var dbShow = this._shows.getOrCreate(_.clone(show.attributes));
         var subView = new MediaPassport.Views.SearchResultItem({

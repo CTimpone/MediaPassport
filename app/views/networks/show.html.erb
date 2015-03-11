@@ -2,7 +2,7 @@
 <ul>
   <% @shows.each do |show| %>
   <li>
-    <a href="<%= show_url(show)%>"><%= show.title  %></a>
+    <a href="/shows/<%=show.title.gsub(' ', '_')%>"><%= show.title  %></a>
     <p><%= show.description%></p>
   </li>
   <% end %>
