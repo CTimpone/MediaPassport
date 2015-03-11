@@ -52,8 +52,8 @@ column name       | data type | details
 ------------------|-----------|------------------------
 id                | integer   | not null, primary key
 user_id           | integer   | not null, foreign key (references users)
-commentable_type  | string    | not null (polymorphic)
-commentable_id    | integer   | not null, foreign key (references table from commentable type)
+post_id           | integer   | not null, foreign key (references posts)
+parent_id         | integer   | foreign key (references comments)
 content           | text      | not null
 
 ## ratings

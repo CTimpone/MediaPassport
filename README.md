@@ -9,15 +9,16 @@ Media Passport is a pseudo-GoodReads clone for television, on which users can:
 
 <!-- This is a Markdown checklist. Use it to keep track of your progress! -->
 
-- [ ] Create accounts
-- [ ] Create sessions (log in)
+- [x] Create accounts
+- [x] Create sessions (log in)
+- [x] Write posts
+- [x] Comment on posts
 - [ ] View program listings
 - [ ] Rate episodes
 - [ ] Create a personal show watch list
-- [ ] Write posts
 - [ ] Can endorse user generated comment
-- [ ] Comment on posts
 - [ ] Search for shows and episodes via title
+- [ ] Actions will fetch data from API to fill database
 
 ## Design Docs
 * [View Wireframes][views]
