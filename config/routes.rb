@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   end
   resources :posts, only: [:create, :new, :show]
   resources :comments, only: [:new, :create, :edit, :update]
-  resources :networks, only: [:show]
+  resources :networks, only: [:show, :index, :create]
 end
