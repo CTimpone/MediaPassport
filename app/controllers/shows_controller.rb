@@ -6,7 +6,7 @@ class ShowsController < ApplicationController
 
   def index
     @shows = Show.all
-    render :index
+    render json: @shows
   end
 
   def create

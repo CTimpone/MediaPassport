@@ -3,6 +3,7 @@ MediaPassport.Views.SearchResultItem = Backbone.View.extend({
 
   initialize: function (options) {
     this.networks = options.networks;
+    this.shows = options.
     this.network = this.networks.getOrCreate(this.model.escape("network_name"));
   },
 
