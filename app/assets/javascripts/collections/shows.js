@@ -3,15 +3,31 @@ MediaPassport.Collections.Shows = Backbone.Collection.extend({
 
   url: "/shows",
 
-  getOrCreate: function (title, maze_id) {
-    var show = this.where({title: title});
+  getOrCreate: function (attributes, options) {
+    var exactShow = this.where({title: attributes.title, maze_id: attributes.maze_id});
 
-    if (network.length === 0) {
-      network = this.create({network: {name: name}});
-    } else {
-      network = network[0];
+    if (exactShow.length === 0) {
+      exactShow = this.where({title: attributes.title + " (" + attributes.network + ")", maze_id: attributes.maze_id})
     }
 
-    return network;
+    var sameTitle = this.where({title: attributes.title});
+
+    if (!attributes.description) {
+      attributes.description = "No available description";
+    }
+
+    if (exactShow.length === 1) {
+      show = exactShow[0];
+    } else {
+      show = new this.model();
+      if (exactShow.length === 0 && sameTitle.length === 0) {
+        show = this.create(attributes);
+      } else if (exactShow.length === 0 && sameTitle.length > 0){
+        attributes.title += " (" + attributes.network + ")"
+        show = this.create(attributes);
+      }
+    }
+
+    return show;
   }
 })

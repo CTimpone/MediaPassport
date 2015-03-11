@@ -1,1 +1,1 @@
-<a href="localhost:3000/shows/<%=network.replace(/ /g,'_')%>"><%=network%></a>
+<a href="localhost:3000/shows/<%=show.escape('title').replace(/ /g,'_')%>"><%=show.escape('title')%></a>

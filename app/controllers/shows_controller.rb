@@ -12,15 +12,14 @@ class ShowsController < ApplicationController
   def create
     @show = Show.new(show_params)
     if @show.save
-      render :show
+      render json: @show
     else
-      flash[:errors] = @show.errors.full_messages
-      redirect_to shows_url
+      render json: @show.errors.full_messages
     end
   end
 
   private
   def show_params
-    params.require(:show).permit(:title, :description, :image_url, :maze_id, :network_id)
+    params.require(:show).permit(:title, :description, :image_url, :maze_id, :network)
   end
 end

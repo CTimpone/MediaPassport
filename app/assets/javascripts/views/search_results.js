@@ -1,14 +1,10 @@
 MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
   initialize: function () {
-    this._networks = new MediaPassport.Collections.Networks();
     this._shows = new MediaPassport.Collections.Shows();
     this._results = new MediaPassport.Collections.ApiShows({title: "Office"});
 
     this._loadedTables = 0;
 
-    this._networks.fetch({success: function () {
-      this._loadedTables += 1;
-    }.bind(this)});
     this._shows.fetch({success: function () {
       this._loadedTables += 1;
     }.bind(this)});
@@ -16,8 +12,8 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
       this._loadedTables += 1;
     }.bind(this)});
 
-    this.listenTo(this._shows, "sync", this.renderItems);
-    this.listenTo(this._results, "sync", this.renderItems);
+    this.listenToOnce(this._shows, "sync", this.renderItems);
+    this.listenToOnce(this._results, "sync", this.renderItems);
   },
 
   template: JST['search_results'],
@@ -30,13 +26,11 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
   },
 
   renderItems: function () {
-
-    if (this._loadedTables === 3) {
+    if (this._loadedTables === 2) {
       this._results.each(function (show) {
+        var dbShow = this._shows.getOrCreate(_.clone(show.attributes));
         var subView = new MediaPassport.Views.SearchResultItem({
-          model: show,
-          networks: this._networks,
-          shows: this._shows
+          model: dbShow
         });
         this.addSubview('.results-list', subView)
       }.bind(this));

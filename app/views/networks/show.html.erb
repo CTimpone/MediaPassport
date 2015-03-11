@@ -1,6 +1,6 @@
-<h1><%= @network.name%></h1>
+<h1><%= @name%></h1>
 <ul>
-  <% @network.shows.each do |show| %>
+  <% @shows.each do |show| %>
   <li>
     <a href="<%= show_url(show)%>"><%= show.title  %></a>
     <p><%= show.description%></p>

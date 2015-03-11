@@ -1,17 +1,17 @@
 MediaPassport.Views.SearchResultItem = Backbone.View.extend({
   tagName: "li",
 
-  initialize: function (options) {
-    this.networks = options.networks;
-    this.shows = options.
-    this.network = this.networks.getOrCreate(this.model.escape("network_name"));
-  },
-
   template: JST['search_result_item'],
 
+  initialize: function () {
+    this.listenTo(this.model, "sync", this.render);
+  },
+
   render: function () {
-    var content = this.template({network: this.network.escape("name")});
-    this.$el.html(content);
+    if (this.model) {
+      var content = this.template({show: this.model});
+      this.$el.html(content);
+    }
 
     return this;
   }
