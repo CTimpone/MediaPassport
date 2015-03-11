@@ -5,7 +5,28 @@ RSpec.describe Show, type: :model do
 
   before (:each) do
     show.save
+
+    3.times do |num|
+      FactoryGirl.create(:episode, show_id: show.id, position: num, airdate: (Date.today - 5 * num))
+    end
   end
+
+  it "has an episode with today's airdate" do
+    expect(show.most_recent_episode.airdate).to eq(Date.today)
+  end
+
+  it "has a string timeframe that is a string" do
+    expect(show.timeframe.class).to eq(String)
+  end
+
+  it "has one season" do
+    expect(show.seasons).to eq(1)
+  end
+
+  it "has three episodes" do
+    expect(show.num_episodes).to eq(3)
+  end
+
 
   it "does not require an image url" do
     expect(Show.last.image_url).to be_falsy

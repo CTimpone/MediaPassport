@@ -18,7 +18,7 @@ class Show < ActiveRecord::Base
   )
 
   def most_recent_episode
-    episodes.order(airdate: :desc).limit(1)
+    episodes.order(airdate: :desc).first
   end
 
   def timeframe

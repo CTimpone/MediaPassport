@@ -9,6 +9,7 @@ RSpec.describe Post, type: :model do
 
   it { should belong_to(:author)}
   it { should belong_to(:episode)}
+  it { should have_many(:comments)}
 
   it { should validate_presence_of(:episode_id) }
   it { should validate_presence_of(:user_id) }
