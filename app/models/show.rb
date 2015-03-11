@@ -1,6 +1,5 @@
 class Show < ActiveRecord::Base
   validates :title, :description, :network_id, presence: true
-  validates :title, uniqueness: true
   validates :maze_id, uniqueness: true, allow_nil: true
 
   belongs_to(

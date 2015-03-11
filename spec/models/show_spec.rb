@@ -42,7 +42,6 @@ RSpec.describe Show, type: :model do
   it { should validate_presence_of(:description) }
   it { should validate_presence_of(:network_id) }
 
-  it { should validate_uniqueness_of(:title) }
   it { should allow_value(nil).for(:maze_id) }
 
   describe "otherwise has unique maze id" do
