@@ -2,8 +2,9 @@
 <p>
   <%= @episode.description %>
 </p>
-<img src="<%=@episode.image_url%>"/>
-
+<% if @episode.image_url %>
+  <img src="<%=@episode.image_url%>"/>
+<% end %>
 <%= render partial: "layouts/errors" %>
 
 <% if @episode.posts %>
