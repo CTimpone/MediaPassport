@@ -5,9 +5,9 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
 
     this._loadedTables = 0;
 
-    // this._shows.fetch({success: function () {
-    //   this._loadedTables += 1;
-    // }.bind(this)});
+    this._shows.fetch({success: function () {
+      this._loadedTables += 1;
+    }.bind(this)});
     this._results.fetch({success: function () {
       this._loadedTables += 1;
     }.bind(this)});

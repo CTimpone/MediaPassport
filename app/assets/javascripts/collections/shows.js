@@ -3,7 +3,7 @@ MediaPassport.Collections.Shows = Backbone.Collection.extend({
 
   url: "/shows",
 
-  getOrCreate: function (attributes, options) {
+  getOrCreate: function (attributes) {
     var exactShow = this.where({title: attributes.title, maze_id: attributes.maze_id});
 
     if (exactShow.length === 0) {

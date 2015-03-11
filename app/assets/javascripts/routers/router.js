@@ -1,7 +1,7 @@
 MediaPassport.Routers.Router = Backbone.Router.extend({
   routes: {
     "": "search",
-    "shows/:title": "showEpisode"
+    "shows/:title": "showLanding"
   },
 
   initialize: function (options) {
@@ -15,16 +15,16 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
     this._swapView(view);
   },
 
-  showEpisode: function (title) {
+  showLanding: function (title) {
     title = title.replace(/_/g, ' ')
     var show = this._shows.where({title: title})[0];
 
     if (!show) {
       this._shows.fetch();
-      this.listenToOnce(this._shows, "sync", this.showEpisode.bind(this, title));
+      this.listenToOnce(this._shows, "sync", this.showLanding.bind(this, title));
     } else {
       show.fetch();
-      var view = new MediaPassport.Views.EpisodeShow({model: show});
+      var view = new MediaPassport.Views.showLanding({model: show});
       this._swapView(view);
     }
   },

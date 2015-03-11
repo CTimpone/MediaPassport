@@ -10,8 +10,10 @@ MediaPassport.Models.ApiShow = Backbone.Model.extend({
       }
       data.maze_id = response.show.id;
       data.title = response.show.name;
-      data.image_url = response.show.image.original;
       data.description = response.show.summary.replace(/<(?:.|\n)*?>/gm, '');
+      if (response.show.image) {
+        data.image_url = response.show.image.original;
+      }
     }
 
     return data;

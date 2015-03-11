@@ -5,14 +5,13 @@ MediaPassport.Models.Show = Backbone.Model.extend({
 
   episodes: function () {
     if (!this._episodes) {
-      this._episodes = new MediaPassport.Collections.Episodes([], {show_id: this.id});
+      this._episodes = new MediaPassport.Collections.Episodes([], {show_title: this.escape('title')});
     }
 
     return this._episodes;
   },
 
   parse: function (response) {
-    debugger
     if (response.episodes) {
       this.episodes().set(response.episodes)
       delete response.episodes;
