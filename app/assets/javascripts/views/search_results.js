@@ -1,7 +1,7 @@
 MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
   initialize: function (options) {
     this._shows = options.shows;
-    this._results = new MediaPassport.Collections.ApiShows({title: "Flash"});
+    this._results = new MediaPassport.Collections.ApiShows({title: "Grimm"});
 
     this._loadedTables = 0;
 
