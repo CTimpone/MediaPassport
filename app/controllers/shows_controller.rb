@@ -14,7 +14,7 @@ class ShowsController < ApplicationController
     if @show.update_attributes(show_params)
       render json: @show
     else
-      render json: @show.errors.full_messages
+      render json: {errors: @show.errors.full_messages}
     end
   end
 
@@ -23,7 +23,7 @@ class ShowsController < ApplicationController
     if @show.save
       render json: @show
     else
-      render json: @show.errors.full_messages
+      render json: {errors: @show.errors.full_messages}
     end
   end
 

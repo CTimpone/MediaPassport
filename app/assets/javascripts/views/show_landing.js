@@ -31,7 +31,7 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
     $('.episodes-list').empty();
     if (this._loaded === true) {
       this._apiEpisodes.each(function (episode) {
-        var dbEpisode = this._episodes.getOrCreate(_.clone(episode.attributes));
+        var dbEpisode = this._episodes.CRU(_.clone(episode.attributes));
         var subView = new MediaPassport.Views.EpisodeListItem({
           model: dbEpisode
         });

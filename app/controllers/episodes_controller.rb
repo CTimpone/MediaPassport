@@ -9,8 +9,17 @@ class EpisodesController < ApplicationController
     @episode.airdate = Date.parse(episode_params[:airdate]);
     if @episode.save
       render json: @episode
-    # else
-    #   render json: @episode.errors.full_messages
+    else
+      render json: {errors: @episode.errors.full_messages}
+    end
+  end
+
+  def update
+    @episode = current_show.episodes.find_by(title: params[:id].gsub('_', ' '))
+    if @episode.update_attributes(episode_params)
+      render json: @episode
+    else
+      render json: {errors: @episode.errors.full_messages}
     end
   end
 
