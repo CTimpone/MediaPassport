@@ -1,0 +1,29 @@
+<% if (signing_in) { %>
+
+  <h1>Sign In</h1>
+
+<% } else { %>
+
+  <h1>Sign Up</h1>
+
+  <label>
+    Email
+    <input type="text" name="email">
+  </label>
+  <br>
+
+<% } %>
+
+<label>
+  Username
+  <input type="text" name="username">
+</label>
+<br>
+
+<label>
+  Password
+  <input type="password" name="password">
+</label>
+<br>
+
+<button>Submit</button>

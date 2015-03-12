@@ -1,6 +1,9 @@
 MediaPassport.Routers.Router = Backbone.Router.extend({
   routes: {
     "search": "search",
+    "sign_in": "newSession",
+    "sign_up": "newUser",
+
     "shows/:title": "showLanding"
   },
 
@@ -15,6 +18,16 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
   headerFill: function () {
     this.navView = new MediaPassport.Views.NavView();
     this.$headerEl.html(this.navView.render().$el);
+  },
+
+  newUser: function () {
+    var view = new MediaPassport.Views.NewUser();
+    this._swapView(view);
+  },
+
+  newSession: function () {
+    var view = new MediaPassport.Views.NewSession();
+    this._swapView(view);
   },
 
   search: function () {
@@ -33,7 +46,6 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
       this.listenToOnce(this._shows, "sync", this.showLanding.bind(this, title));
     } else {
       show.fetch({success: function () {
-        show.fetch();
         var view = new MediaPassport.Views.ShowLanding({model: show});
         this._swapView(view);
       }.bind(this)});

@@ -2,6 +2,8 @@ MediaPassport.Views.NavView = Backbone.CompositeView.extend({
   template: JST["nav_bar"],
 
   events: {
+    "click .sign-in": "signIn",
+    "click .sign-up": "signUp",
     "submit .search": "triggerSearch"
   },
 
@@ -10,6 +12,14 @@ MediaPassport.Views.NavView = Backbone.CompositeView.extend({
     this.$el.html(content);
 
     return this;
+  },
+
+  signIn: function (event) {
+    Backbone.history.navigate("sign_in", {trigger: true});
+  },
+  
+  signUp: function (event) {
+    Backbone.history.navigate("sign_up", {trigger: true});
   },
 
   triggerSearch: function (event) {
