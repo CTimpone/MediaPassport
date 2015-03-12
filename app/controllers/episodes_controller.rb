@@ -1,7 +1,7 @@
 class EpisodesController < ApplicationController
   def show
-    @episode = Episode.includes(:posts).find(params[:id])
-    render :show
+    @episode = current_show.episodes.includes(:posts).find_by(title: params[:id].gsub('_', ' '))
+    render "show.json.jbuilder"
   end
 
   def create
