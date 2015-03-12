@@ -14,7 +14,6 @@ MediaPassport.Views.NavView = Backbone.CompositeView.extend({
   },
 
   render: function () {
-    debugger
     if (!this.model.isNew()) {
       this.signedIn = true;
     }

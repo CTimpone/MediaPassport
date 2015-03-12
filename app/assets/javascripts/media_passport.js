@@ -3,6 +3,15 @@ window.MediaPassport = {
   Collections: {},
   Views: {},
   Routers: {},
-  initialize: function() {;
+  initialize: function() {
+    new MediaPassport.Routers.Router({
+      $rootEl: $('#primary'),
+      $headerEl: $('#header')
+    })
+    Backbone.history.start();
   }
 };
+
+$(document).ready(function(){
+  MediaPassport.initialize();
+});

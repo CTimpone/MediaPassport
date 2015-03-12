@@ -3,7 +3,6 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
     "search": "search",
     "sign_in": "newSession",
     "sign_up": "newUser",
-
     "shows/:title": "showLanding"
   },
 

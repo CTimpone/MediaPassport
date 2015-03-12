@@ -25,7 +25,7 @@ RSpec.describe User, type: :model do
         is_at_least(6).is_at_most(30)}
 
   it { should validate_length_of(:username).
-        is_at_least(6).is_at_most(30)}
+        is_at_least(5).is_at_most(30)}
 
   it { should validate_uniqueness_of(:username) }
   it { should validate_uniqueness_of(:email) }
