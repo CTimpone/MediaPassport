@@ -10,10 +10,11 @@ MediaPassport.Views.NavView = Backbone.CompositeView.extend({
 
   initialize: function () {
     this.signedIn = false;
-    this.listenTo(this.model, "sync destroy", this.render)
+    this.listenTo(this.model, "change create", this.render)
   },
 
   render: function () {
+    debugger
     if (!this.model.isNew()) {
       this.signedIn = true;
     }
@@ -32,9 +33,13 @@ MediaPassport.Views.NavView = Backbone.CompositeView.extend({
   },
 
   signOut: function (event) {
-    this.model.destroy({wait: true});
-    this.model = new MediaPassport.Models.Session();
     this.signedIn = false;
+    this.model.destroy({
+      wait: true,
+      success: function () {
+        this.model.clear();
+      }.bind(this)
+    });
   },
 
   triggerSearch: function (event) {
