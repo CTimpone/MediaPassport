@@ -7,9 +7,9 @@ class SessionsController < ApplicationController
 
   def show
     if current_user
-      render json: current_user
+      render "show.json.jbuilder"
     else
-      render json: {errors: "Invalid credentials"}
+      render json: {errors: ["Invalid credentials"]}
     end
   end
 
@@ -17,15 +17,14 @@ class SessionsController < ApplicationController
     @user = User.find_by_credentials(user_params)
     if @user
       sign_in!(@user)
-      redirect_to user_url(@user)
+      render "show.json.jbuilder"
     else
-      flash[:errors] = ["Invalid credentials"]
-      redirect_to new_session_url
+      render json: {errors: ["Invalid credentials"]}
     end
   end
 
   def destroy
     sign_out!
-    redirect_to new_session_url
+    render json: current_user
   end
 end

@@ -13,8 +13,11 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
     this._shows = new MediaPassport.Collections.Shows();
     this._shows.fetch({ parse: false });
     this.session = new MediaPassport.Models.Session();
-    this.headerFill();
-    this.listenTo(this.session, "change", this.session)
+    this.session.fetch({
+      success: function () {
+        this.headerFill();
+      }.bind(this)
+    });
   },
 
   headerFill: function () {

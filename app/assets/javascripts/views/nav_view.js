@@ -4,19 +4,21 @@ MediaPassport.Views.NavView = Backbone.CompositeView.extend({
   events: {
     "click .sign-in": "signIn",
     "click .sign-up": "signUp",
+    "click .sign-out": "signOut",
     "submit .search": "triggerSearch"
   },
 
   initialize: function () {
     this.signedIn = false;
-    this.listenTo(this.model, "sync", this.render)
+    this.listenTo(this.model, "sync destroy", this.render)
   },
 
   render: function () {
+    debugger
     if (!this.model.isNew()) {
       this.signedIn = true;
     }
-    var content = this.template({signedIn: this.signedIn});
+    var content = this.template({user: this.model, signedIn: this.signedIn});
     this.$el.html(content);
 
     return this;
@@ -28,6 +30,12 @@ MediaPassport.Views.NavView = Backbone.CompositeView.extend({
 
   signUp: function (event) {
     Backbone.history.navigate("sign_up", {trigger: true});
+  },
+
+  signOut: function (event) {
+    this.model.destroy({wait: true});
+    this.model = new MediaPassport.Models.Session();
+    this.signedIn = false;
   },
 
   triggerSearch: function (event) {

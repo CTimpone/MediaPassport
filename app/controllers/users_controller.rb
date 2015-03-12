@@ -8,10 +8,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       sign_in!(@user)
-      redirect_to user_url(@user)
+      render "sessions/show.json.jbuilder"
     else
-      flash[:errors] = @user.errors.full_messages
-      redirect_to new_user_url
+      render json: {errors: @user.errors.full_messages}
     end
   end
 

@@ -19,11 +19,12 @@ MediaPassport.Views.NewUser = Backbone.CompositeView.extend({
     var data = this.$el.serializeJSON();
 
     var user = new MediaPassport.Models.User(data);
-    user.save({
+    this.model.clear({silent: true});
+    user.save({}, {
       success: function () {
         this.model.fetch();
+        console.log(this.model)
       }.bind(this)
     });
-
   }
 })

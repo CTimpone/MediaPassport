@@ -1,6 +1,10 @@
 MediaPassport.Views.NewSession = Backbone.CompositeView.extend({
   tagName: "form",
 
+  events: {
+    "submit": "createSession"
+  },
+
   template: JST["user_form"],
 
   render: function () {
@@ -8,5 +12,13 @@ MediaPassport.Views.NewSession = Backbone.CompositeView.extend({
     this.$el.html(content);
 
     return this;
+  },
+
+  createSession: function (event) {
+    event.preventDefault();
+    var data = this.$el.serializeJSON();
+
+    this.model.clear({silent: true});
+    this.model.save(data);
   }
 })

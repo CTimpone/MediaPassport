@@ -2,6 +2,7 @@
   <button class="sign-in">Sign In</button>
   <button class="sign-up">Sign Up</button>
 <% } else { %>
+  <%= user.escape('username') %>
   <button class="sign-out">Sign Out</button>
 <% } %>
 
