@@ -19,6 +19,11 @@ MediaPassport.Views.NewSession = Backbone.CompositeView.extend({
     var data = this.$el.serializeJSON();
 
     this.model.clear({silent: true});
-    this.model.save(data);
+    this.model.save(data, {
+      success: function () {
+        Backbone.history.navigate("", {trigger: true});
+      }
+    });
+
   }
 })

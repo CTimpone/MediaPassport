@@ -1,5 +1,6 @@
 MediaPassport.Routers.Router = Backbone.Router.extend({
   routes: {
+    "": "primaryLanding",
     "search": "search",
     "sign_in": "newSession",
     "sign_up": "newUser",
@@ -23,6 +24,11 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
     this.navView && this.navView.remove();
     this.navView = new MediaPassport.Views.NavView({model: this.session});
     this.$headerEl.html(this.navView.render().$el);
+  },
+
+  primaryLanding: function () {
+    var view = new MediaPassport.Views.Landing()
+    this._swapView(view);
   },
 
   newUser: function () {
