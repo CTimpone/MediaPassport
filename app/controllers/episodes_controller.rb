@@ -1,6 +1,8 @@
 class EpisodesController < ApplicationController
   def show
     @episode = current_show.episodes.includes(:posts).find_by(title: escape_ampersands(episode_title))
+    p current_show
+    p episode_title
     render "show.json.jbuilder"
   end
 
