@@ -6,7 +6,7 @@ MediaPassport.Models.ApiEpisode = Backbone.Model.extend({
       data.maze_id = response.id;
       data.season = response.season;
       data.position = response.number;
-      data.title = response.name;
+      data.title = response.name.replace(/\./g,'');
       data.description = response.summary.replace(/<(?:.|\n)*?>/gm, '');
       data.airdate = new Date(response.airdate);
       if (response.image) {

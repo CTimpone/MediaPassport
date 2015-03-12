@@ -75,7 +75,10 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
 
     episode.fetch({
       success: function () {
-        var view = new MediaPassport.Views.EpisodeLanding({model: episode});
+        var view = new MediaPassport.Views.EpisodeLanding({
+          model: episode,
+          session: this.session
+        });
         this._swapView(view);
       }.bind(this)
     })

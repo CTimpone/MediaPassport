@@ -9,7 +9,7 @@ MediaPassport.Models.ApiShow = Backbone.Model.extend({
         data.network= response.show.webChannel.name;
       }
       data.maze_id = response.show.id;
-      data.title = response.show.name;
+      data.title = response.show.name.replace(/\./g,'');
       data.description = response.show.summary.replace(/<(?:.|\n)*?>/gm, '');
       if (response.show.image) {
         data.image_url = response.show.image.original;

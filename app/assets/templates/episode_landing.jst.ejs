@@ -1,1 +1,10 @@
-<%= episode.escape('title') %> 
+<%= episode.escape('title') %>
+<p>
+  <%= episode.escape('description') %>
+</p>
+
+<% if (episode.escape('image_url')) { %>
+  <img src="<%=episode.escape('image_url') %>" alt="" />
+<% } %>
+
+<a href="#shows/<%= escape(episode.get('fShowTitle'))%>"><%= episode.escape('fShowTitle').replace(/_/g, ' ')%></a>
