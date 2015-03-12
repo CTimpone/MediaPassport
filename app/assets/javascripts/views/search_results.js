@@ -1,7 +1,8 @@
 MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
   initialize: function (options) {
+    this.query = window.location.hash.split('q=')[1]
     this._shows = options.shows;
-    this._results = new MediaPassport.Collections.ApiShows({title: "Gotham"});
+    this._results = new MediaPassport.Collections.ApiShows({title: this.query});
 
     this._results.fetch({success: function () {
       this._loadedTables = true;

@@ -1,17 +1,26 @@
 MediaPassport.Routers.Router = Backbone.Router.extend({
   routes: {
-    "": "search",
+    "search": "search",
     "shows/:title": "showLanding"
   },
 
   initialize: function (options) {
     this.$rootEl = options.$rootEl;
+    this.$headerEl = options.$headerEl;
     this._shows = new MediaPassport.Collections.Shows();
     this._shows.fetch({ parse: false });
+    this.headerFill();
+  },
+
+  headerFill: function () {
+    this.navView = new MediaPassport.Views.NavView();
+    this.$headerEl.html(this.navView.render().$el);
   },
 
   search: function () {
-    var view = new MediaPassport.Views.SearchResults({shows: this._shows});
+    var view = new MediaPassport.Views.SearchResults({
+      shows: this._shows
+    });
     this._swapView(view);
   },
 
