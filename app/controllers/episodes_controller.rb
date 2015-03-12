@@ -5,12 +5,12 @@ class EpisodesController < ApplicationController
   end
 
   def create
-    @episode = Episode.new(episode_params)]
+    @episode = current_show.episodes.new(episode_params)
     @episode.airdate = Date.parse(episode_params[:airdate]);
     if @episode.save
       render json: @episode
-    else
-      render json: @episode.errors.full_messages
+    # else
+    #   render json: @episode.errors.full_messages
     end
   end
 
@@ -20,6 +20,6 @@ class EpisodesController < ApplicationController
   end
 
   def current_show
-
+    Show.find_by(title: params[:show_id].gsub('_', ' '))
   end
 end

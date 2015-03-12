@@ -10,16 +10,11 @@ MediaPassport.Collections.Episodes = Backbone.Collection.extend({
   },
 
   initialize: function (models, options) {
-    console.log(options)
     this.show_title = options.show_title;
   },
 
   getOrCreate: function (attributes) {
     var exactEpisode = this.where({season: attributes.season, position: attributes.position});
-
-    if (exactEpisode.length === 0) {
-      exactEpisode = this.where({title: attributes.title});
-    }
 
     if (!attributes.description) {
       attributes.description = "No available description";

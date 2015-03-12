@@ -23,9 +23,11 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
       this._shows.fetch();
       this.listenToOnce(this._shows, "sync", this.showLanding.bind(this, title));
     } else {
-      show.fetch();
-      var view = new MediaPassport.Views.showLanding({model: show});
-      this._swapView(view);
+      show.fetch({success: function () {
+        show.fetch();
+        var view = new MediaPassport.Views.ShowLanding({model: show});
+        this._swapView(view);
+      }.bind(this)});
     }
   },
 

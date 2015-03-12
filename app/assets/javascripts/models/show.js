@@ -1,6 +1,11 @@
 MediaPassport.Models.Show = Backbone.Model.extend({
+  // urlRoot: "/shows/",
   url: function () {
-    return "/shows/" + this.escape('title').replace(/ /g, '_')
+    if (this.isNew()) {
+      return "/shows";
+    } else {
+      return "/shows/" + this.escape('title').replace(/ /g, '_');
+    }
   },
 
   episodes: function () {
@@ -18,5 +23,5 @@ MediaPassport.Models.Show = Backbone.Model.extend({
     }
 
     return response;
-  }
+  },
 })

@@ -19,7 +19,8 @@ MediaPassport.Collections.Shows = Backbone.Collection.extend({
     if (exactShow.length === 1) {
       show = exactShow[0];
     } else {
-      show = new this.model();
+      show = new this.model(attributes);
+      console.log(attributes)
       if (exactShow.length === 0 && sameTitle.length === 0) {
         show = this.create(attributes);
       } else if (exactShow.length === 0 && sameTitle.length > 0){

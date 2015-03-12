@@ -1,4 +1,4 @@
-json.extract! @show, :title, :description, :image_url
+json.extract! @show, :title, :description, :image_url, :id
 
 json.set! :episodes do
   json.array! (@show.episodes) do |episode|

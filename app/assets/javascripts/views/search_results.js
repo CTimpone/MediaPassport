@@ -1,15 +1,10 @@
 MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
   initialize: function (options) {
     this._shows = options.shows;
-    this._results = new MediaPassport.Collections.ApiShows({title: "Grimm"});
+    this._results = new MediaPassport.Collections.ApiShows({title: "Gotham"});
 
-    this._loadedTables = 0;
-
-    this._shows.fetch({success: function () {
-      this._loadedTables += 1;
-    }.bind(this)});
     this._results.fetch({success: function () {
-      this._loadedTables += 1;
+      this._loadedTables = true;
     }.bind(this)});
 
     this.listenToOnce(this._shows, "sync", this.renderItems);
@@ -22,12 +17,15 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
     var content = this.template();
     this.$el.html(content);
 
+    if (this._loadedTables === true) {
+      this.renderItems();
+    }
     return this;
   },
 
   renderItems: function () {
     $('.results-list').empty();
-    if (this._loadedTables === 1) {
+    if (this._loadedTables === true) {
       this._results.each(function (show) {
         var dbShow = this._shows.getOrCreate(_.clone(show.attributes));
         var subView = new MediaPassport.Views.SearchResultItem({
