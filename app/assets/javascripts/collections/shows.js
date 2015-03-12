@@ -18,15 +18,22 @@ MediaPassport.Collections.Shows = Backbone.Collection.extend({
 
     if (exactShow.length === 1) {
       show = exactShow[0];
-      if (show.escape('description') === "No available description" &&
-          attributes.description !== show.escape('description') &&
-          attributes.description !== ""
-          ) {
-            show.save({description: attributes.description})
-          }
+      var descMatch = show.escape('description') === "No available description" &&
+                      attributes.description !== show.escape('description') &&
+                      attributes.description !== "";
+
+      var imgMatch = (show.get("image_url") === null && attributes.image_url !== null)
+
+      if (descMatch && imgMatch) {
+        show.save({description: attributes.description, image_url: attributes.image_url})
+      } else if (descMatch) {
+        show.save({description: attributes.description});
+      } else if (imgMatch) {
+        show.save({image_url: attributes.image_url});
+      }
+
     } else {
       show = new this.model(attributes);
-      console.log(attributes)
       if (exactShow.length === 0 && sameTitle.length === 0) {
         show = this.create(attributes);
       } else if (exactShow.length === 0 && sameTitle.length > 0){
