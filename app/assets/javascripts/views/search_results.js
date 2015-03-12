@@ -28,7 +28,7 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
     $('.results-list').empty();
     if (this._loadedTables === true) {
       this._results.each(function (show) {
-        var dbShow = this._shows.getOrCreate(_.clone(show.attributes));
+        var dbShow = this._shows.CRU(_.clone(show.attributes));
         var subView = new MediaPassport.Views.SearchResultItem({
           model: dbShow
         });

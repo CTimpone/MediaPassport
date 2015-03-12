@@ -4,7 +4,7 @@ MediaPassport.Models.Show = Backbone.Model.extend({
     if (this.isNew()) {
       return "/shows";
     } else {
-      return "/shows/" + this.escape('title').replace(/ /g, '_');
+      return "/shows/" + escape(this.get('title').replace(/ /g, '_'));
     }
   },
 

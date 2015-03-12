@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create, :show]
   resource :session, only: [:new, :create, :destroy, :show]
-  resources :shows, only: [:show, :index, :create] do
+  resources :shows, only: [:show, :index, :create, :update] do
     resources :episodes, only: [:show, :create]
   end
   resources :posts, only: [:create, :new, :show]

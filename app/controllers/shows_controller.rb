@@ -9,6 +9,15 @@ class ShowsController < ApplicationController
     render json: @shows
   end
 
+  def update
+    @show = Show.find_by(title: params[:id].gsub('_', ' '))
+    if @show.update_attributes(show_params)
+      render json: @show
+    else
+      render json: @show.errors.full_messages
+    end
+  end
+
   def create
     @show = Show.new(show_params)
     if @show.save
