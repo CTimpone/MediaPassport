@@ -65,11 +65,20 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
   },
 
   episodeLanding: function (show_title, title) {
-    show_title = show_title.replace(/_/g, ' ')
-    title = title.replace(/_/g, ' ')
+    show_title = show_title;
+    title = title;
 
-    var show = this._shows.where({title: show_title})[0];
-    var episode = show.episodes().where({title: title})[0];
+    var episode = new MediaPassport.Models.Episode({
+      fTitle: title,
+      fShowTitle: show_title
+    })
+
+    episode.fetch({
+      success: function () {
+        var view = new MediaPassport.Views.EpisodeLanding({model: episode});
+        this._swapView(view);
+      }.bind(this)
+    })
   },
 
   _swapView: function (view) {

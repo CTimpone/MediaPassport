@@ -1,6 +1,10 @@
 MediaPassport.Models.Episode = Backbone.Model.extend({
   url: function () {
-    if (this.isNew()) {
+    if (this.fTitle && this.fShowTitle) {
+      return "/shows/" +
+        escape(this.fShowTitle) + "/episodes/" +
+        escape(this.fTitle);
+    } else if (this.isNew()) {
       return "/shows/" +
         escape(this.collection.show_title.replace(/ /g, '_')) + "/episodes";
     } else {
@@ -10,7 +14,10 @@ MediaPassport.Models.Episode = Backbone.Model.extend({
     }
   },
 
-  initialize: function () {
+  initialize: function (options) {
+    if (!options) options = {}
     this.startingTitle = this.get('title');
+    if (options.fTitle) this.fTitle = options.fTitle
+    if (options.fShowTitle) this.fShowTitle = options.fShowTitle
   }
 })

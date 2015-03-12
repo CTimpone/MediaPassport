@@ -1,6 +1,6 @@
 class EpisodesController < ApplicationController
   def show
-    @episode = current_show.episodes.includes(:posts).find_by(title: escape_ampersands(show_title))
+    @episode = current_show.episodes.includes(:posts).find_by(title: escape_ampersands(episode_title))
     render "show.json.jbuilder"
   end
 
@@ -15,7 +15,7 @@ class EpisodesController < ApplicationController
   end
 
   def update
-    @episode = current_show.episodes.find_by(title: escape_ampersands(show_title))
+    @episode = current_show.episodes.find_by(title: escape_ampersands(episode_title))
     if @episode.update_attributes(episode_params)
       render json: @episode
     else
@@ -30,6 +30,10 @@ class EpisodesController < ApplicationController
 
   def current_show
     Show.find_by(title: escape_ampersands(show_title))
+  end
+
+  def episode_title
+    params[:id].gsub('_', ' ') if params[:id]
   end
 
   def show_title
