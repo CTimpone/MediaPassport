@@ -1,5 +1,9 @@
-<button class="sign-in">Sign In</button>
-<button class="sign-up">Sign Up</button>
+<% if (!signedIn) { %>
+  <button class="sign-in">Sign In</button>
+  <button class="sign-up">Sign Up</button>
+<% } else { %>
+  <button class="sign-out">Sign Out</button>
+<% } %>
 
 <form class="search">
   <label>

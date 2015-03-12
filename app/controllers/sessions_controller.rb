@@ -5,6 +5,14 @@ class SessionsController < ApplicationController
     render :new
   end
 
+  def show
+    if current_user
+      render json: current_user
+    else
+      render json: {errors: "Invalid credentials"}
+    end
+  end
+
   def create
     @user = User.find_by_credentials(user_params)
     if @user

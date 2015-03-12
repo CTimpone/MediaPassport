@@ -12,21 +12,24 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
     this.$headerEl = options.$headerEl;
     this._shows = new MediaPassport.Collections.Shows();
     this._shows.fetch({ parse: false });
+    this.session = new MediaPassport.Models.Session();
     this.headerFill();
+    this.listenTo(this.session, "change", this.session)
   },
 
   headerFill: function () {
-    this.navView = new MediaPassport.Views.NavView();
+    this.navView && this.navView.remove();
+    this.navView = new MediaPassport.Views.NavView({model: this.session});
     this.$headerEl.html(this.navView.render().$el);
   },
 
   newUser: function () {
-    var view = new MediaPassport.Views.NewUser();
+    var view = new MediaPassport.Views.NewUser({model: this.session});
     this._swapView(view);
   },
 
   newSession: function () {
-    var view = new MediaPassport.Views.NewSession();
+    var view = new MediaPassport.Views.NewSession({model: this.session});
     this._swapView(view);
   },
 

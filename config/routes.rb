@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'sessions#new'
 
   resources :users, only: [:new, :create, :show]
-  resource :session, only: [:new, :create, :destroy]
+  resource :session, only: [:new, :create, :destroy, :show]
   resources :shows, only: [:show, :index, :create] do
     resources :episodes, only: [:show, :create]
   end
