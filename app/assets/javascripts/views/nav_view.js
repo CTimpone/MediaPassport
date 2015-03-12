@@ -14,7 +14,6 @@ MediaPassport.Views.NavView = Backbone.CompositeView.extend({
   },
 
   render: function () {
-    debugger
     if (!this.model.isNew()) {
       this.signedIn = true;
     }
@@ -25,6 +24,7 @@ MediaPassport.Views.NavView = Backbone.CompositeView.extend({
   },
 
   signIn: function (event) {
+    MediaPassport.previousLoc = window.location.hash.replace('#','')
     Backbone.history.navigate("sign_in", {trigger: true});
   },
 

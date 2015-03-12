@@ -17,10 +17,13 @@ MediaPassport.Views.NewSession = Backbone.CompositeView.extend({
   createSession: function (event) {
     event.preventDefault();
     var data = this.$el.serializeJSON();
+    if (!MediaPassport.previousLoc) {
+      MediaPassport.previousLoc = "";
+    }
 
     this.model.save(data, {
       success: function () {
-        Backbone.history.navigate("", {trigger: true});
+        Backbone.history.navigate(MediaPassport.previousLoc, {trigger: true});
       }
     });
 

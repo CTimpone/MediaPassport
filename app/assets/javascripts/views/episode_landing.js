@@ -3,7 +3,7 @@ MediaPassport.Views.EpisodeLanding = Backbone.CompositeView.extend({
 
   initialize: function (options) {
     this.session = options.session;
-    this.listenTo(this.session, "sync destroy create", this.render)
+    this.listenTo(this.session, "change create", this.render)
   },
 
   render: function () {
