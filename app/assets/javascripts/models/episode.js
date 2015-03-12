@@ -19,5 +19,26 @@ MediaPassport.Models.Episode = Backbone.Model.extend({
     this.startingTitle = this.get('title');
     if (options.fTitle) this.fTitle = options.fTitle
     if (options.fShowTitle) this.fShowTitle = options.fShowTitle
+  },
+
+  posts: function (options) {
+    if (!this._posts) {
+      this._posts = new MediaPassport.Collections.Posts([], {episode_id: this.id});
+    }
+    this._posts.episode_id = this.id;
+    return this._posts;
+
+    console.log(this._posts)
+  },
+
+  parse: function (response) {
+    if (response.posts) {
+      this.posts().set(response.posts);
+      delete response.posts;
+    }
+
+    return response;
   }
+
+
 })

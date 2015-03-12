@@ -2,10 +2,10 @@ class PostsController < ApplicationController
   def create
     post = current_user.posts.new(post_params)
     if post.save
-      redirect_to :back
+      render json: post
     else
       flash[:errors] = post.errors.full_messages
-      redirect_to :back
+      render json: post
     end
   end
 
@@ -18,5 +18,9 @@ class PostsController < ApplicationController
   private
     def post_params
       params.require(:post).permit(:title, :content, :episode_id)
+    end
+
+    def curent_episode
+
     end
 end

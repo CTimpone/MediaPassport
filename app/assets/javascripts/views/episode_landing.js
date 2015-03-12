@@ -4,6 +4,7 @@ MediaPassport.Views.EpisodeLanding = Backbone.CompositeView.extend({
   initialize: function (options) {
     this.session = options.session;
     this.listenTo(this.session, "change create", this.render)
+    this.listenTo(this.model.posts(), "add", this.addPost)
   },
 
   render: function () {
@@ -11,9 +12,21 @@ MediaPassport.Views.EpisodeLanding = Backbone.CompositeView.extend({
     this.$el.html(content);
 
     if (!this.session.isNew()) {
-      var postForm = new MediaPassport.Views.NewPost();
+      var postForm = new MediaPassport.Views.NewPost({
+        model: this.model,
+        collection: this.model.posts()
+      });
       this.addSubview('.post-form', postForm)
     }
+
     return this;
+  },
+
+  addPost: function (event) {
+    var newestPost = this.model.posts().last();
+    console.log(newestPost)
+    $('.post-list').append($("<li><strong>"+ newestPost.escape('title') +
+                            "</strong><p>" + newestPost.escape('content') +
+                            "</p></li>"))
   }
 })
