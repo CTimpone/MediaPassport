@@ -22,4 +22,8 @@ class ApplicationController < ActionController::Base
   def user_params
     params.require(:user).permit(:username, :password, :email)
   end
+
+  def escape_ampersands(string)
+    string.gsub('&amp;', '&')
+  end
 end

@@ -60,7 +60,11 @@ MediaPassport.Collections.Episodes = Backbone.Collection.extend({
 
     } else {
       episode = new this.model();
-      if (exactEpisode.length === 0) {
+      if (exactEpisode.length === 0 && this.where({title: attributes.title}).length === 0) {
+        episode = this.create(attributes);
+      } else {
+        var title = attributes.title + " (S" + attributes.season + ")";
+        attributes.title = title;
         episode = this.create(attributes);
       }
     }

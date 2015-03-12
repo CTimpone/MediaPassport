@@ -4,7 +4,8 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
     "search": "search",
     "sign_in": "newSession",
     "sign_up": "newUser",
-    "shows/:title": "showLanding"
+    "shows/:title": "showLanding",
+    "shows/:show_title/episodes/:title": "episodeLanding"
   },
 
   initialize: function (options) {
@@ -61,6 +62,14 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
         this._swapView(view);
       }.bind(this)});
     }
+  },
+
+  episodeLanding: function (show_title, title) {
+    show_title = show_title.replace(/_/g, ' ')
+    title = title.replace(/_/g, ' ')
+
+    var show = this._shows.where({title: show_title})[0];
+    var episode = show.episodes().where({title: title})[0];
   },
 
   _swapView: function (view) {
