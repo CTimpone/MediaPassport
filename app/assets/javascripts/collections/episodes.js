@@ -26,34 +26,41 @@ MediaPassport.Collections.Episodes = Backbone.Collection.extend({
                       attributes.description !== episode.get('description') &&
                       episode.description !== "";
 
-      var imgChange = (episode.get("image_url") === null && attributes.image_url !== null)
+      var imgChange = (episode.get("image_url") === null && attributes.image_url !== undefined)
       var titleChange = (/episode/.exec(episode.escape("title").toLowerCase()) &&
                         !(/episode/.exec(attributes.title.toLowerCase())))
+
       if (descChange && imgChange && titleChange) {
         episode.save({
           title: attributes.title,
           description: attributes.description,
           image_url: attributes.image_url
         })
+
       } else if (descChange && imgChange) {
         episode.save({
           description: attributes.description,
           image_url: attributes.image_url
         });
+
       } else if (titleChange && imgChange) {
         episode.save({
           title: attributes.title,
           image_url: attributes.image_url
         });
+
       } else if (descChange && titleChange) {
         episode.save({
           description: attributes.description,
           title: attributes.title
         });
+
       } else if (imgChange) {
         episode.save({image_url: attributes.image_url});
+
       } else if (descChange) {
         episode.save({description: attributes.description});
+
       } else if (titleChange) {
         episode.save({title: attributes.title});
       }
