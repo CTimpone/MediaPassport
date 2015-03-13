@@ -12,7 +12,6 @@ MediaPassport.Views.CommentDisplay = Backbone.CompositeView.extend({
   },
 
   render: function () {
-    console.log(this.comment)
     var content = this.template({comment: this.comment});
     this.$el.html(content);
 

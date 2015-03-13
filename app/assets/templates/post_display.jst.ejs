@@ -2,7 +2,8 @@
   <a href="#shows/<%=escape(post.get('show_title').replace(/ /g,'_'))%>/episodes/<%= escape(post.get('episode_title').replace(/ /g,'_'))%>">Return to: <%= post.escape('episode_title') %></a>
 <% } %>
 <h1><%=post.escape('title')%></h1>
-<p>
+<p> By: <%= post.escape('author')%>
+  <br>
   <%= post.escape('content') %>
 </p>
 
