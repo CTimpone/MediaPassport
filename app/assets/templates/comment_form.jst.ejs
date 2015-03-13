@@ -1,0 +1,12 @@
+<% if (comment.isNew()) {%>
+  <h3>New Comment</h3>
+<% } else { %>
+  <h3>Edit Comment</h3>
+<% } %>
+
+<label>
+  Body
+  <textarea name="content" rows="8" cols="40"><%=comment.escape('content')%></textarea>
+</label>
+
+<button name="submit">Submit</button>

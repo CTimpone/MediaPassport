@@ -7,10 +7,9 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.new(new_comment_params)
     if @comment.save
-      redirect_to post_url(@comment.post_id)
+      render json: @comment
     else
-      flash[:errors] = @comment.errors.full_messages
-      redirect_to :back
+      render json: @comment
     end
   end
 

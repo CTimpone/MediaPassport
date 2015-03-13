@@ -4,7 +4,6 @@ class PostsController < ApplicationController
     if post.save
       render json: post
     else
-      flash[:errors] = post.errors.full_messages
       render json: post
     end
   end
