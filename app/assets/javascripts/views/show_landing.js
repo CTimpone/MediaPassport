@@ -11,14 +11,27 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
       this.render();
     }.bind(this)});
 
+    this.subviews();
+
     this.listenToOnce(this.model, "sync", this.render);
   },
 
   template: JST['show_show'],
 
+  events: {
+    "change .season-selector": "renderItems"
+  },
+
   render: function () {
     var content = this.template({show: this.model});
     this.$el.html(content);
+
+    var $selector = $('.season-selector');
+    for (var i = this.model.get('seasons'); i > 0; i--) {
+      var option = '<option value="' + i + '">Season '+ i +
+                   '</option>'
+      $selector.append($(option))
+    }
 
     if (this._loaded === true) {
       this.renderItems();
@@ -29,9 +42,11 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
 
   renderItems: function () {
     $('.episodes-list').empty();
-    console.log(this.model)
+    var season = $('.season-selector').val();
+
     if (this._loaded === true) {
-      this._apiEpisodes.each(function (episode) {
+      episodes = this._apiEpisodes.where({season: parseInt(season)})
+      _.each(episodes.reverse(), function (episode) {
         var dbEpisode = this._episodes.CRU(_.clone(episode.attributes));
         var subView = new MediaPassport.Views.EpisodeListItem({
           model: dbEpisode,

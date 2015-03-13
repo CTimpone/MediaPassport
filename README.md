@@ -18,7 +18,7 @@ Media Passport is a pseudo-GoodReads clone for television, on which users can:
 - [ ] Create a personal show watch list
 - [ ] Can endorse user generated comment
 - [ ] Search for shows and episodes via title
-- [ ] Actions will fetch data from API to fill database
+- [x] Actions will fetch data from API to fill database
 
 ## Design Docs
 * [View Wireframes][views]
@@ -64,7 +64,7 @@ I will also add recommendations based on comparison of the 'current_user' watchl
 ### Bonus Features (TBD)
 - [ ] Add ActiveMailer user registration
 - [ ] Add JQuery UI elements for dragging and dropping
-- [ ] Improve URL legibility (titles rather than IDs)
+- [x] Improve URL legibility (titles rather than IDs)
 - [ ] More powerful content generation rather than plain-text
 - [ ] Pagination/infinite scroll for user-content
 - [ ] Separate reviews from posts into distinct model
