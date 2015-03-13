@@ -2,7 +2,7 @@ MediaPassport.Views.NewComment = Backbone.View.extend({
   tagName: "form",
 
   events: {
-    "submit": "createPost"
+    "submit": "createComment"
   },
 
   template: JST["comment_form"],
@@ -21,7 +21,7 @@ MediaPassport.Views.NewComment = Backbone.View.extend({
     return this;
   },
 
-  createPost: function (event) {
+  createComment: function (event) {
     event.preventDefault();
     var data = this.$el.serializeJSON();
     data.parent_id = this.parent_id;

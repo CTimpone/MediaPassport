@@ -21,10 +21,9 @@ class CommentsController < ApplicationController
   def update
     @comment = Comment.find(params[:id])
     if @comment.update_attributes(edit_comment_params)
-      redirect_to post_url(@comment.post_id)
+      render json: @comment
     else
-      flash[:errors] = @comment.errors.full_messages
-      redirect_to edit_comment_url(@comment)
+      render json: @comment
     end
   end
 

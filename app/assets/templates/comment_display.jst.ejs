@@ -1,7 +1,9 @@
-<p>By: <%= comment.escape('author')%>
-  <br>
-  <%= comment.escape('content') %>
+By: <%= comment.escape('author')%>
+<br>
+<p>
+  <div class="content" data-id="<%=comment.id%>">
+    <%= comment.escape('content') %>
+  </div>
 </p>
-
 <div class="nested-comment-form" data-id="<%=comment.id%>"></div>
 <ul class="comment-list-<%=comment.id%>"></ul>
