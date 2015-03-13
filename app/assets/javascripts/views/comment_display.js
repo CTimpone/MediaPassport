@@ -12,23 +12,24 @@ MediaPassport.Views.CommentDisplay = Backbone.CompositeView.extend({
   },
 
   render: function () {
+    console.log(this.comment)
     var content = this.template({comment: this.comment});
     this.$el.html(content);
 
 
     this.renderChildren();
 
+
+
     return this;
   },
 
   renderChildren: function () {
-    console.log(this.$el)
-    console.log(this.selector)
     if (this.children) {
       _.each(this.children, function (comment) {
         var commentSubview = new MediaPassport.Views.CommentDisplay({
           post: this.post,
-          comment: comment
+          comment: new MediaPassport.Models.Comment(comment)
         });
 
         this.addSubview(this.selector, commentSubview);
