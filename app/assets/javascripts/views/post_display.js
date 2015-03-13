@@ -1,22 +1,36 @@
 MediaPassport.Views.PostDisplay = Backbone.CompositeView.extend({
   template: JST["post_display"],
 
-  initialize: function () {
+  initialize: function (options) {
+    this.session = options.session;
     this.listenTo(this.model, "sync", this.render);
+
+    this.selector = '.comment-list';
   },
 
   render: function () {
     var content = this.template({post: this.model});
     this.$el.html(content);
 
-    if (this.model.get('comment_tree')) {
-      var children = this.model.get('comment_tree')[""];
-      if (children) {
-        _.each(children, function (comment) {
-          console.log(comment)
-        }.bind(this))
-      }
+    if (this.model.comment_tree) {
+      this.children = this.model.comment_tree[""];
+
+      this.renderChildren();
     }
+
+
+    return this;
+  },
+
+  renderChildren: function () {
+    _.each(this.children, function (comment) {
+      var commentSubview = new MediaPassport.Views.CommentDisplay({
+        post: this.model,
+        comment: comment
+      });
+      this.addSubview(this.selector, commentSubview);
+    }.bind(this));
+
     return this;
   }
 });

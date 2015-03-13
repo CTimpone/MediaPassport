@@ -89,7 +89,8 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
     var post = new MediaPassport.Models.Post({id: id});
     post.fetch()
     var view = new MediaPassport.Views.PostDisplay({
-      model: post
+      model: post,
+      session: this.session
     });
 
     this._swapView(view);

@@ -6,7 +6,8 @@ MediaPassport.Models.Post = Backbone.Model.extend({
   },
 
   parse: function (response) {
-    if (Object.keys(response.comment_tree).length === 0) {
+    if (response.comment_tree) {
+      this.comment_tree = response.comment_tree;
       delete response.comment_tree
     }
 
