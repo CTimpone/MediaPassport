@@ -1,6 +1,8 @@
 MediaPassport.Views.EpisodeListItem = Backbone.CompositeView.extend({
   tagName: "li",
 
+  className: "episode-list-item",
+
   initialize: function (options) {
     this.show = options.show;
     this.listenTo(this.model, "sync", this.render);

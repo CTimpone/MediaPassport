@@ -19,7 +19,8 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
   template: JST['show_show'],
 
   events: {
-    "change .season-selector": "renderItems"
+    "change .season-selector": "renderItems",
+    "mouseover .episode-list-item": "renderPreview"
   },
 
   render: function () {
@@ -52,11 +53,22 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
           model: dbEpisode,
           show: this.model
         });
-        this.addSubview('.episodes-list', subView)
+
+        this.addSubview('.episodes-list', subView);
       }.bind(this));
 
     }
 
     return this;
+  },
+
+  renderPreview: function (event) {
+    this.previewView && this.previewView.remove();
+    var episodeTitle = $(event.currentTarget)[0].innerText;
+    var episode = this._episodes.where({title: episodeTitle})[0];
+    var previewSubview = new MediaPassport.Views.EpisodePreview({model: episode});
+    console.log(episode)
+    this.previewView = previewSubview;
+    this.addSubview('.episode-preview', this.previewView);
   }
 })
