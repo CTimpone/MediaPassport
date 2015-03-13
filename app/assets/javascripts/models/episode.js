@@ -27,8 +27,6 @@ MediaPassport.Models.Episode = Backbone.Model.extend({
     }
     this._posts.episode_id = this.id;
     return this._posts;
-
-    console.log(this._posts)
   },
 
   parse: function (response) {

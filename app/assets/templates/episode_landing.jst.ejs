@@ -9,15 +9,6 @@
 
 <a href="#shows/<%= escape(episode.get('fShowTitle'))%>"><%= episode.escape('fShowTitle').replace(/_/g, ' ')%></a>
 
-<ul class="post-list">
-<% episode.posts().each(function (post) { %>
-<li>
-  <strong><%= post.escape("title") %></strong>
-  <p>
-    post.content
-  </p>
-</li>
-<% }) %>
-</ul>
+<ul class="post-list"></ul>
 
 <div class="post-form"></div>

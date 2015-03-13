@@ -11,6 +11,13 @@ MediaPassport.Views.EpisodeLanding = Backbone.CompositeView.extend({
     var content = this.template({episode: this.model, session: this.session});
     this.$el.html(content);
 
+    if (this.model.posts()) {
+      this.model.posts().each(function (post) {
+        var subView = new MediaPassport.Views.EpisodePostListItem({model: post});
+        this.addSubview('.post-list', subView)
+      }.bind(this))
+    }
+
     if (!this.session.isNew()) {
       var postForm = new MediaPassport.Views.NewPost({
         model: this.model,
@@ -23,10 +30,9 @@ MediaPassport.Views.EpisodeLanding = Backbone.CompositeView.extend({
   },
 
   addPost: function (event) {
-    var newestPost = this.model.posts().last();
-    console.log(newestPost)
-    $('.post-list').append($("<li><strong>"+ newestPost.escape('title') +
-                            "</strong><p>" + newestPost.escape('content') +
-                            "</p></li>"))
+    var post = this.model.posts().last();
+    console.log(post)
+    var subView = new MediaPassport.Views.EpisodePostListItem({model: post});
+    this.addSubview('.post-list', subView)
   }
 })
