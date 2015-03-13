@@ -28,6 +28,4 @@ class Comment < ActiveRecord::Base
     foreign_key: :parent_id,
     primary_key: :id
   )
-
-
 end

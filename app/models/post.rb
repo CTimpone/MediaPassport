@@ -26,7 +26,8 @@ class Post < ActiveRecord::Base
   def comment_tree
     tree = Hash.new { |h, k| h[k] = [] }
 
-    self.comments.includes(:author).each do |comment|
+    self.comments.each do |comment|
+      comment.include(comment.author.username)
       tree[comment.parent_id] << comment
     end
 
