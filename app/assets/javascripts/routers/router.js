@@ -5,7 +5,8 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
     "sign_in": "newSession",
     "sign_up": "newUser",
     "shows/:title": "showLanding",
-    "shows/:show_title/episodes/:title": "episodeLanding"
+    "shows/:show_title/episodes/:title": "episodeLanding",
+    "posts/:id": "postDisplay"
   },
 
   initialize: function (options) {
@@ -82,6 +83,16 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
         this._swapView(view);
       }.bind(this)
     })
+  },
+
+  postDisplay: function (id) {
+    var post = new MediaPassport.Models.Post({id: id});
+    post.fetch()
+    var view = new MediaPassport.Views.PostDisplay({
+      model: post
+    });
+
+    this._swapView(view);
   },
 
   _swapView: function (view) {

@@ -11,7 +11,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.includes(:episode).find(params[:id])
-    render :show
+    render "show.json.jbuilder"
   end
 
 
