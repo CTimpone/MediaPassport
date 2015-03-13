@@ -79,8 +79,10 @@ MediaPassport.Views.CommentDisplay = Backbone.CompositeView.extend({
 
   toggleForm: function (event) {
     if ($(event.currentTarget).data("id") === this.comment.id) {
-      var reveal = this.$el.find('.nested-comment-form')[0];
-      $(reveal).toggleClass('invis')
+      var allForms = this.$el.find('.nested-comment-form');
+      var reveal = allForms[0];
+
+      $(reveal).toggleClass('invis');
     }
   },
 });
