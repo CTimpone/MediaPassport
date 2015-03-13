@@ -8,7 +8,7 @@ MediaPassport.Views.PostDisplay = Backbone.CompositeView.extend({
     this.selector = '.comment-list';
 
     this.listenTo(this.newComments, "add", this.addComment);
-    this.listenTo(this.session, "change create", this.render);
+    this.listenTo(this.session, "change create", this.reload);
   },
 
   render: function () {
@@ -52,7 +52,7 @@ MediaPassport.Views.PostDisplay = Backbone.CompositeView.extend({
   addComment: function (event) {
     var comment = this.newComments.last();
     comment.set({author: this.session.get('username')});
-    console.log(comment);
+
     if (comment.get('parent_id') === null) {
       var selector = this.selector
     } else {
@@ -69,5 +69,10 @@ MediaPassport.Views.PostDisplay = Backbone.CompositeView.extend({
     this.addSubview(selector, commentSubview);
 
     return this;
+  },
+
+  reload: function (event) {
+    this.model.fetch();
+    this.render();
   }
 });
