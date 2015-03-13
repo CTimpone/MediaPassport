@@ -5,5 +5,6 @@ By: <%= comment.escape('author')%>
     <%= comment.escape('content') %>
   </div>
 </p>
-<div class="nested-comment-form" data-id="<%=comment.id%>"></div>
+<a class="show-stuff" data-id="<%=comment.id%>" href="javascript:void(0)"><%=actionText%></a>
+<div class="nested-comment-form invis" data-id="<%=comment.id%>"></div>
 <ul class="comment-list-<%=comment.id%>"></ul>

@@ -12,13 +12,30 @@ MediaPassport.Views.CommentDisplay = Backbone.CompositeView.extend({
     this.listenTo(this.comment, "sync", this.changeBody)
   },
 
+  events: {
+    "click .show-stuff": "toggleForm"
+  },
+
   render: function () {
-    var content = this.template({comment: this.comment});
+    var signedIn = !this.session.isNew();
+    var creator = this.session.escape('username') === this.comment.escape('author');
+
+    if (signedIn && !creator) {
+      this.actionText = "Reply to Comment"
+    } else if (signedIn && creator) {
+      this.actionText = "Edit Comment"
+    }
+    var content = this.template({
+      comment: this.comment,
+      actionText: this.actionText
+    });
     this.$el.html(content);
 
 
+    var signedIn = !this.session.isNew();
+    var creator = this.session.escape('username') === this.comment.escape('author');
     this.renderChildren();
-    if (!this.session.isNew() && this.session.escape('username') !== this.comment.escape('author')) {
+    if (signedIn && !creator) {
       var newCommentSubview = new MediaPassport.Views.NewComment({
         collection: this.collection,
         post: this.post,
@@ -26,7 +43,7 @@ MediaPassport.Views.CommentDisplay = Backbone.CompositeView.extend({
         author: this.session.get('author')
       })
       this.addSubview('.nested-comment-form[data-id="' + this.comment.id + '"]', newCommentSubview);
-    } else if (!this.session.isNew() && this.session.escape('username') === this.comment.escape('author')) {
+    } else if (signedIn && creator) {
       var updateCommentSubview = new MediaPassport.Views.UpdateComment({
         model: this.comment
       })
@@ -58,5 +75,12 @@ MediaPassport.Views.CommentDisplay = Backbone.CompositeView.extend({
     $content.html(this.comment.escape('content'));
 
     return this;
-  }
+  },
+
+  toggleForm: function (event) {
+    if ($(event.currentTarget).data("id") === this.comment.id) {
+      var reveal = this.$el.find('.nested-comment-form')[0];
+      $(reveal).toggleClass('invis')
+    }
+  },
 });
