@@ -5,7 +5,7 @@ window.MediaPassport = {
   Routers: {},
   initialize: function() {
     new MediaPassport.Routers.Router({
-      $rootEl: $('#primary'),
+      $rootEl: $('.main-container'),
       $headerEl: $('#header')
     })
     Backbone.history.start();

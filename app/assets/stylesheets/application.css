@@ -13,8 +13,9 @@
  *= require_tree .
  *= require_self
  */
- h1, h2, h3, h4, nav, strong, form,
- a, ul, li, html, section, article, p {
+  h1, h2, h3, h4, nav, strong, form,
+  a, ul, li, html, section, article, p, img,
+  section, aside, figure {
    margin: 0;
    padding: 0;
    border: 0;
@@ -26,30 +27,36 @@
    vertical-align: inherit;
    text-decoration: inherit;
    box-sizing: inherit;
- }
+  }
 
- a, button, select {
+  a, button, select {
    cursor: pointer;
- }
+  }
 
- ul {
+  ul {
    list-style: none;
- }
+  }
 
- body {
+  .group:after {
+   content: "";
+   display: block;
+   clear: both;
+  }
+
+  body {
    background: #E0E0E0;
    color: #444;
    margin: 0;
- }
+  }
 
 
- #header {
+  #header {
    display: block;
    width: 100%;
    border-bottom: 3px solid #444;
- }
+  }
 
- #primary {
+  #primary {
    width: 900px;
    margin: 0 auto;
    background: #FEFFF5;
@@ -57,9 +64,14 @@
    border-right: 3px solid #444;
    border-left: 3px solid #444;
    border-bottom: 3px solid #444;
-}
+  }
 
- .navigation {
+  .main-container {
+  margin: 0 15px 15px 30px;
+  padding-top: 15px;
+  }
+
+  .navigation {
    margin: 0 auto;
    width: 900px;
    border-right: 3px solid #444;
@@ -67,22 +79,22 @@
    height: 42px;
    padding-bottom: 10px;
    background: #FEFFF5;
- }
+  }
 
- .navigation a {
+  .navigation a {
    display: block;
    padding: 10px 20px;
- }
+  }
 
- .navigation > .title {
+  .navigation > .title {
    float: left;
    font-size: 32px;
    font-weight: 700;
    border-right: 3px solid #444;
    background: #2EB3DB;
- }
+  }
 
- .navigation > .base {
+  .navigation > .base {
    font-size: 14px;
    font-color: #EEEEEE;
    display: block;
@@ -92,50 +104,79 @@
    font-style: italic;
    border-right: 3px solid #444;
    text-align: center;
- }
+  }
 
- .navigation > .base button {
+  .navigation > .base button {
    margin-left: 20px;
- }
+  }
 
- .navigation .search {
+  .navigation .search {
    float: left;
    padding-left: 10px;
- }
+  }
 
- .search #search-bar {
+  .search #search-bar {
+   margin: 0 5px;
+
    padding: 10px 0;
    font-size: 24px;
    width: 190px;
    color: #444;
    background: #FEFFF5;
    border-radius: 5px;
- }
+  }
 
- #search-bar:focus {
+  #search-bar:focus {
    outline: 0;
- }
- .navigation button {
+  }
+  .navigation button {
    background: #BDBDBD;
    border-radius: 8px;
    border: none;
    font-size: 24px;
    font-weight: 300;
    border-right: 3px solid #444;
- }
+  }
 
- .navigation button:hover {
+  .navigation button:hover {
    background: #444;
    color: #FEFFF5;
- }
+  }
+
+  .show-basics {
+    border-bottom: 3px solid #444;
+    vertical-align: center;
+  }
+
+  .show-basics h1 {
+    font-size: 36px;
+    font-weight: 700px;
+    text-decoration: underline;
+    margin-bottom: 10px;
+  }
+
+  .show-info > p {
+    float: left;
+    width: 400px;
+    margin-right: 50px;
+    padding-top: 20px;
+    font-size: 20px;
+    font-weight: 300;
+  }
+
+  .show-info > .show-pic {
+    float: left;
+    border: 1px solid #444l
+    margin: 0;
+  }
+
+  .show-pic > img {
+    background-size: contain;
+    width: 300px;
+    height: 450px;
+  }
 
 
- .group:after {
-   content: "";
-   display: block;
-   clear: both;
- }
-
-.invis {
-  display: none;
-}
+  .invis {
+    display: none;
+  }
