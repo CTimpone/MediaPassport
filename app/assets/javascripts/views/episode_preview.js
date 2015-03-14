@@ -1,5 +1,9 @@
 MediaPassport.Views.EpisodePreview = Backbone.View.extend({
 
+  tagName: "aside",
+
+  className: "preview",
+
   render: function () {
     var content = this.template({
       episode: this.model,

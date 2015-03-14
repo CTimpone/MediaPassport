@@ -22,7 +22,7 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
 
   events: {
     "change .season-selector": "getItems",
-    "mouseover .episode-list-item": "choosePreviewEpisode"
+    "mouseover .episode-link": "choosePreviewEpisode"
   },
 
   render: function () {
@@ -46,14 +46,14 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
 
   getItems: function () {
     $('.episodes-list').empty();
-    
+
     if (this._loaded === true) {
       if (!this.previewView) {
         this._apiEpisodes.mostRecentlyAired(this._previewEpisode);
       }
       var season = $('.season-selector').val();
       var episodes = this._apiEpisodes.where({season: parseInt(season)})
-      console.log(episodes)
+
       this.renderItems(episodes);
     }
 

@@ -181,27 +181,71 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    border: none;
+    border-right: 3px solid #444;
     font-size: 24px;
     font-weight: 700;
-    height: 24px;
+    height: 30px;
+    padding-right: 5px;
   }
-
-  .episodes-container > .episodes-list {
-    float: left;
-    width: 300px;
-  }
-
-  .episode-preview img {
-    width: 400px;
-    height: auto;
-  }
-
 
   .season-selector:focus {
     outline: 0;
   }
 
+  .episodes-container > .episodes-list {
+    float: left;
+    width: 300px;
+    margin-right: 45px;
+    border: 1px solid #444;
+  }
+
+  .episodes-list > li {
+    font-size: 20px;
+    border: 1px solid #444;
+  }
+
+  .episode-list-item a {
+    display: block;
+    width: 100%;
+    padding: 3px;
+  }
+
+  .episodes-container > .episode-preview {
+    float: left;
+    width: 500px;
+    background: #E0E0E0;
+    border: 3px solid #444;
+  }
+
+  .preview {
+    padding: 10px;
+  }
+
+  .preview > h2 {
+    font-size: 28px;
+    text-decoration: underline;
+    margin-bottom: 10px;
+  }
+
+  .preview > span {
+    font-size: 18px;
+    display: block;
+  }
+
+  .preview > p {
+    font-weight: 300;
+    margin: 10px 0;
+  }
+
+  .preview > .preview-image {
+    margin: 10px 0;
+    padding-left: 50px;
+  }
+
+  .preview > .preview-image > img {
+    width: 400px;
+    height: auto
+  }
 
   .invis {
     display: none;

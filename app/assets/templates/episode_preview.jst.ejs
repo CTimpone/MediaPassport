@@ -1,8 +1,11 @@
 <h2><%= episode.escape('title')%></h2>
-<%= episode.escape('airdate') %>
-S<%= episode.escape('season')%>E<%= episode.escape('position')%>
+<span><%= episode.escape('airdate') %></span>
+<span>S<%= episode.escape('season')%>E<%= episode.escape('position')%></span>
 <p><%=episode.escape('description')%></p>
 
 <% if (image_url !== "") { %>
-<img src="<%=image_url%>"/>
+  <figure class="preview-image">
+    <img src="<%=image_url%>"/>
+
+  </figure>
 <% } %>
