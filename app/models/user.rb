@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   validates :username, :password_digest, :email, :session_token, presence: true
   validates :username, :email, uniqueness: true
   validates :password, length: {minimum: 6, maximum: 30}, allow_nil: true
-  validates :username, length: {minimum: 5, maximum: 30}
+  validates :username, length: {minimum: 5, maximum: 18}
   after_initialize :ensure_session_token
 
   has_many(

@@ -5,8 +5,11 @@ MediaPassport.Views.NavView = Backbone.CompositeView.extend({
     "click .sign-in": "signIn",
     "click .sign-up": "signUp",
     "click .sign-out": "signOut",
-    "submit .search": "triggerSearch"
+    "submit .search": "triggerSearch",
+    "click #search-bar": "clearBar"
   },
+
+  className: "navigation group",
 
   initialize: function () {
     this.signedIn = false;
@@ -40,6 +43,10 @@ MediaPassport.Views.NavView = Backbone.CompositeView.extend({
         this.model.clear();
       }.bind(this)
     });
+  },
+
+  clearBar: function (event) {
+    $(event.currentTarget).val("")
   },
 
   triggerSearch: function (event) {

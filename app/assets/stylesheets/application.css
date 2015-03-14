@@ -13,6 +13,129 @@
  *= require_tree .
  *= require_self
  */
+ h1, h2, h3, h4, nav, strong, form,
+ a, ul, li, html, section, article, p {
+   margin: 0;
+   padding: 0;
+   border: 0;
+   font: inherit;
+   font-family: Helvetica;
+   color: inherit;
+   background: inherit;
+   text-align: inherit;
+   vertical-align: inherit;
+   text-decoration: inherit;
+   box-sizing: inherit;
+ }
+
+ a, button, select {
+   cursor: pointer;
+ }
+
+ ul {
+   list-style: none;
+ }
+
+ body {
+   background: #E0E0E0;
+   color: #444;
+   margin: 0;
+ }
+
+
+ #header {
+   display: block;
+   width: 100%;
+   border-bottom: 3px solid #444;
+ }
+
+ #primary {
+   width: 900px;
+   margin: 0 auto;
+   background: #FEFFF5;
+   min-height: 500px;
+   border-right: 3px solid #444;
+   border-left: 3px solid #444;
+   border-bottom: 3px solid #444;
+}
+
+ .navigation {
+   margin: 0 auto;
+   width: 900px;
+   border-right: 3px solid #444;
+   border-left: 3px solid #444;
+   height: 42px;
+   padding-bottom: 10px;
+   background: #FEFFF5;
+ }
+
+ .navigation a {
+   display: block;
+   padding: 10px 20px;
+ }
+
+ .navigation > .title {
+   float: left;
+   font-size: 32px;
+   font-weight: 700;
+   border-right: 3px solid #444;
+   background: #2EB3DB;
+ }
+
+ .navigation > .base {
+   font-size: 14px;
+   font-color: #EEEEEE;
+   display: block;
+   width: 268px;
+   padding: 10px 15px 10px 10px;
+   float: left;
+   font-style: italic;
+   border-right: 3px solid #444;
+   text-align: center;
+ }
+
+ .navigation > .base button {
+   margin-left: 20px;
+ }
+
+ .navigation .search {
+   float: left;
+   padding-left: 10px;
+ }
+
+ .search #search-bar {
+   padding: 10px 0;
+   font-size: 24px;
+   width: 190px;
+   color: #444;
+   background: #FEFFF5;
+   border-radius: 5px;
+ }
+
+ #search-bar:focus {
+   outline: 0;
+ }
+ .navigation button {
+   background: #BDBDBD;
+   border-radius: 8px;
+   border: none;
+   font-size: 24px;
+   font-weight: 300;
+   border-right: 3px solid #444;
+ }
+
+ .navigation button:hover {
+   background: #444;
+   color: #FEFFF5;
+ }
+
+
+ .group:after {
+   content: "";
+   display: block;
+   clear: both;
+ }
+
 .invis {
   display: none;
 }

@@ -1,16 +1,23 @@
-<% if (!signedIn) { %>
-  <button class="sign-in">Sign In</button>
-  <button class="sign-up">Sign Up</button>
-<% } else { %>
-  <%= user.escape('username') %>
-  <button class="sign-out">Sign Out</button>
-<% } %>
+<a class='title' href="#">Media Passport</a>
+
+<div class="base">
+  <% if (!signedIn) { %>
+    <button class="sign-in">Sign In</button>
+    <button class="sign-up">Sign Up</button>
+  <% } else { %>
+    <%= user.escape('username') %>
+    <button class="sign-out">Sign Out</button>
+  <% } %>
+
+</div>
 
 <form class="search">
-  <label>
+  <label class="invis" for="search-bar">
     Search:
-    <input type="text" name="query">
   </label>
-
+  <input id="search-bar"
+         type="text"
+         name="query"
+         value="Search">
   <button>Submit</button>
 </form>
