@@ -33,7 +33,7 @@
    cursor: pointer;
   }
 
-  ul {
+  ul, li {
    list-style: none;
   }
 
@@ -173,7 +173,33 @@
   .show-pic > img {
     background-size: contain;
     width: 300px;
-    height: 450px;
+    height: auto;
+  }
+
+  .season-selector {
+    margin: 20px 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    font-size: 24px;
+    font-weight: 700;
+    height: 24px;
+  }
+
+  .episodes-container > .episodes-list {
+    float: left;
+    width: 300px;
+  }
+
+  .episode-preview img {
+    width: 400px;
+    height: auto;
+  }
+
+
+  .season-selector:focus {
+    outline: 0;
   }
 
 
