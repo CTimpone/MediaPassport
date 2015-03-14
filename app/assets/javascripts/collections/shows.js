@@ -7,7 +7,7 @@ MediaPassport.Collections.Shows = Backbone.Collection.extend({
     var exactShow = this.where({title: attributes.title, maze_id: attributes.maze_id});
 
     if (exactShow.length === 0) {
-      exactShow = this.where({title: attributes.title + " (" + attributes.network + ")", maze_id: attributes.maze_id})
+      exactShow = this.where({title: attributes.title + " (" + attributes.year + ")", maze_id: attributes.maze_id})
     }
 
     var sameTitle = this.where({title: attributes.title});
@@ -37,7 +37,7 @@ MediaPassport.Collections.Shows = Backbone.Collection.extend({
       if (exactShow.length === 0 && sameTitle.length === 0) {
         show = this.create(attributes);
       } else if (exactShow.length === 0 && sameTitle.length > 0){
-        attributes.title += " (" + attributes.network + ")"
+        attributes.title += " (" + attributes.year + ")"
         show = this.create(attributes);
       }
     }

@@ -14,6 +14,7 @@ MediaPassport.Models.ApiShow = Backbone.Model.extend({
       if (response.show.image) {
         data.image_url = response.show.image.original;
       }
+      data.year = response.show.premiered.slice(0, 4);
     }
 
     return data;
