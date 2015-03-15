@@ -13,7 +13,8 @@ MediaPassport.Views.CommentDisplay = Backbone.CompositeView.extend({
   },
 
   events: {
-    "click .show-stuff": "toggleForm"
+    "click .show-stuff": "toggleForm",
+    "click .endorse": "toggleEndorse"
   },
 
   render: function () {
@@ -83,6 +84,29 @@ MediaPassport.Views.CommentDisplay = Backbone.CompositeView.extend({
       var reveal = allForms[0];
 
       $(reveal).toggleClass('invis');
+    }
+  },
+
+  toggleEndorse: function (event) {
+    var parent = $($(event.currentTarget).parent());
+    if (parent.data("id") === this.comment.id) {
+      parent.html("<p>Processing</p>")
+      var endorsements = new MediaPassport.Collections.Endorsements({
+        comment_id: this.comment.id,
+        post_id: this.comment.escape('post_id')
+      })
+
+      endorsements.create({}, {
+        success: function () {
+          if (this.comment.escape('endorsed') === "true") {
+            this.comment.set({endorsed: false});
+            parent.html('<a class="endorse" href="javascript:void(0)">Endorse</a>')
+          } else {
+            this.comment.set({endorsed: true});
+            parent.html('<a class="endorse" href="javascript:void(0)">Un-Endorse</a>')
+          }
+        }.bind(this)
+      })
     }
   },
 });

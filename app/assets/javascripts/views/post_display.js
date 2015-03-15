@@ -12,8 +12,6 @@ MediaPassport.Views.PostDisplay = Backbone.CompositeView.extend({
   },
 
   render: function () {
-    console.log(this.model);
-
     var content = this.template({post: this.model});
     this.$el.html(content);
 

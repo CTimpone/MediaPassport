@@ -1,3 +1,10 @@
+<div class="endorsement" data-id="<%=comment.id%>">
+  <% if (comment.escape("endorsed") === "true") {%>
+    <a class="endorse" href="javascript:void(0)">Un-Endorse</a>
+  <%} else {%>
+    <a class="endorse" href="javascript:void(0)">Endorse</a>
+  <% } %>
+</div>
 By: <%= comment.escape('author')%>
 <br>
 <p>
@@ -5,6 +12,7 @@ By: <%= comment.escape('author')%>
     <%= comment.escape('content') %>
   </div>
 </p>
+
 <a class="show-stuff" data-id="<%=comment.id%>" href="javascript:void(0)"><%=actionText%></a>
 <div class="nested-comment-form invis" data-id="<%=comment.id%>"></div>
 <ul class="comment-list-<%=comment.id%>"></ul>
