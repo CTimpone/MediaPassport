@@ -26,6 +26,13 @@ class User < ActiveRecord::Base
     primary_key: :id
   )
 
+  has_many(
+    :ratings,
+    class_name: "Rating",
+    foreign_key: :user_id,
+    primary_key: :id
+  )
+
   def self.find_by_credentials(params)
     user = User.find_by(username: params[:username])
     if user && user.is_password?(params[:password])

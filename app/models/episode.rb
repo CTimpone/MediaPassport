@@ -17,6 +17,13 @@ class Episode < ActiveRecord::Base
     primary_key: :id
   )
 
+  has_many(
+    :ratings,
+    class_name: "Rating",
+    foreign_key: :episode_id,
+    primary_key: :id
+  )
+
   def self.this_week
     self.all.where("airdate >= ?", Date.today - 7)
   end
