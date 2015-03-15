@@ -27,6 +27,21 @@ class CommentsController < ApplicationController
     end
   end
 
+  def endorse
+    @comment = Comment.find(params[:id])
+    @endorsement = @comment.endorsements.find_by({user_id: current_user.id})
+    if (@endorsement)
+      @endorsement.destroy!
+      render json: @endorsement
+    else
+      @endorsement = current_user.endorsements.create!({
+        endorsable_id: @comment.id,
+        endorsable_type: "Comment"
+      })
+      render json: @endorsement
+    end
+  end
+
   private
   def new_comment_params
     params.require(:comment).permit(:content, :parent_id, :post_id)

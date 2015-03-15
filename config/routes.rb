@@ -7,7 +7,14 @@ Rails.application.routes.draw do
     resources :episodes, only: [:show, :create, :update]
   end
   resources :posts, only: [:create, :new, :show] do
-    resources :comments, only: [:new, :create, :edit, :update]
+    member do
+      post "endorse"
+    end
+    resources :comments, only: [:new, :create, :edit, :update] do
+      member do
+        post "endorse"
+      end
+    end
   end
   resources :networks, only: :show
 end
