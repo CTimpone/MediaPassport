@@ -53,6 +53,23 @@ Backbone.CompositeView = Backbone.View.extend({
     });
   },
 
+  regexRemoveAllFromSelector: function (regex) {
+    var selectors = Object.keys(this.subviews());
+    var removal = [];
+
+    _.each(selectors, function (selector) {
+      if (regex.exec(selector) !== null) {
+        removal.push(selector)
+      }
+    })
+
+    _.each(removal, function (selector) {
+      _.each(this.subviews(selector), function (subview) {
+        subview.remove();
+      });
+    }.bind(this));
+  },
+
   removeSubview: function (selector, subview) {
     subview.remove();
 

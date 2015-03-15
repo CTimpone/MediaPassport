@@ -45,7 +45,8 @@ MediaPassport.Views.PostDisplay = Backbone.CompositeView.extend({
         post: this.model,
         comment: new MediaPassport.Models.Comment(comment),
         session: this.session,
-        collection: this.newComments
+        collection: this.newComments,
+        parentView: this
       });
       this.addSubview(this.selector, commentSubview);
     }.bind(this));
