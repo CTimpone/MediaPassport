@@ -1,6 +1,10 @@
 MediaPassport.Views.PostDisplay = Backbone.CompositeView.extend({
   template: JST["post_display"],
 
+  events: {
+    "click .endorse": "togglePostEndorse"
+  },
+
   initialize: function (options) {
     this.session = options.session;
     this.listenTo(this.model, "sync", this.render);
@@ -74,5 +78,24 @@ MediaPassport.Views.PostDisplay = Backbone.CompositeView.extend({
   reload: function (event) {
     this.model.fetch();
     this.render();
-  }
+  },
+
+  togglePostEndorse: function (event) {
+    var parent = $($(event.currentTarget).parent());
+    parent.html("<p>Processing</p>")
+    var endorsements = new MediaPassport.Collections.Endorsements({
+      post_id: this.model.id
+    })
+    endorsements.create({}, {
+      success: function () {
+        if (this.model.escape('endorsed') === "true") {
+          this.model.set({endorsed: false});
+          parent.html('<a class="endorse" href="javascript:void(0)">Endorse</a>')
+        } else {
+          this.model.set({endorsed: true});
+          parent.html('<a class="endorse" href="javascript:void(0)">Un-Endorse</a>')
+        }
+      }.bind(this)
+    })
+  },
 });
