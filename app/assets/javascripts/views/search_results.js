@@ -1,4 +1,8 @@
 MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
+  tagName: "article",
+
+  className: "search-results",
+
   initialize: function (options) {
     this.query = window.location.hash.split('q=')[1]
     this._shows = options.shows;

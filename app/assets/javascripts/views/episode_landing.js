@@ -1,6 +1,8 @@
 MediaPassport.Views.EpisodeLanding = Backbone.CompositeView.extend({
   template: JST["episode_landing"],
 
+  className: "group",
+
   initialize: function (options) {
     this.session = options.session;
     this.listenTo(this.session, "change create", this.render)
@@ -31,7 +33,7 @@ MediaPassport.Views.EpisodeLanding = Backbone.CompositeView.extend({
 
   addPost: function (event) {
     var post = this.model.posts().last();
-    console.log(post)
+
     var subView = new MediaPassport.Views.EpisodePostListItem({model: post});
     this.addSubview('.post-list', subView)
   }

@@ -1,13 +1,22 @@
-<%= episode.escape('title') %>
-<p>
-  <%= episode.escape('description') %>
-</p>
+<a class="show-return"
+   href="#shows/<%= escape(episode.get('fShowTitle'))%>"
+  >Return to: <%= episode.escape('fShowTitle').replace(/_/g, ' ')%></a>
 
-<% if (episode.escape('image_url')) { %>
-  <img src="<%=episode.escape('image_url') %>" alt="" />
-<% } %>
 
-<a href="#shows/<%= escape(episode.get('fShowTitle'))%>"><%= episode.escape('fShowTitle').replace(/_/g, ' ')%></a>
+<article class="page-basics">
+  <h1><%= episode.escape('title') %></h1>
+  <span>S<%= episode.escape('season') %>E<%= episode.escape('position') %></span>
+  <section class="page-info group">
+    <p>
+      Description:
+      <%= episode.escape('description') %>
+    </p>
+
+    <div class="episode-pic">
+      <img src="<%=episode.escape('image_url') %>"/>
+    </div>
+  </section>
+</article>
 
 <ul class="post-list"></ul>
 

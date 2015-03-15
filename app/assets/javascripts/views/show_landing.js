@@ -77,7 +77,7 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
   choosePreviewEpisode: function (event) {
     var episodeTitle = $(event.currentTarget)[0].innerText;
     var attrs = _.clone(this._episodes.where({title: episodeTitle})[0].attributes);
-    console.log(attrs)
+
     this._previewEpisode.set(attrs);
   },
 

@@ -1,4 +1,4 @@
-json.extract! @episode, :title, :description, :image_url, :id
+json.extract! @episode, :title, :description, :season, :position, :image_url, :id
 
 json.set! :posts do
   json.array! (@episode.posts) do |post|
