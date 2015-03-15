@@ -17,4 +17,5 @@ Rails.application.routes.draw do
     end
   end
   resources :networks, only: :show
+  resources :ratings, only: [:create, :update]
 end
