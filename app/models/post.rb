@@ -23,6 +23,8 @@ class Post < ActiveRecord::Base
     primary_key: :id
   )
 
+  has_many :endorsements, as: :endorsable
+
   def comment_tree
     tree = Hash.new { |h, k| h[k] = [] }
 

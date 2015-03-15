@@ -28,4 +28,6 @@ class Comment < ActiveRecord::Base
     foreign_key: :parent_id,
     primary_key: :id
   )
+
+  has_many :endorsements, as: :endorsable
 end
