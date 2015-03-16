@@ -106,7 +106,7 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
     });
 
     this._swapView(view);
-  }
+  },
 
   _swapView: function (view) {
     this.currentView && this.currentView.remove();

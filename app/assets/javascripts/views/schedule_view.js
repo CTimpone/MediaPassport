@@ -30,7 +30,7 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
       this.networks = this.collection.map(function (model) {
         return model.show().escape('network').replace(/&amp;/g, '&');
       });
-      this.networks = _.uniq(this.networks);
+      this.networks = _.uniq(this.networks).sort();
 
       _.each(this.networks, function (network) {
         var row = "<tr class='grid-row' network=" +
