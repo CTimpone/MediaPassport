@@ -1,6 +1,11 @@
 MediaPassport.Collections.Episodes = Backbone.Collection.extend({
   url: function () {
-    return "/shows/" + this.show_title.replace(/ /g, '_') + "/episodes/";
+    if (this.verify && this.episode_title) {
+      return "/shows/" + this.show_title.replace(/ /g, '_') + "/episodes/" +
+             this.episode_title.replace(/ /g, '_') + "/verify"
+    } else {
+      return "/shows/" + this.show_title.replace(/ /g, '_') + "/episodes/";
+    }
   },
 
   model: MediaPassport.Models.Episode,
@@ -11,6 +16,8 @@ MediaPassport.Collections.Episodes = Backbone.Collection.extend({
 
   initialize: function (models, options) {
     this.show_title = options.show_title;
+    if (options.verify) this.verify = options.verify;
+    if (options.episode_title) this.episode_title = options.episode_title;
   },
 
   CRU: function (attributes) {

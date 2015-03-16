@@ -28,10 +28,21 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
   renderSchedule: function () {
     if (this._loaded === 2) {
       this.collection.each(function (episode) {
+        var dbEpisode;
         var dbShow = this.shows.CRU(_.clone(episode.show().attributes), {
           success: function () {
-            console.log(show);
-          }
+            var checkExistence = new MediaPassport.Collections.Episodes([], {
+              verify: true,
+              show_title: show.escape('title'),
+              episode_title: episode.escape('title')
+            });
+            checkExistence.fetch({
+              success: function () {
+                dbEpisode = checkExistence.CRU(_.clone(episode.attributes));
+
+              }.bind(this)
+            })
+          }.bind(this)
         });
       }.bind(this));
     }
