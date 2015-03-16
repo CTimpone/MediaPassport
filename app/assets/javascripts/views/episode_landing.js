@@ -28,7 +28,7 @@ MediaPassport.Views.EpisodeLanding = Backbone.CompositeView.extend({
       this.addSubview('.post-form', postForm)
     }
 
-    if (this.model.escape("current_user_rating")) {
+    if (!this.session.isNew() && this.model.escape("current_user_rating")) {
       var timer = setInterval(function () {
         var select = $('.current-user-rating');
         select.val(this.model.escape("current_user_rating"));

@@ -15,26 +15,27 @@
     <div class="episode-pic">
       <img src="<%=episode.escape('image_url') %>"/>
     </div>
-
-    <div class="rating">
-      <select class="current-user-rating">
-        <option></option>
-        <option value="100">A+</option>
-        <option value="93">A</option>
-        <option value="90">A-</option>
-        <option value="87">B+</option>
-        <option value="83">B</option>
-        <option value="80">B-</option>
-        <option value="77">C+</option>
-        <option value="73">C</option>
-        <option value="70">C-</option>
-        <option value="67">D+</option>
-        <option value="63">D</option>
-        <option value="60">D-</option>
-        <option value="59">F</option>
-      </select>
-      <strong class="average"></strong>
-    </div>
+    <% if (!session.isNew()) { %>
+      <div class="rating">
+        <select class="current-user-rating">
+          <option></option>
+          <option value="100">A+</option>
+          <option value="93">A</option>
+          <option value="90">A-</option>
+          <option value="87">B+</option>
+          <option value="83">B</option>
+          <option value="80">B-</option>
+          <option value="77">C+</option>
+          <option value="73">C</option>
+          <option value="70">C-</option>
+          <option value="67">D+</option>
+          <option value="63">D</option>
+          <option value="60">D-</option>
+          <option value="59">F</option>
+        </select>
+        <strong class="average"></strong>
+      </div>
+    <% } %>
   </section>
 </article>
 
