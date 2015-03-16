@@ -35,7 +35,15 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
 
       this.times = _.uniq(this.collection.pluck("airtime"));
       _.each(this.times, function (time) {
-        var col = "<th>" + time + "</th>";
+        var base = parseInt(time.slice(0, 2));
+        if (base > 12) {
+          var USTime = String(Math.abs(base - 12)) + time.slice(2, 5);
+        } else if (base === 0) {
+          var USTime = "12" + time.slice(2, 5);
+        } else {
+          var USTime = time.slice(1, 5);
+        }
+        var col = "<th>" + USTime + "</th>";
         $('.grid-header').append($(col));
       });
     }
