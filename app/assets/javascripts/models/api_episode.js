@@ -17,6 +17,7 @@ MediaPassport.Models.ApiEpisode = Backbone.Model.extend({
       data.title = response.name.replace(/\./g,'');
       data.description = response.summary.replace(/<(?:.|\n)*?>/gm, '');
       data.airdate = new Date(response.airdate);
+      data.airtime = response.airtime;
       if (response.image) {
         data.image_url = response.image.original;
       }

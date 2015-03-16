@@ -1,6 +1,4 @@
 MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
-  tagName: "schedule",
-
   template: JST["schedule"],
 
   initialize: function (options) {
@@ -39,7 +37,11 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
             checkExistence.fetch({
               success: function () {
                 dbEpisode = checkExistence.CRU(_.clone(episode.attributes));
-
+                dbEpisode.set({airtime: episode.escape('airtime'), network: dbShow.escape('network')})
+                var subView = new MediaPassport.Views.ScheduleGridItem({
+                  model: dbEpisode
+                });
+                this.addSubview('.schedule', subView);
               }.bind(this)
             })
           }.bind(this)
