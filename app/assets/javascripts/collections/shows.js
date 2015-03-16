@@ -42,6 +42,8 @@ MediaPassport.Collections.Shows = Backbone.Collection.extend({
             options.success && options.success();
           }
         });
+      } else {
+        options.success && options.success();
       }
 
     } else {

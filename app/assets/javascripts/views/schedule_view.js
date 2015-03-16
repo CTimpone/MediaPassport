@@ -7,7 +7,15 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
     this.collection = new MediaPassport.Collections.ApiSchedule();
     this.collection.fetch();
     this.shows = options.shows;
-    this.listenTo(this.collection, "sync", this.renderSchedule)
+    this._loaded = 0;
+
+    var callback = function () {
+      this._loaded += 1;
+      this.renderSchedule();
+    }.bind(this);
+
+    this.listenToOnce(this.collection, "sync", callback)
+    this.listenToOnce(this.shows, "sync", callback)
   },
 
   render: function () {
@@ -18,9 +26,14 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
   },
 
   renderSchedule: function () {
-    this.collection.each(function (episode) {
-      var dbShow = this.shows.CRU(_.clone(episode.show().attributes), {});
-
-    }.bind(this));
+    if (this._loaded === 2) {
+      this.collection.each(function (episode) {
+        var dbShow = this.shows.CRU(_.clone(episode.show().attributes), {
+          success: function () {
+            console.log(show);
+          }
+        });
+      }.bind(this));
+    }
   }
 })
