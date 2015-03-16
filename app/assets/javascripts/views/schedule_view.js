@@ -1,6 +1,10 @@
 MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
   template: JST["schedule"],
 
+  tagName: "section",
+
+  className: "schedule-section",
+
   initialize: function (options) {
     this.collection = new MediaPassport.Collections.ApiSchedule();
     this.collection.fetch();
@@ -29,7 +33,8 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
 
       _.each(this.networks, function (network) {
         var row = "<tr class='grid-row' network=" +
-                  network.replace(/ /g, '_') + "><td>" + network + "</td></tr>";
+                  network.replace(/ /g, '_') + "><td class='network-name'>" +
+                  network + "</td></tr>";
         $('.schedule').append($(row));
       });
 
@@ -40,6 +45,8 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
           var USTime = String(Math.abs(base - 12)) + time.slice(2, 5);
         } else if (base === 0) {
           var USTime = "12" + time.slice(2, 5);
+        } else if (time === "") {
+          var USTime = "12:00";
         } else {
           var USTime = time.slice(1, 5);
         }

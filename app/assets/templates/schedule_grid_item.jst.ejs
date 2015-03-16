@@ -1,4 +1,6 @@
-<% if (episode) {%>
-  <%= episode.escape('title').replace(/&amp;/, '&') %>
-  <%= episode._show.escape('title') %>
-<% } %>
+<div>
+  <% if (episode) {%>
+    <%= episode.escape('title').replace(/&amp;/, '&') %>
+    <%= episode._show.escape('title') %>
+  <% } %>
+</div>
