@@ -1,8 +1,12 @@
 class EpisodesController < ApplicationController
   def show
     @episode = current_show.episodes.includes(:posts).find_by(title: escape_ampersands(episode_title))
-    p current_show
-    p episode_title
+    current_rating = current_user.ratings.find_by({episode_id: @episode.id})
+    if current_rating
+      @score = current_rating.score
+    else
+      @score = nil
+    end
     render "show.json.jbuilder"
   end
 

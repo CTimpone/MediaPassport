@@ -192,7 +192,6 @@
 
   .page-info > .show-pic {
     float: left;
-    border: 1px solid #444l
   }
 
   .show-pic > img {
@@ -205,7 +204,6 @@
 
   .page-info > .episode-pic {
     float: left;
-    border: 1px solid #444l
   }
 
   .episode-pic > img {
@@ -215,7 +213,7 @@
     margin: 10px 0 10px 50px;
   }
 
-  .season-selector {
+  select {
     margin: 20px 0;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -227,7 +225,7 @@
     padding: 0 5px;
   }
 
-  .season-selector:focus {
+  select:focus {
     outline: 0;
   }
 

@@ -1,6 +1,5 @@
 class Rating < ActiveRecord::Base
   validates :user_id, :episode_id, :score, presence: true
-  validates :score, only_integer: true
   validates :score, inclusion: { in: 59..100 }
   validates :score, uniqueness: {scope: [:user_id, :episode_id]}
 

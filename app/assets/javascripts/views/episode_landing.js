@@ -28,6 +28,15 @@ MediaPassport.Views.EpisodeLanding = Backbone.CompositeView.extend({
       this.addSubview('.post-form', postForm)
     }
 
+    if (this.model.escape("current_user_rating")) {
+      var timer = setInterval(function () {
+        var select = $('.current-user-rating');
+        select.val(this.model.escape("current_user_rating"));
+        this.events = {"change .current-user-rating": "userRating"};
+        clearInterval(timer);
+      }.bind(this), 1);
+    }
+
     return this;
   },
 
