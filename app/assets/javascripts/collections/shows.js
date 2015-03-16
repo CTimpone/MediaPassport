@@ -16,6 +16,7 @@ MediaPassport.Collections.Shows = Backbone.Collection.extend({
       attributes.description = "No available description";
     }
 
+
     if (exactShow.length === 1) {
       show = exactShow[0];
       var descMatch = show.escape('description') === "No available description" &&
@@ -50,7 +51,6 @@ MediaPassport.Collections.Shows = Backbone.Collection.extend({
       show = new this.model(attributes);
       if (exactShow.length === 0 && sameTitle.length === 0) {
         show = this.create(attributes, {
-          wait: true,
           success: function () {
             options.success && options.success();
           }
@@ -58,7 +58,6 @@ MediaPassport.Collections.Shows = Backbone.Collection.extend({
       } else if (exactShow.length === 0 && sameTitle.length > 0){
         attributes.title += " (" + attributes.year + ")"
         show = this.create(attributes, {
-          wait: true,
           success: function () {
             options.success && options.success();
           }
