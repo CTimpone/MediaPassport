@@ -1,5 +1,5 @@
 MediaPassport.Views.ScheduleGridItem = Backbone.View.extend({
-  tagName: "li",
+  tagName: "td",
 
   template: JST["schedule_grid_item"],
 
