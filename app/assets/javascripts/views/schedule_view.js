@@ -27,8 +27,8 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
       });
       networks = _.uniq(networks);
       _.each(networks, function (network) {
-        var row = "<tr class='grid-row' data-network=" +
-                  network + "><td>" + network + "</td></tr>";
+        var row = "<tr class='grid-row' network=" +
+                  network.replace(/ /g, '_') + "><td>" + network + "</td></tr>";
         $('.schedule').append($(row));
       });
       var times = _.uniq(this.collection.pluck("airtime"));
@@ -62,10 +62,10 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
                 var subView = new MediaPassport.Views.ScheduleGridItem({
                   model: dbEpisode
                 });
-                var selector = '.grid-row[data-network="' +
-                                dbShow.escape('network').replace(/&amp;/g, '&') +
+                var selector = '.grid-row[network="' +
+                                dbShow.escape('network').replace(/&amp;/g, '&').replace(/ /g, '_') +
                                 '"]';
-
+                console.log(selector);
                 this.addSubview(selector, subView);
               }.bind(this)
             })
