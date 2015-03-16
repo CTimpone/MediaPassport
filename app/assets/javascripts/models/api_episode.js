@@ -1,5 +1,13 @@
 MediaPassport.Models.ApiEpisode = Backbone.Model.extend({
 
+  show: function () {
+    if (!this._show) {
+      this._show = new MediaPassport.Models.ApiShow();
+    }
+
+    return this._show;
+  },
+
   parse: function (response) {
     if (response) {
       var data = {}
@@ -11,6 +19,9 @@ MediaPassport.Models.ApiEpisode = Backbone.Model.extend({
       data.airdate = new Date(response.airdate);
       if (response.image) {
         data.image_url = response.image.original;
+      }
+      if (response.show) {
+        this.show().set(response.show, {parse: true});
       }
     }
     return data;
