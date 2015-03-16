@@ -1,7 +1,7 @@
 class EpisodesController < ApplicationController
   def show
     @episode = current_show.episodes.includes(:posts).find_by(title: escape_ampersands(episode_title))
-    current_rating = current_user.ratings.find_by({episode_id: @episode.id})
+    current_user ? current_rating = current_user.ratings.find_by({episode_id: @episode.id}) : current_rating = nil
     if current_rating
       @rating_id = current_rating.id
       @score = current_rating.score
