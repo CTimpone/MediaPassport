@@ -98,6 +98,16 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
     this._swapView(view);
   },
 
+  watchlist: function () {
+    var watchlist = new MediaPassport.Collections.Watchlist();
+    watchlist.fetch();
+    var view = new MediaPassport.Views.WatchlistDisplay({
+      collection: watchlist
+    });
+
+    this._swapView(view);
+  }
+
   _swapView: function (view) {
     this.currentView && this.currentView.remove();
     this.currentView = view;

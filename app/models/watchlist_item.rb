@@ -8,4 +8,11 @@ class WatchlistItem < ActiveRecord::Base
     foreign_key: :user_id,
     primary_key: :id
   )
+
+  belongs_to(
+    :show,
+    class_name: "Show",
+    foreign_key: :show_id,
+    primary_key: :id
+  )
 end

@@ -9,6 +9,13 @@ class Show < ActiveRecord::Base
     primary_key: :id
   )
 
+  has_many(
+    :watchlist_items,
+    class_name: "WatchlistItem",
+    foreign_key: :show_id,
+    primary_key: :id
+  )
+
   def most_recent_episode
     episodes.order(airdate: :desc).first
   end

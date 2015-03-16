@@ -20,4 +20,5 @@ Rails.application.routes.draw do
   end
   resources :networks, only: :show
   resources :ratings, only: [:create, :update]
+  resources :watchlist_items, only: [:index, :create, :destroy]
 end
