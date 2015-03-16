@@ -325,7 +325,8 @@
   }
 
   .schedule-cell-new > div {
-    width: 150px;
+    border: 1px solid #444;
+    height: 150px;
   }
 
   .invis {

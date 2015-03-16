@@ -5,20 +5,23 @@ MediaPassport.Views.ScheduleGridItem = Backbone.View.extend({
 
   attributes: function () {
     if (this.model) {
-      var cols = Math.floor(parseInt(this.model.get('runtime')) / 30);
+      this.cols = Math.floor(parseInt(this.model.get('runtime')) / 30);
       var pop = "schedule-cell-new"
     } else {
-      var cols = 1;
+      this.cols = 1;
       var pop = "schedule-cell-none"
     }
     return {
-      colspan: cols,
+      colspan: this.cols,
       class: pop
     }
   },
 
   render: function () {
-    var content = this.template({episode: this.model});
+    var content = this.template({
+      episode: this.model,
+      cols: this.cols
+    });
     this.$el.html(content);
 
     return this;
