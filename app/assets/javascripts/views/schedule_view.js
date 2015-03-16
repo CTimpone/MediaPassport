@@ -10,7 +10,7 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
     var callback = function () {
       this._loaded += 1;
       this.render();
-      this.renderSchedule();
+      this.generateSchedule();
     }.bind(this);
 
     this.listenToOnce(this.collection, "sync", callback)
@@ -22,18 +22,20 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
     this.$el.html(content);
 
     if (this._loaded === 2) {
-      var networks = this.collection.map(function (model) {
+      this.networks = this.collection.map(function (model) {
         return model.show().escape('network').replace(/&amp;/g, '&');
       });
-      networks = _.uniq(networks);
-      _.each(networks, function (network) {
+      this.networks = _.uniq(this.networks);
+
+      _.each(this.networks, function (network) {
         var row = "<tr class='grid-row' network=" +
                   network.replace(/ /g, '_') + "><td>" + network + "</td></tr>";
         $('.schedule').append($(row));
       });
-      var times = _.uniq(this.collection.pluck("airtime"));
-      _.each(times, function (time) {
-        var col = "<tr class='grid-row'><th>" + time + "</th></tr>";
+
+      this.times = _.uniq(this.collection.pluck("airtime"));
+      _.each(this.times, function (time) {
+        var col = "<th>" + time + "</th>";
         $('.grid-header').append($(col));
       });
     }
@@ -41,8 +43,11 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
     return this;
   },
 
-  renderSchedule: function () {
+  generateSchedule: function () {
     if (this._loaded === 2) {
+      var count = 0;
+      var len = this.collection.length;
+      col = this.collection;
       this.collection.each(function (episode) {
         var dbEpisode;
         var dbShow = this.shows.CRU(_.clone(episode.show().attributes), {
@@ -54,24 +59,45 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
             });
             checkExistence.fetch({
               success: function () {
+                count += 1;
                 dbEpisode = checkExistence.CRU(_.clone(episode.attributes));
-                dbEpisode.set({
-                  airtime: episode.escape('airtime'),
-                  show_title: dbShow.escape('title')
-                })
-                var subView = new MediaPassport.Views.ScheduleGridItem({
-                  model: dbEpisode
-                });
-                var selector = '.grid-row[network="' +
-                                dbShow.escape('network').replace(/&amp;/g, '&').replace(/ /g, '_') +
-                                '"]';
-                console.log(selector);
-                this.addSubview(selector, subView);
+                if (count === len) {
+                  this.developGrid();
+                }
               }.bind(this)
             })
           }.bind(this)
         });
       }.bind(this));
     }
+  },
+
+  developGrid: function () {
+    _.each(this.networks, function (network) {
+      var newEpisodes = this.collection.where({network: network});
+      var tempCollection = new MediaPassport.Collections.ApiEpisodes(newEpisodes)
+      var selector = '.grid-row[network="' +
+                      network.replace(/&amp;/g, '&').replace(/ /g, '_') +
+                      '"]';
+      var skips = 1;
+      _.each(this.times, function (time) {
+        if (skips === 1) {
+          var episode = tempCollection.where({airtime: time});
+          if (episode.length !== 0) {
+            skips =  Math.floor(parseInt(episode[0].get('runtime')) / 30);
+            var subview = new MediaPassport.Views.ScheduleGridItem({
+              model: episode[0]
+            });
+          } else {
+            var subview = new MediaPassport.Views.ScheduleGridItem({
+              model: null
+            });
+          }
+          this.addSubview(selector, subview);
+        } else {
+          skips -= 1;
+        }
+      }.bind(this));
+    }.bind(this));
   }
 })

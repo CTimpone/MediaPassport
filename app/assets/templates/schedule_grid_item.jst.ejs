@@ -1,3 +1,7 @@
-<%= episode.escape('title').replace(/&amp;/, '&') %>
-<%= episode.escape('show_title') %>
-<%= episode.escape('airtime') %>
+<% if (episode) {%>
+  <%= episode.escape('title').replace(/&amp;/, '&') %>
+  <%= episode.escape('show_title') %>
+  <%= episode.escape('airtime') %>
+<% } else { %>
+  None
+<% } %>

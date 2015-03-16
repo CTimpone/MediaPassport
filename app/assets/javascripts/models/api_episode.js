@@ -18,10 +18,12 @@ MediaPassport.Models.ApiEpisode = Backbone.Model.extend({
       data.description = response.summary.replace(/<(?:.|\n)*?>/gm, '');
       data.airdate = new Date(response.airdate);
       data.airtime = response.airtime;
+      data.runtime = response.runtime;
       if (response.image) {
         data.image_url = response.image.original;
       }
       if (response.show) {
+        data.network = response.show.network.name;
         this.show().set(this.show().parse(response));
       }
     }
