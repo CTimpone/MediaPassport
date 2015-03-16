@@ -2,15 +2,15 @@ MediaPassport.Models.Episode = Backbone.Model.extend({
   url: function () {
     if (this.fTitle && this.fShowTitle) {
       return "/shows/" +
-        escape(this.fShowTitle) + "/episodes/" +
-        escape(this.fTitle);
+        encodeURI(this.fShowTitle) + "/episodes/" +
+        encodeURI(this.fTitle);
     } else if (this.isNew()) {
       return "/shows/" +
-        escape(this.collection.show_title.replace(/ /g, '_')) + "/episodes";
+        encodeURI(this.collection.show_title.replace(/ /g, '_')) + "/episodes";
     } else {
       return "/shows/" +
-        escape(this.collection.show_title.replace(/ /g, '_')) + "/episodes/" +
-        escape(this.startingTitle.replace(/ /g, '_'));
+        encodeURI(this.collection.show_title.replace(/ /g, '_')) + "/episodes/" +
+        encodeURI(this.startingTitle.replace(/ /g, '_'));
     }
   },
 
