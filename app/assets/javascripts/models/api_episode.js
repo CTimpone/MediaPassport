@@ -21,7 +21,7 @@ MediaPassport.Models.ApiEpisode = Backbone.Model.extend({
         data.image_url = response.image.original;
       }
       if (response.show) {
-        this.show().set(response.show, {parse: true});
+        this.show().set(this.show().parse(response));
       }
     }
     return data;

@@ -12,6 +12,15 @@ class EpisodesController < ApplicationController
     render "show.json.jbuilder"
   end
 
+  def verify
+    @episode = current_show.episodes.find_by(title: escape_ampersands(episode_title))
+    if @episode
+      render json: @episode
+    else
+      render json: nil
+    end
+  end
+
   def create
     @episode = current_show.episodes.new(episode_params)
     @episode.airdate = Date.parse(episode_params[:airdate]);
