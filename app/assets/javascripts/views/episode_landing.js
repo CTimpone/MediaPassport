@@ -3,6 +3,10 @@ MediaPassport.Views.EpisodeLanding = Backbone.CompositeView.extend({
 
   className: "group",
 
+  events: {
+    "change .current-user-rating": "userRating"
+  },
+
   initialize: function (options) {
     this.session = options.session;
     this.listenTo(this.session, "change create", this.render)
@@ -32,7 +36,6 @@ MediaPassport.Views.EpisodeLanding = Backbone.CompositeView.extend({
       var timer = setInterval(function () {
         var select = $('.current-user-rating');
         select.val(this.model.escape("current_user_rating"));
-        this.events = {"change .current-user-rating": "userRating"};
         clearInterval(timer);
       }.bind(this), 1);
     }
@@ -45,5 +48,33 @@ MediaPassport.Views.EpisodeLanding = Backbone.CompositeView.extend({
 
     var subView = new MediaPassport.Views.EpisodePostListItem({model: post});
     this.addSubview('.post-list', subView)
+  },
+
+  userRating: function (event) {
+    var newVal = $(event.currentTarget).val();
+    var rating = new MediaPassport.Models.Rating({
+      episode_id: this.model.id,
+      score: parseInt(newVal),
+    })
+    var current_rating = this.model.escape("current_user_rating");
+    if (current_rating && current_rating !== newVal && newVal) {
+      console.log('a');
+      rating.set({id: parseInt(this.model.escape('current_rating_id'))});
+      rating.save({}, {
+        success: function () {
+          this.model.set({current_user_rating: parseInt(newVal)});
+        }.bind(this)
+      });
+    } else if (newVal) {
+      console.log('b');
+      rating.save({}, {
+        success: function () {
+          this.model.set({
+            current_user_rating: parseInt(newVal),
+            current_rating_id: rating.id
+          });
+        }.bind(this)
+      });
+    }
   }
 })
