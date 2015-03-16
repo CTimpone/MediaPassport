@@ -129,7 +129,8 @@
   #search-bar:focus {
    outline: 0;
   }
-  .navigation button {
+
+  button {
    background: #BDBDBD;
    border-radius: 8px;
    border: none;
@@ -138,9 +139,13 @@
    border-right: 3px solid #444;
   }
 
-  .navigation button:hover {
+  button:hover {
    background: #444;
    color: #FEFFF5;
+  }
+
+  button:focus {
+    outline: 0;
   }
 
   .search-results > h1 {

@@ -6,7 +6,8 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
     "sign_up": "newUser",
     "shows/:title": "showLanding",
     "shows/:show_title/episodes/:title": "episodeLanding",
-    "posts/:id": "postDisplay"
+    "posts/:id": "postDisplay",
+    "watchlist": "watchlist"
   },
 
   initialize: function (options) {
