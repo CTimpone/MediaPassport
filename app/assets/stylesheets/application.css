@@ -134,8 +134,13 @@
    border-radius: 5px;
   }
 
+  #search-bar:hover {
+    color: #BDBDBD;
+  }
+
   #search-bar:focus {
    outline: 0;
+   color: #444;
   }
 
   button {
@@ -379,7 +384,7 @@
   .new-post > label > input {
     position: relative;
     font-size: 20px;
-    left: 10px;
+    left: 9px;
     width: 256px;
     margin: 10px 0;
   }
