@@ -15,10 +15,9 @@ class EpisodesController < ApplicationController
   def verify
     @episode = Show.find_by({title: escape_ampersands(show_title)}).episodes.find_by(title: escape_ampersands(params[:episode_id].gsub('_', ' ')))
     if @episode
-      p @episode
       render json: @episode
     else
-      render json: {errors: ["Episode does not exist"]}
+      render json: {verify: ["Episode does not exist"]}
     end
   end
 

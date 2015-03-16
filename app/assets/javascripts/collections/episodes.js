@@ -1,8 +1,8 @@
 MediaPassport.Collections.Episodes = Backbone.Collection.extend({
   url: function () {
     if (this.verify && this.episode_title) {
-      return "/shows/" + this.show_title.replace(/ /g, '_') + "/episodes/" +
-             this.episode_title.replace(/ /g, '_') + "/verify"
+      return "/shows/" + this.show_title + "/episodes/" +
+             this.episode_title + "/verify"
     } else {
       return "/shows/" + this.show_title.replace(/ /g, '_') + "/episodes/";
     }

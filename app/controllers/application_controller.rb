@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   def escape_ampersands(string)
+    string = URI.unescape(string)
     string.gsub('&amp;', '&')
   end
 end
