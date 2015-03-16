@@ -33,6 +33,10 @@
    cursor: pointer;
   }
 
+  input, textarea {
+    outline: 0;
+  }
+
   ul, li {
    list-style: none;
   }
@@ -94,6 +98,10 @@
    background: #2EB3DB;
   }
 
+  .navigation > .title:hover {
+    color: #FEFFF5;
+  }
+
   .navigation > .base {
    font-size: 14px;
    font-color: #EEEEEE;
@@ -142,6 +150,7 @@
   button:hover {
    background: #444;
    color: #FEFFF5;
+   border-right: 3px solid #BDBDBD;;
   }
 
   button:focus {
@@ -255,7 +264,7 @@
 
   .episode-list-item a:hover {
     background: #444;
-    color: #FEFFF5;
+    color: #FEFFF5;;
   }
 
   .episodes-container > .episode-preview {
@@ -303,6 +312,13 @@
     border-radius: 5px;
     border-right: 3px solid #444;
     font-size: 20px;
+    font-weight: 400;
+  }
+
+  .show-return:hover {
+    background: #444;
+    color: #FEFFF5;
+    border-right: 3px solid #BDBDBD;
   }
 
   section.schedule-section {
@@ -333,6 +349,50 @@
     border: 1px solid #444;
     height: 150px;
   }
+
+  .new-post {
+    float: right;
+    width: 390px;
+    background: #E0E0E0;
+    border: 3px solid #444;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 5px;
+  }
+
+  .new-post > h3 {
+    font-size: 24px;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 700;
+  }
+
+  .new-post > label {
+    font-size: 20px;
+    font-weight: 300;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    font-style: italic;
+  }
+
+  .new-post > label > input {
+    position: relative;
+    font-size: 20px;
+    left: 10px;
+    width: 256px;
+    margin: 10px 0;
+  }
+
+  .body-label {
+    bottom: 50px;
+  }
+
+  .new-post > .create-post {
+    float: right;
+  }
+
+
 
   .invis {
     display: none;

@@ -11,10 +11,11 @@
       Description:
       <%= episode.escape('description') %>
     </p>
-
-    <div class="episode-pic">
-      <img src="<%=episode.escape('image_url') %>"/>
-    </div>
+    <% if (episode.escape('image_url')) { %>
+      <div class="episode-pic">
+        <img src="<%=episode.escape('image_url') %>"/>
+      </div>
+    <% } %>
     <% if (!session.isNew()) { %>
       <div class="rating">
         <select class="current-user-rating">
@@ -41,4 +42,4 @@
 
 <ul class="post-list"></ul>
 
-<div class="post-form"></div>
+<div class="post-form group"></div>
