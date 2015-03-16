@@ -49,8 +49,8 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
           success: function () {
             var checkExistence = new MediaPassport.Collections.Episodes([], {
               verify: true,
-              show_title: encodeURI(show.get('title').replace(/ /g, '_')),
-              episode_title: encodeURI(episode.get('title').replace(/ /g, '_'))
+              show_title: encodeURIComponent(episode.show().get('title').replace(/ /g, '_')),
+              episode_title: encodeURIComponent(episode.get('title').replace(/ /g, '_'))
             });
             checkExistence.fetch({
               success: function () {
@@ -65,7 +65,7 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
                 var selector = '.grid-row[data-network="' +
                                 dbShow.escape('network').replace(/&amp;/g, '&') +
                                 '"]';
-                
+
                 this.addSubview(selector, subView);
               }.bind(this)
             })

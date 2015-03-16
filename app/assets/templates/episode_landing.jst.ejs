@@ -1,5 +1,5 @@
 <a class="show-return"
-   href="#shows/<%= encodeURI(episode.get('fShowTitle'))%>"
+   href="#shows/<%= encodeURIComponent(episode.get('fShowTitle'))%>"
   >Return to: <%= episode.escape('fShowTitle').replace(/_/g, ' ')%></a>
 
 

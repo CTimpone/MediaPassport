@@ -1,4 +1,4 @@
-<a href="#shows/<%=encodeURI(show.get('title').replace(/ /g,'_'))%>"><%=show.escape('title')%></a>
+<a href="#shows/<%=encodeURIComponent(show.get('title').replace(/ /g,'_'))%>"><%=show.escape('title')%></a>
 <p>
   <%= show.escape('description') %>
 </p>

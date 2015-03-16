@@ -1,1 +1,1 @@
-<a class="episode-link" href="#shows/<%=encodeURI(show.get('title').replace(/ /g,'_'))%>/episodes/<%= encodeURI(episode.get('title').replace(/ /g,'_'))%>"><%= episode.escape('title') %></a>
+<a class="episode-link" href="#shows/<%=encodeURIComponent(show.get('title').replace(/ /g,'_'))%>/episodes/<%= encodeURIComponent(episode.get('title').replace(/ /g,'_'))%>"><%= episode.escape('title') %></a>
