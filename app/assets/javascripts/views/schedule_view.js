@@ -10,6 +10,7 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
     this.collection.fetch();
     this.shows = options.shows;
     this._loaded = 0;
+    this.shows.fetch();
 
     var callback = function () {
       this._loaded += 1;
@@ -25,7 +26,7 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
     var content = this.template();
     this.$el.html(content);
 
-    if (this._loaded === 2) {
+    if (this._loaded >= 2) {
       this.networks = this.collection.map(function (model) {
         return model.show().escape('network').replace(/&amp;/g, '&');
       });
@@ -59,7 +60,7 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
   },
 
   generateSchedule: function () {
-    if (this._loaded === 2) {
+    if (this._loaded >= 2) {
       var count = 0;
       var len = this.collection.length;
       col = this.collection;
