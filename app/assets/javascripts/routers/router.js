@@ -62,7 +62,10 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
       this.listenToOnce(this._shows, "sync", this.showLanding.bind(this, title));
     } else {
       show.fetch({success: function () {
-        var view = new MediaPassport.Views.ShowLanding({model: show});
+        var view = new MediaPassport.Views.ShowLanding({
+          model: show,
+          session: this.session
+        });
         this._swapView(view);
       }.bind(this)});
     }

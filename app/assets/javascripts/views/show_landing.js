@@ -1,6 +1,7 @@
 MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
   initialize: function (options) {
     this._loaded = 0;
+    this.session = options.session;
 
     this._episodes = this.model.episodes();
 
@@ -16,17 +17,22 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
 
     this.listenTo(this._previewEpisode, "change", this.renderPreview)
     this.listenToOnce(this.model, "sync", this.render);
+    this.listenTo(this.session, "create change", this.render)
   },
 
   template: JST['show_show'],
 
   events: {
     "change .season-selector": "getItems",
-    "mouseover .episode-link": "choosePreviewEpisode"
+    "mouseover .episode-link": "choosePreviewEpisode",
+    "click .watchlist-toggle": "toggleWatchlistItem"
   },
 
   render: function () {
-    var content = this.template({show: this.model});
+    var content = this.template({
+      show: this.model,
+      session: this.session
+    });
     this.$el.html(content);
 
     if (this._loaded === true) {
@@ -94,5 +100,34 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
 
     this.previewView = previewSubview;
     this.addSubview('.episode-preview', this.previewView);
+  },
+
+  toggleWatchlistItem: function (event) {
+    var items;
+    var $button = $(event.currentTarget);
+    if (!$button.prop("disabled")) {
+      $button.html("Processing");
+      $button.prop("disabled", true)
+      items = new MediaPassport.Collections.WatchlistItems({
+        show_title: encodeURIComponent(this.model.get('title'))
+      });
+      if (this.model.escape("watching") === "true") {
+        items.create({}, {
+          success: function () {
+            $button.html("Add to your Watchlist");
+            $button.prop("disabled", false);
+            this.model.set({watching: false})
+          }.bind(this)
+        });
+      } else {
+        items.create({}, {
+          success: function () {
+            $button.html("Remove from Watchlist");
+            $button.prop("disabled", false);
+            this.model.set({watching: true})
+          }.bind(this)
+        });
+      }
+    }
   }
 })

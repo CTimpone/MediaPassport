@@ -5,10 +5,12 @@
       Description:
       <%= show.escape('description') %>
     </p>
-    <% if (show.escape('endorsed') === "true") {%>
-      Watching
-    <% } else { %>
-      Not Watching
+    <% if (!session.isNew()) {%>
+      <% if (show.escape('watching') === "true") {%>
+        <button class="watchlist-toggle">Remove from Watchlist</button>
+      <% } else { %>
+        <button class="watchlist-toggle">Add to your Watchlist</button>
+      <% } %>
     <% } %>
     <div class="show-pic">
       <img src="<%=show.escape('image_url')%>"/>
