@@ -1,2 +1,2 @@
-<%= item.escape('title') %>
+<a href="#shows/<%= encodeURIComponent(item.get('title'))%>"><%= item.escape('title') %></a>
 <button class="watchlist-toggle">Remove</button>
