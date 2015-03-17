@@ -1,7 +1,17 @@
 <h2><%= episode.escape('title')%></h2>
+<div class="rating-info">
+  <p>Average Rating</p>
+  <strong><%= episode.escape('rating') %></strong>
+  <% if (episode.escape('voters') !== "1") {%>
+    <p><%= episode.escape('voters')%> Votes</p>
+  <% } else { %>
+    <p><%= episode.escape('voters')%> Vote</p>
+  <% } %>
+</div>
 <span><%= episode.escape('airdate') %></span>
 <span>S<%= episode.escape('season')%>E<%= episode.escape('position')%></span>
 <p><%=episode.escape('description')%></p>
+
 
 <% if (image_url !== "") { %>
   <figure class="preview-image">

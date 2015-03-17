@@ -327,6 +327,34 @@
     height: auto
   }
 
+  .preview > .rating-info {
+    float: right;
+    background: #FEFFF5;
+    border: 3px solid #444;
+    padding: 5px;
+    border-radius: 5px;
+    position: relative;
+    top: -28px;
+  }
+
+  .rating-info > p {
+    font-style: italic;
+    text-align: center;
+  }
+
+  .rating-info > p:last-child {
+    font-size: 12px;
+  }
+
+  .rating-info > strong {
+    font-size: 24px;
+    text-align: center;
+    display: block;
+    margin: 5px 0;
+    color: #2EB3DB;
+    font-weight: 700;
+  }
+
   .show-return {
     float: right;
     background: #BDBDBD;
