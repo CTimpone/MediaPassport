@@ -93,22 +93,22 @@ class User < ActiveRecord::Base
             FROM
               watchlist_items
             WHERE
-              watchlist_items.user_id = ?
+              watchlist_items.user_id = :user_id
           ) as watched
           ON watched.show_id = watchlist_items.show_id
-          WHERE watchlist_items.user_id != ?
+          WHERE watchlist_items.user_id != :user_id
           GROUP BY
             watchlist_items.user_id
           ORDER BY
             num desc
           LIMIT
-            ?
+            :top_half
         ) AS similar_users
         ON similar_users.user_id = watchlist_items.user_id
         GROUP BY
           watchlist_items.show_id
         HAVING
-          count(watchlist_items.user_id) > ?
+          count(watchlist_items.user_id) > :matches
         ORDER BY
           count(watchlist_items.user_id) desc
         ) AS rec_ids
@@ -124,13 +124,13 @@ class User < ActiveRecord::Base
         FROM
           watchlist_items
         WHERE
-          watchlist_items.user_id = ?) as user_items
+          watchlist_items.user_id = :user_id) as user_items
       ON shows.id = user_items.show_id) as already_watched
     ON already_watched.id = potentials.id
     WHERE already_watched.id IS null
     SQL
 
-    Show.find_by_sql([query, self.id, self.id, 6, 2, self.id])
+    Show.find_by_sql([query, {user_id: self.id, top_half: User.all.length / 2, matches: 2}])
   end
 
   private
