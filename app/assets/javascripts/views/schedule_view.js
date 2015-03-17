@@ -6,8 +6,6 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
   className: "schedule-section",
 
   initialize: function (options) {
-    this.collection = new MediaPassport.Collections.ApiSchedule();
-    this.collection.fetch();
     this.shows = options.shows;
     this._loaded = 0;
     this.shows.fetch();

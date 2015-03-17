@@ -1,5 +1,11 @@
 <h1>Landing Page - Under Construction</h1>
 
 <article class="schedule-container">
-
+  <div class="schedule-tabs">
+    <% if (!session.isNew()) { %>
+      <button class=".user-switch">Your List</button>
+    <% } %>
+    <button class=".list-switch">Full List</button>
+    <button class=".grid-switch">Full Grid</button>
+  </div>
 </article>

@@ -244,9 +244,24 @@
   }
 
   .watchlist-toggle {
-    margin: 20px 0 10px 0;
-    position: relative;
-    left: 70px;
+    margin: 20px auto;
+    display: block;
+  }
+
+  .most-recent {
+    display: block;
+    margin: 10px auto;
+    font-weight: 700;
+    border: 2px solid #444;
+    padding: 5px;
+    border-radius: 10px;
+    width: 210px;
+    text-align: center;
+  }
+
+  .most-recent:hover {
+    background: #444;
+    color: #FEFFF5;
   }
 
   .episode-pic > img {
@@ -385,6 +400,22 @@
     background: #E0E0E0;
     margin: 0 auto;
     border: 3px solid #444;
+  }
+
+  .schedule-container {
+    width: 721px;
+    margin: 0 auto;
+  }
+
+  .schedule-tabs {
+    margin-top: 20px;
+  }
+
+  .schedule-tabs > button {
+    border-radius: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: #2EB3DB;
   }
 
   .schedule {
