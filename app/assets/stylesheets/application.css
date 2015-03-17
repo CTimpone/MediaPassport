@@ -243,6 +243,12 @@
     float: left;
   }
 
+  .watchlist-toggle {
+    margin: 20px 0 10px 0;
+    position: relative;
+    left: 70px;
+  }
+
   .episode-pic > img {
     background-size: contain;
     width: 340px;

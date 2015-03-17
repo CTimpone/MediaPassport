@@ -69,7 +69,6 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
   renderItems: function (episodes) {
     this.subviews('.episodes-list').length !== 0 &&
       this.removeAllFromSelector('.episodes-list');
-    console.log(this._episodes);
     _.each(episodes.reverse(), function (episode) {
 
       var dbEpisode = this._episodes.CRU(_.clone(episode.attributes, {}));
@@ -90,8 +89,18 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
   },
 
   renderPreview: function () {
-    this.previewView && this.previewView.remove();
-    var previewSubview = new MediaPassport.Views.EpisodePreview({model: this._previewEpisode});
+    if (this.previewView) {
+      this.previewView.remove();
+    } else {
+      var encodedEpisode = encodeURIComponent(this._previewEpisode.get('title').replace(/ /g,'_'));
+      var encodedShow = encodeURIComponent(this.model.get('title').replace(/ /g,'_'));
+      var link = "#shows/" + encodedShow + "/episodes/" + encodedEpisode;
+      console.log(link);
+      $('.most-recent').attr("href", link)
+    }
+    var previewSubview = new MediaPassport.Views.EpisodePreview({
+      model: this._previewEpisode
+    });
 
     var selected = $('.season-selector').val();
     if (selected !== this._previewEpisode.escape('season')) {

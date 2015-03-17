@@ -4,14 +4,16 @@
     <p>
       Description:
       <%= show.escape('description') %>
-    </p>
-    <% if (!session.isNew()) {%>
-      <% if (show.escape('watching') === "true") {%>
-        <button class="watchlist-toggle">Remove from Watchlist</button>
-      <% } else { %>
-        <button class="watchlist-toggle">Add to your Watchlist</button>
+      <br>
+      <% if (!session.isNew()) {%>
+        <% if (show.escape('watching') === "true") {%>
+          <button class="watchlist-toggle">Remove from Watchlist</button>
+        <% } else { %>
+          <button class="watchlist-toggle">Add to your Watchlist</button>
+        <% } %>
+        <a href="#" class="most-recent">Most Recent Episode</a>
       <% } %>
-    <% } %>
+    </p>
     <div class="show-pic">
       <img src="<%=show.escape('image_url')%>"/>
     </div>
