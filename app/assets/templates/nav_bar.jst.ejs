@@ -1,11 +1,14 @@
 <a class='title' href="#">Media Passport</a>
 
-<div class="base">
+<div class="base group">
   <% if (!signedIn) { %>
     <button class="sign-in">Sign In</button>
     <button class="sign-up">Sign Up</button>
   <% } else { %>
-    <%= user.escape('username') %>
+    <div class="links">
+      <%= user.escape('username') %>
+      <a href="#watchlist">Your Watchlist</a>
+    </div>
     <button class="sign-out">Sign Out</button>
   <% } %>
 

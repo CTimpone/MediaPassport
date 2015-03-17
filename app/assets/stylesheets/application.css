@@ -114,6 +114,16 @@
    text-align: center;
   }
 
+  .navigation > .base .links {
+    float: left;
+    width: 140px;
+  }
+
+  .links > a {
+    padding: 5px 0 0 0 ;
+    color: #2EB3DB;
+  }
+
   .navigation > .base button {
    margin-left: 20px;
   }
