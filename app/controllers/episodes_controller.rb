@@ -1,6 +1,6 @@
 class EpisodesController < ApplicationController
   def show
-    @episode = current_show.episodes.includes(:posts).find_by(title: escape_ampersands(episode_title))
+    @episode = current_show.episodes.includes(:posts).find_by(title: episode_title)
     current_user ? current_rating = current_user.ratings.find_by({episode_id: @episode.id}) : current_rating = nil
     if current_rating
       @rating_id = current_rating.id
@@ -13,7 +13,7 @@ class EpisodesController < ApplicationController
   end
 
   def verify
-    @episode = Show.find_by({title: escape_ampersands(show_title)}).episodes.find_by(title: escape_ampersands(params[:episode_id].gsub('_', ' ')))
+    @episode = Show.find_by({title: show_title}).episodes.find_by({title: episode_title})
     if @episode
       render json: @episode
     else
@@ -50,10 +50,10 @@ class EpisodesController < ApplicationController
   end
 
   def episode_title
-    params[:id].gsub('_', ' ') if params[:id]
+    escape_ampersands(params[:id]) if params[:id]
   end
 
   def show_title
-    params[:show_id].gsub('_', ' ')
+    escape_ampersands(params[:show_id])
   end
 end

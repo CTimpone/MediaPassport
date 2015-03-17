@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   def escape_ampersands(string)
+    string = string.gsub('_', ' ')
     string = URI.decode_www_form_component(string)
     string.gsub('&amp;', '&')
   end
