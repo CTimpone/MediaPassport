@@ -66,6 +66,73 @@ class User < ActiveRecord::Base
     self.session_token
   end
 
+  def recommendations
+    query = <<-SQL
+    SELECT
+      potentials.*
+    FROM (
+      SELECT
+        shows.*
+      FROM
+        shows
+      JOIN (
+        SELECT
+          watchlist_items.show_id,
+          count(watchlist_items.user_id) as user_count
+        FROM
+          watchlist_items
+        JOIN (
+          SELECT
+            watchlist_items.user_id,
+            count(watchlist_items.show_id) as num
+          FROM
+            watchlist_items
+          JOIN (
+            SELECT
+              watchlist_items.show_id
+            FROM
+              watchlist_items
+            WHERE
+              watchlist_items.user_id = ?
+          ) as watched
+          ON watched.show_id = watchlist_items.show_id
+          WHERE watchlist_items.user_id != ?
+          GROUP BY
+            watchlist_items.user_id
+          ORDER BY
+            num desc
+          LIMIT
+            ?
+        ) AS similar_users
+        ON similar_users.user_id = watchlist_items.user_id
+        GROUP BY
+          watchlist_items.show_id
+        HAVING
+          count(watchlist_items.user_id) > ?
+        ORDER BY
+          count(watchlist_items.user_id) desc
+        ) AS rec_ids
+      ON shows.id = rec_ids.show_id) as potentials
+    LEFT OUTER JOIN (
+      SELECT
+        shows.*
+      FROM
+        shows
+      JOIN (
+        SELECT
+          watchlist_items.*
+        FROM
+          watchlist_items
+        WHERE
+          watchlist_items.user_id = ?) as user_items
+      ON shows.id = user_items.show_id) as already_watched
+    ON already_watched.id = potentials.id
+    WHERE already_watched.id IS null
+    SQL
+
+    Show.find_by_sql([query, self.id, self.id, 6, 2, self.id])
+  end
+
   private
   def ensure_session_token
     self.session_token = SecureRandom.urlsafe_base64

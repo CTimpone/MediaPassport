@@ -16,57 +16,6 @@ class Show < ActiveRecord::Base
     primary_key: :id
   )
 
-  def self.user_recommendations(user_id)
-    query = <<-SQL
-
-    SELECT
-      shows.*
-    FROM
-      shows
-    JOIN (
-      SELECT
-        watchlist_items.show_id,
-        count(watchlist_items.user_id) as user_count
-      FROM
-        watchlist_items
-      JOIN (
-        SELECT
-          watchlist_items.user_id,
-          count(watchlist_items.show_id) as num
-        FROM
-          watchlist_items
-        JOIN (
-          SELECT
-            watchlist_items.show_id
-          FROM
-            watchlist_items
-          WHERE
-            watchlist_items.user_id = ?
-        ) as watched
-        ON watched.show_id = watchlist_items.show_id
-        WHERE watchlist_items.user_id != ?
-        GROUP BY
-          watchlist_items.user_id
-        ORDER BY
-          num desc
-        LIMIT
-          ?
-      ) AS similar_users
-      ON similar_users.user_id = watchlist_items.user_id
-      GROUP BY
-        watchlist_items.show_id
-      HAVING
-        count(watchlist_items.user_id) > ?
-      ORDER BY
-        count(watchlist_items.user_id) desc
-      ) AS rec_ids
-    ON shows.id = rec_ids.show_id
-    SQL
-
-    Show.find_by_sql([query, user_id, user_id, 6, 2])
-  end
-
-
   def most_recent_episode
     episodes.order(airdate: :desc).first
   end
