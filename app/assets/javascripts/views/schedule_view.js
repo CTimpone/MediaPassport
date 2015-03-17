@@ -39,7 +39,9 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
         $('.schedule').append($(row));
       });
 
-      this.times = _.uniq(this.collection.pluck("airtime"));
+      this.times = this.collection.pluck("airtime");
+      this.times = ["19:00", "19:30","20:00", "20:30", "21:00", "21:30", "22:00"].concat(this.times);
+      this.times = _.uniq(this.times);
       _.each(this.times, function (time) {
         var base = parseInt(time.slice(0, 2));
         if (base > 12) {
@@ -89,6 +91,7 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
   },
 
   developGrid: function () {
+    console.log(this.times);
     _.each(this.networks, function (network) {
       var newEpisodes = this.collection.where({network: network});
       var tempCollection = new MediaPassport.Collections.ApiEpisodes(newEpisodes)
