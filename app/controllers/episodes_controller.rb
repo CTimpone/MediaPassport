@@ -23,7 +23,7 @@ class EpisodesController < ApplicationController
 
   def create
     @episode = current_show.episodes.new(episode_params)
-    @episode.airdate = Date.parse(episode_params[:airdate]);
+    @episode.airdate = Date.parse(episode_params[:airdate])
     if @episode.save
       render json: @episode
     else
