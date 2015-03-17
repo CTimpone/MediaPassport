@@ -5,7 +5,11 @@
       Description:
       <%= show.escape('description') %>
     </p>
-
+    <% if (show.escape('endorsed') === "true") {%>
+      Watching
+    <% } else { %>
+      Not Watching
+    <% } %>
     <div class="show-pic">
       <img src="<%=show.escape('image_url')%>"/>
     </div>

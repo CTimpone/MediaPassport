@@ -19,8 +19,12 @@ class PostsController < ApplicationController
         else
           comment["endorsed"] = false
         end
-        p comment
       end
+    end
+    if !current_user
+      @endorsed = false
+    else
+      @endorsed = !!current_user.endorsements.find_by({endorsable_type: "Post", endorsable_id: @post.id})
     end
     render "show.json.jbuilder"
   end

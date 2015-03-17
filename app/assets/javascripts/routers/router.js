@@ -54,7 +54,7 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
   },
 
   showLanding: function (title) {
-    title = title.replace(/_/g, ' ')
+    title = decodeURI(title.replace(/_/g, ' '));
     var show = this._shows.where({title: title})[0];
 
     if (!show) {

@@ -10,7 +10,7 @@ MediaPassport.Models.Show = Backbone.Model.extend({
 
   episodes: function () {
     if (!this._episodes) {
-      this._episodes = new MediaPassport.Collections.Episodes([], {show_title: this.escape('title')});
+      this._episodes = new MediaPassport.Collections.Episodes([], {show_title: this.get('title')});
     }
 
     return this._episodes;

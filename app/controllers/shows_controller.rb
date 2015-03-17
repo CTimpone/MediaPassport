@@ -1,6 +1,11 @@
 class ShowsController < ApplicationController
   def show
     @show = Show.includes(:episodes).find_by(title: escape_ampersands(params[:id]))
+    if !current_user
+      @endorsed = false
+    else
+      @endorsed = !!current_user.watchlist_items.find_by(show_id: @show.id)
+    end
     render "show.json.jbuilder"
   end
 
@@ -28,7 +33,17 @@ class ShowsController < ApplicationController
   end
 
   def watchlist_toggle
-    @show = Show.find_by(title)
+    show = Show.find_by(title: escape_ampersands(params[:id]))
+    @item = WatchlistItem.find_by(user_id: current_user.id, show_id: show.id)
+    if @item
+      @item.destroy!
+      render json: @item
+    else
+      @item = current_user.watchlist_items.create({
+        show_id: show.id
+      })
+      render json: @item
+    end
   end
 
   private
