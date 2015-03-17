@@ -112,13 +112,19 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
         show_title: encodeURIComponent(this.model.get('title'))
       });
       if (this.model.escape("watching") === "true") {
-        items.create({}, {
-          success: function () {
-            $button.html("Add to your Watchlist");
-            $button.prop("disabled", false);
-            this.model.set({watching: false})
-          }.bind(this)
-        });
+        if (window.confirm("Are you sure you want to remove " +
+                            this.model.escape('title') + " from your watchlist?")) {
+          items.create({}, {
+            success: function () {
+              $button.html("Add to your Watchlist");
+              $button.prop("disabled", false);
+              this.model.set({watching: false})
+            }.bind(this)
+          });
+        } else {
+          $button.prop("disabled", false)
+          $button.html("Remove from Watchlist");
+        }
       } else {
         items.create({}, {
           success: function () {

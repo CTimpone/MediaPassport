@@ -22,16 +22,19 @@ MediaPassport.Views.WatchlistItem = Backbone.View.extend({
     var items;
     var $button = $(event.currentTarget);
     if (!$button.prop("disabled")) {
-      $button.html("Processing");
-      $button.prop("disabled", true)
-      items = new MediaPassport.Collections.WatchlistItems({
-        show_title: encodeURIComponent(this.model.get('title'))
-      });
-      items.create({}, {
-        success: function () {
-          this.remove();
-        }.bind(this)
-      });
+      if (window.confirm("Are you sure you want to remove " +
+                          this.model.escape('title') + " from your watchlist?")) {
+        $button.html("Processing");
+        $button.prop("disabled", true)
+        items = new MediaPassport.Collections.WatchlistItems({
+          show_title: encodeURIComponent(this.model.get('title'))
+        });
+        items.create({}, {
+          success: function () {
+            this.remove();
+          }.bind(this)
+        });
+      }
     }
   }
 })
