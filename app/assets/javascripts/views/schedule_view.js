@@ -9,7 +9,6 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
     this.shows = options.shows;
     this.localLoad = options.localLoad;
     this.apiLoad = options.apiLoad;
-
     this.listenToOnce(this.collection, "sync", function () {
       this.apiLoad = true;
       this.render();
@@ -26,37 +25,40 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
     this.$el.html(content);
 
     if (this.localLoad && this.apiLoad) {
-      this.networks = this.collection.map(function (model) {
-        return model.show().escape('network').replace(/&amp;/g, '&');
-      });
-      this.networks = _.uniq(this.networks).sort();
+      var timer = setInterval(function () {
+        this.networks = this.collection.map(function (model) {
+          return model.show().escape('network').replace(/&amp;/g, '&');
+        });
+        this.networks = _.uniq(this.networks).sort();
 
-      _.each(this.networks, function (network) {
-        var row = "<tr class='grid-row' network=" +
-                  network.replace(/[^\w]/gi, '') + "><td class='network-name'>" +
-                  network + "</td></tr>";
-        $('.schedule').append($(row));
-      });
+        _.each(this.networks, function (network) {
+          var row = "<tr class='grid-row' network=" +
+                    network.replace(/[^\w]/gi, '') + "><td class='network-name'>" +
+                    network + "</td></tr>";
+          $('.schedule').append($(row));
+        });
 
-      this.times = this.collection.pluck("airtime");
-      this.times = ["20:00", "20:30", "21:00", "21:30", "22:00"].concat(this.times);
-      this.times = _.uniq(this.times);
-      _.each(this.times, function (time) {
-        var base = parseInt(time.slice(0, 2));
-        if (base > 12) {
-          var USTime = String(Math.abs(base - 12)) + time.slice(2, 5);
-        } else if (base === 0) {
-          var USTime = "12" + time.slice(2, 5);
-        } else if (time === "") {
-          var USTime = "12:00";
-        } else {
-          var USTime = time.slice(1, 5);
-        }
-        var col = "<th>" + USTime + "</th>";
-        $('.grid-header').append($(col));
-      });
+        this.times = this.collection.pluck("airtime");
+        this.times = ["20:00", "20:30", "21:00", "21:30", "22:00"].concat(this.times);
+        this.times = _.uniq(this.times);
+        _.each(this.times, function (time) {
+          var base = parseInt(time.slice(0, 2));
+          if (base > 12) {
+            var USTime = String(Math.abs(base - 12)) + time.slice(2, 5);
+          } else if (base === 0) {
+            var USTime = "12" + time.slice(2, 5);
+          } else if (time === "") {
+            var USTime = "12:00";
+          } else {
+            var USTime = time.slice(1, 5);
+          }
+          var col = "<th>" + USTime + "</th>";
+          $('.grid-header').append($(col));
+        });
+        clearInterval(timer);
+        this.generateSchedule();
+      }.bind(this), 1)
 
-      this.generateSchedule();
     }
 
     return this;

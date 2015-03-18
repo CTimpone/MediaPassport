@@ -24,7 +24,7 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
       }.bind(this)
     });
 
-    this._style = "list";
+    this._style = "grid";
     this.listenTo(this.session, "change create", this.render)
   },
 
