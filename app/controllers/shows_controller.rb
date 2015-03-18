@@ -41,7 +41,7 @@ class ShowsController < ApplicationController
       show.delete('year')
       arr.push(show)
     end
-    Show.create!(arr)
+    Show.create(arr)
     render json: arr
   end
 

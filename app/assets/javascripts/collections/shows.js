@@ -64,12 +64,13 @@ MediaPassport.Collections.Shows = Backbone.Collection.extend({
       show = new this.model(attributes);
       if (exactShow.length === 0 && sameTitle.length === 0) {
         this.toCreate.push(attributes);
+
         this.newTitles.push(attributes.title);
         this.newTitles = _.uniq(this.newTitles);
       } else if (exactShow.length === 0 && sameTitle.length > 0){
-        console.log('same title');
         attributes.title += " (" + attributes.year + ")"
         this.toCreate.push(attributes);
+
         this.newTitles.push(attributes.title);
         this.newTitles = _.uniq(this.newTitles);
       }
@@ -81,6 +82,8 @@ MediaPassport.Collections.Shows = Backbone.Collection.extend({
   batchSave: function (options, context) {
     var toCreate = (_.uniq(this.toCreate));
     console.log(toCreate);
+    console.log(this);
+
     $.ajax({
       type: "POST",
       url: '/shows/batch_create',

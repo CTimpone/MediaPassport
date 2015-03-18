@@ -1,6 +1,5 @@
 MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
   initialize: function (options) {
-    this._loaded = 0;
     this.session = options.session;
 
     this._episodes = this.model.episodes();
@@ -15,8 +14,8 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
 
     this.subviews();
 
-    this.listenTo(this._previewEpisode, "change", this.renderPreview)
-    this.listenToOnce(this.model, "sync", function () {
+    this.listenTo(this._previewEpisode, "change", this.renderPreview);
+    this.listenTo(this.model, "sync", function () {
       this._localLoaded = true;
       this.render();
     });
@@ -36,7 +35,9 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
       show: this.model,
       session: this.session
     });
+
     this.$el.html(content);
+
 
     if (this._localLoaded === true) {
       $('.season-selector').empty();
@@ -48,7 +49,12 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
                      '</option>'
         $selector.append($(option))
       };
+
       this.getItems();
+
+      if (!this.previewView) {
+        this._apiEpisodes.mostRecentlyAired(this._previewEpisode);
+      }
     }
 
     return this;
@@ -79,27 +85,35 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
       });
 
       this.addSubview('.episodes-list', subView);
+      if (this.previewView) {
+        this.previewView.render();
+      }
     }.bind(this));
   },
 
   addNew: function () {
-
-
     var count = 0;
 
     this._apiEpisodes.each(function (episode) {
       this._episodes.CRU(_.clone(episode.attributes), {});
-      
+
       count += 1;
 
       if (count === this._apiEpisodes.length) {
         var that = this;
-        this._episodes.batchSave({}, that);
-        this.render();
-        if (!this.previewView) {
-          this._apiEpisodes.mostRecentlyAired(this._previewEpisode);
+
+        if (this._episodes.toCreate.length > 0) {
+
+          this._episodes.batchSave({
+            success: function () {
+              that._apiLoaded = true;
+              that._localLoaded = false;
+              that.model.fetch();
+            }.bind(that)
+          }, that);
         }
       }
+
     }.bind(this));
   },
 
@@ -131,7 +145,6 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
 
     this.previewView = previewSubview;
     this.addSubview('.episode-preview', this.previewView);
-
   },
 
   toggleWatchlistItem: function (event) {

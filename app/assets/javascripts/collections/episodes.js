@@ -5,7 +5,8 @@ MediaPassport.Collections.Episodes = Backbone.Collection.extend({
       return "/shows/" + this.show_title + "/episodes/" +
              this.episode_title + "/verify?q=" + obj;
     } else {
-      return "/shows/" + this.show_title.replace(/ /g, '_') + "/episodes/";
+      return "/shows/" + encodeURIComponent(this.show_title.replace(/ /g, '_')) +
+             "/episodes/";
     }
   },
 
@@ -19,6 +20,9 @@ MediaPassport.Collections.Episodes = Backbone.Collection.extend({
     this.show_title = options.show_title;
     if (options.verify) this.verify = options.verify;
     if (options.episode_title) this.episode_title = options.episode_title;
+
+    this.toCreate = [];
+    this.newTitles = [];
   },
 
   CRU: function (attributes) {
@@ -26,6 +30,16 @@ MediaPassport.Collections.Episodes = Backbone.Collection.extend({
 
     if (!attributes.description) {
       attributes.description = "No available description";
+    }
+
+    var sameTitle = this.where({title: attributes.title});
+
+    if (sameTitle.length === 0) {
+      _.each(this.newTitles, function (title) {
+        if (attributes.title === title) {
+          sameTitle.push(title)
+        }
+      });
     }
 
     if (exactEpisode.length === 1) {
@@ -75,15 +89,39 @@ MediaPassport.Collections.Episodes = Backbone.Collection.extend({
 
     } else {
       episode = new this.model();
-      if (exactEpisode.length === 0 && this.where({title: attributes.title}).length === 0) {
-        episode = this.create(attributes);
+      if (exactEpisode.length === 0 && sameTitle.length === 0) {
+        this.toCreate.push(attributes);
+
+        this.newTitles.push(attributes.title);
+        this.newTitles = _.uniq(this.newTitles);
       } else {
         var title = attributes.title + " (S" + attributes.season + ")";
-        attributes.title = title;
-        episode = this.create(attributes);
+        this.toCreate.push(attributes);
+
+        this.newTitles.push(attributes.title);
+        this.newTitles = _.uniq(this.newTitles);
       }
     }
 
     return episode;
+  },
+
+  batchSave: function (options, context) {
+    var toCreate = (_.uniq(this.toCreate));
+    var createUrl = "/shows/" + encodeURIComponent(this.show_title.replace(/ /g, '_')) +
+                    "/episodes/batch_create";
+
+    $.ajax({
+      type: "POST",
+      url: createUrl,
+      data: {episodes: toCreate},
+      dataType: 'json',
+      success: function () {
+        options.success && options.success();
+        this.toCreate = [];
+      }.bind(this)
+    });
   }
+
+
 })

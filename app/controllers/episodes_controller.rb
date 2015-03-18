@@ -31,6 +31,18 @@ class EpisodesController < ApplicationController
     end
   end
 
+  def batch_create
+    data = params["episodes"]
+    arr = []
+    data.each do |key, episode|
+      episode.delete("airtime")
+      episode.delete("runtime")
+      arr.push(episode)
+    end
+    current_show.episodes.create!(arr)
+    render json: arr
+  end
+
   def update
     @episode = current_show.episodes.find_by(title: escape_ampersands(episode_title))
     if @episode.update_attributes(episode_params)

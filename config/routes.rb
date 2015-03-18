@@ -14,6 +14,9 @@ Rails.application.routes.draw do
       member do
         get "verify"
       end
+      collection do
+        post "batch_create"
+      end
     end
   end
   resources :posts, only: [:create, :new, :show] do

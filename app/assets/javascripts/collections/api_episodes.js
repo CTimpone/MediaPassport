@@ -24,7 +24,10 @@ MediaPassport.Collections.ApiEpisodes = Backbone.Collection.extend({
 
       if (count === times.length) {
         index = times.indexOf(mostRecent);
-        holder.set(_.clone(this.at(index).attributes));
+        if (index !== -1) {
+          holder.set(_.clone(this.at(index).attributes));
+        }
+
       }
 
       count+=1
