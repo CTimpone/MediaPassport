@@ -6,11 +6,12 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
   initialize: function (options) {
     this.query = window.location.hash.split('q=')[1]
     this._shows = options.shows;
+    this.page = 1;
 
     this._apiResults = new MediaPassport.Collections.ApiShows({title: this.query});
     this._localResults = new MediaPassport.Collections.Search({
       query: this.query,
-      page: 1
+      page: this.page
     });
 
     this._apiResults.fetch({
@@ -27,7 +28,11 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
 
     this.listenToOnce(this._shows, "sync", this.render);
     this.listenToOnce(this._apiResults, "sync", this.render);
-    this.listenToOnce(this._localResults, "sync", this.render);
+    this.listenTo(this._localResults, "sync", this.render);
+  },
+
+  events: {
+    "click .paginators a":"changePage"
   },
 
   template: JST['search_results'],
@@ -38,6 +43,9 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
 
     if (this._localLoaded === true) {
       this.renderItems();
+      if (this._localResults.length < 10) {
+        $('.paginators').addClass('invis');
+      }
     }
     return this;
   },
@@ -62,5 +70,14 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
       }.bind(this));
     }
     return this;
+  },
+
+  changePage: function (event) {
+    var dir = parseInt($(event.currentTarget).attr("dir"));
+
+    this.page += dir;
+    this._localResults.page = this.page;
+
+    this._localResults.fetch();
   }
 })

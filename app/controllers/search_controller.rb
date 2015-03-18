@@ -1,6 +1,8 @@
 class SearchController < ApplicationController
   def index
-    @results = PgSearch.multisearch(params["query"]).page(params["page"]).per(15);
+    total = PgSearch.multisearch(params["query"]).page(1).total_count
+    realPage = Integer(params["page"]) % (total / 10.0).ceil
+    @results = PgSearch.multisearch(params["query"]).page(realPage).per(10);
     @final = []
     @results.each do |result|
       if result.searchable_type == "Episode"
