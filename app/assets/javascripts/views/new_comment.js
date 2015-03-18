@@ -27,6 +27,14 @@ MediaPassport.Views.NewComment = Backbone.View.extend({
     data.parent_id = this.parent_id;
     data.post_id = this.post.id;
     data.author = this.author;
-    this.collection.create(data, {wait: true})
+    this.collection.create(data, {
+      wait: true,
+      error: function (obj, response) {
+        this.render();
+        _.each(response.responseJSON.errors, function (error) {
+          $('.errors').append($("<li>" + error + "</li>"))
+        }.bind(this));
+      }.bind(this)
+    })
   }
 })

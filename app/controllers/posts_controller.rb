@@ -1,10 +1,10 @@
 class PostsController < ApplicationController
   def create
-    post = current_user.posts.new(post_params)
-    if post.save
-      render json: post
+    @post = current_user.posts.new(post_params)
+    if @post.save
+      render json: @post
     else
-      render json: post
+      render json: {errors: @post.errors.full_messages}, status: 422
     end
   end
 

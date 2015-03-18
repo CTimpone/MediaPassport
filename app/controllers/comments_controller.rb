@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
     if @comment.save
       render json: @comment
     else
-      render json: @comment
+      render json: {errors: @comment.errors.full_messages}, status: 422
     end
   end
 
@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
     if @comment.update_attributes(edit_comment_params)
       render json: @comment
     else
-      render json: @comment
+      render json: {errors: @comment.errors.full_messages}, status: 422
     end
   end
 

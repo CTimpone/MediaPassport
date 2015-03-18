@@ -34,20 +34,6 @@ MediaPassport.Views.CommentDisplay = Backbone.CompositeView.extend({
     this.$el.html(content);
 
     this.renderChildren();
-    // if (signedIn && !creator) {
-    //   var newCommentSubview = new MediaPassport.Views.NewComment({
-    //     collection: this.collection,
-    //     post: this.post,
-    //     parent_id: this.comment.id,
-    //     author: this.session.get('author')
-    //   })
-    //   this.addSubview('.nested-comment-form[data-id="' + this.comment.id + '"]', newCommentSubview);
-    // } else if (signedIn && creator) {
-    //   var updateCommentSubview = new MediaPassport.Views.UpdateComment({
-    //     model: this.comment
-    //   })
-    //   this.addSubview('.nested-comment-form[data-id="' + this.comment.id + '"]', updateCommentSubview);
-    // }
 
     return this;
   },
@@ -81,7 +67,7 @@ MediaPassport.Views.CommentDisplay = Backbone.CompositeView.extend({
     if ($(event.currentTarget).data("id") === this.comment.id) {
       var signedIn = !this.session.isNew();
       var creator = this.session.escape('username') === this.comment.escape('author');
-
+      console.log(this.parentView);
       this.parentView.regexRemoveAllFromSelector(/nested-comment-form/);
       if (signedIn && !creator) {
         var newCommentSubview = new MediaPassport.Views.NewComment({
