@@ -1,4 +1,7 @@
 class Episode < ActiveRecord::Base
+  include PgSearch
+  multisearchable against: :title
+
   validates :show_id, :title, :season, :position, :airdate, presence: true
   validates :maze_id, uniqueness: true, allow_nil: true
   validates :position, uniqueness: {scope: [:season, :show_id]}
