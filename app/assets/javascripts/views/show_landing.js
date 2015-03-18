@@ -4,20 +4,22 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
     this.session = options.session;
 
     this._episodes = this.model.episodes();
-    console.log(this._episodes);
+
     this._apiEpisodes = new MediaPassport.Collections.ApiEpisodes({maze_id: this.model.escape('maze_id')});
 
     this._apiEpisodes.fetch({success: function () {
-      this._loaded = true;
-      this.render();
+      this.addNew();
     }.bind(this)});
+
     this._previewEpisode = new MediaPassport.Models.ApiEpisode();
 
     this.subviews();
 
-    this.listenTo(this._episodes, "change", function () {console.log('x');})
     this.listenTo(this._previewEpisode, "change", this.renderPreview)
-    this.listenToOnce(this.model, "sync", this.render);
+    this.listenToOnce(this.model, "sync", function () {
+      this._localLoaded = true;
+      this.render();
+    });
     this.listenTo(this.session, "create change", this.render)
   },
 
@@ -36,9 +38,10 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
     });
     this.$el.html(content);
 
-    if (this._loaded === true) {
+    if (this._localLoaded === true) {
       $('.season-selector').empty();
-      var season = Math.max.apply(null, this._apiEpisodes.pluck("season"))
+      var season = Math.max.apply(null, this._episodes.pluck("season"));
+
       var $selector = $('.season-selector');
       for (var i = season; i > 0; i--) {
         var option = '<option value="' + i + '">Season '+ i +
@@ -54,12 +57,10 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
   getItems: function () {
     $('.episodes-list').empty();
 
-    if (this._loaded === true) {
-      if (!this.previewView) {
-        this._apiEpisodes.mostRecentlyAired(this._previewEpisode);
-      }
+    if (this._localLoaded === true) {
+
       var season = $('.season-selector').val();
-      var episodes = this._apiEpisodes.where({season: parseInt(season)})
+      var episodes = this._episodes.where({season: parseInt(season)})
 
       this.renderItems(episodes);
     }
@@ -72,13 +73,31 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
       this.removeAllFromSelector('.episodes-list');
     _.each(episodes.reverse(), function (episode) {
 
-      var dbEpisode = this._episodes.CRU(_.clone(episode.attributes, {}));
       var subView = new MediaPassport.Views.EpisodeListItem({
-        model: dbEpisode,
+        model: episode,
         show: this.model
       });
 
       this.addSubview('.episodes-list', subView);
+    }.bind(this));
+  },
+
+  addNew: function () {
+
+
+    var count = 0;
+
+    this._apiEpisodes.each(function (episode) {
+      this._episodes.CRU(_.clone(episode.attributes), {});
+
+      count += 1;
+
+      if (count === this._apiEpisodes.length) {
+        this.render();
+        if (!this.previewView) {
+          this._apiEpisodes.mostRecentlyAired(this._previewEpisode);
+        }
+      }
     }.bind(this));
   },
 
@@ -93,11 +112,9 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
     if (this.previewView) {
       this.previewView.remove();
     } else {
-
       var encodedEpisode = encodeURIComponent(this._previewEpisode.get('title').replace(/ /g,'_'));
       var encodedShow = encodeURIComponent(this.model.get('title').replace(/ /g,'_'));
       var link = "#shows/" + encodedShow + "/episodes/" + encodedEpisode;
-
       $('.most-recent').attr("href", link)
     }
     var previewSubview = new MediaPassport.Views.EpisodePreview({
@@ -105,13 +122,14 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
     });
 
     var selected = $('.season-selector').val();
+
     if (selected !== this._previewEpisode.escape('season')) {
       $('.season-selector').val(parseInt(this._previewEpisode.escape('season')));
-      this.getItems();
     }
 
     this.previewView = previewSubview;
     this.addSubview('.episode-preview', this.previewView);
+
   },
 
   toggleWatchlistItem: function (event) {

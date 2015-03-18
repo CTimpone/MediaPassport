@@ -9,6 +9,7 @@ MediaPassport.Views.EpisodePreview = Backbone.View.extend({
       episode: this.model,
       image_url: this.model.escape('image_url')
     });
+    
     this.$el.html(content);
 
     return this
