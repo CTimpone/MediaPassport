@@ -23,8 +23,14 @@ MediaPassport.Views.NewUser = Backbone.CompositeView.extend({
     user.save({}, {
       success: function () {
         this.model.fetch();
-
         Backbone.history.navigate("", {trigger: true});
+      }.bind(this),
+
+      error: function (object, response) {
+        this.render();
+        _.each(response.responseJSON.errors, function (error) {
+          $('.errors').append($("<li>" + error + "</li>"))
+        }.bind(this))
       }.bind(this)
     });
   }

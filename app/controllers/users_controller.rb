@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       sign_in!(@user)
       render "sessions/show.json.jbuilder"
     else
-      render json: {errors: @user.errors.full_messages}
+      render json: {errors: @user.errors.full_messages}, status: 422
     end
   end
 

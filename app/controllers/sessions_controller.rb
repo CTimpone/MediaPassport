@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
       sign_in!(@user)
       render "show.json.jbuilder"
     else
-      render json: {errors: ["Invalid credentials"]}
+      render json: {errors: ["Invalid credentials"]}, status: 422
     end
   end
 
