@@ -419,6 +419,10 @@
     border-top-right-radius: 10px;
   }
 
+  .schedule-tabs > button.active-schedule-view {
+    background: #2EB3DB;
+  }
+
   .schedule {
     table-layout: fixed;
     margin: auto;

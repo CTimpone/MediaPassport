@@ -37,7 +37,7 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
     if (this.subviews('.schedule-container').length === 0) {
       this.removeSubviews();
     }
-
+    $('.schedule-tabs button[type="' + this._style +'"]').addClass('active-schedule-view');
     if (this._style === "grid") {
       var scheduleView = new MediaPassport.Views.ScheduleView({
         shows: this.shows,
@@ -68,6 +68,7 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
 
   switchView: function (event) {
     this._style = $(event.currentTarget).attr('type');
+    $('.schedule-tabs button').removeClass('active-schedule-view');
     this.apiLoad = this.currentView.apiLoad
     this.localLoad = this.currentView.localLoad
     this.currentView.remove();
