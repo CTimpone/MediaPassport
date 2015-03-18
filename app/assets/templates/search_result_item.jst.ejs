@@ -1,4 +1,15 @@
-<a href="#shows/<%=encodeURIComponent(show.get('title').replace(/ /g,'_'))%>"><%=show.escape('title')%></a>
-<p>
-  <%= show.escape('description') %>
-</p>
+<% if (item.escape('type') === "Show") { %>
+  <a href="#shows/<%=encodeURIComponent(item.get('title').replace(/ /g,'_'))%>"><%=item.escape('title')%></a>
+  <strong class="search-show-tag">Show</strong>
+  <p>
+    <%= item.escape('description').slice(0, 140) %>...
+  </p>
+<% } else { %>
+  <a href="#shows/<%=encodeURIComponent(item.get('show_title').replace(/ /g,'_'))%>/episodes/<%=encodeURIComponent(item.get('title').replace(/ /g,'_'))%>"><%=item.escape('title')%></a>
+  <strong class="search-episode-tag">Episode</strong>
+  <br>
+  <strong><%=item.escape('show_title')%></strong>
+  <p>
+    <%= item.escape('description').slice(0, 140) %>...
+  </p>
+<% } %>

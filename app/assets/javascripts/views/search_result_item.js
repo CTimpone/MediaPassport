@@ -8,10 +8,8 @@ MediaPassport.Views.SearchResultItem = Backbone.View.extend({
   },
 
   render: function () {
-    if (this.model) {
-      var content = this.template({show: this.model});
-      this.$el.html(content);
-    }
+    var content = this.template({item: this.model});
+    this.$el.html(content);
 
     return this;
   }

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     end
   end
   resources :networks, only: :show
+  resources :search, only: :index
   resources :ratings, only: [:create, :update]
   resources :watchlist_items, only: :index
 end
