@@ -1,4 +1,6 @@
 class ShowsController < ApplicationController
+  before_action :ensure_signed_in, only: [:watchlist_toggle]
+
   def show
     @show = Show.includes(:episodes).find_by(title: escape_ampersands(params[:id]))
     if !current_user

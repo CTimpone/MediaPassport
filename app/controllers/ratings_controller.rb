@@ -1,4 +1,7 @@
 class RatingsController < ApplicationController
+  before_action :ensure_signed_in, only: [:create, :update]
+
+
   def create
     @rating = current_user.ratings.new(rating_params)
     if @rating.save
