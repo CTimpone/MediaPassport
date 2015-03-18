@@ -1,6 +1,10 @@
 MediaPassport.Views.Landing = Backbone.CompositeView.extend({
   template: JST["landing"],
 
+  events: {
+    "click .schedule-tabs button": "switchView"
+  },
+
   initialize: function (options) {
     this.session = options.session;
     this.shows = options.shows;
@@ -56,8 +60,17 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
         localLoad: this.localLoad
       });
     }
+    this.currentView = scheduleView;
     this.addSubview('.schedule-container', scheduleView);
 
     return this;
+  },
+
+  switchView: function (event) {
+    this._style = $(event.currentTarget).attr('type');
+    this.apiLoad = this.currentView.apiLoad
+    this.localLoad = this.currentView.localLoad
+    this.currentView.remove();
+    this.render();
   }
 });
