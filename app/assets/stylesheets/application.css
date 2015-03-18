@@ -183,15 +183,38 @@
   }
 
   .search-results > .results-list {
-    width: 600px;
     float: left;
-    di
+  }
+
+  .search-results > .paginators {
+    margin: auto;
+    text-align: center;
+  }
+
+  .paginators a {
+    display: inline-block;
+    margin: 10px 20px;
+    font-weight: 700;
+    padding: 10px;
+    background: #BDBDBD;
+    border-radius: 8px;
+    border-right: 3px solid #444;
+    border-top: 1px solid #444;
+  }
+
+  .paginators a:hover {
+   background: #444;
+   color: #FEFFF5;
+   border-right: 3px solid #BDBDBD;
+   border-top: 1px solid #BDBDBD;;
   }
 
   .search-results > h1 {
-    font-size: 28px;
+    font-size: 36px;
     font-weight: 700;
     margin-bottom: 10px;
+    text-align: center;
+    text-decoration: underline;
   }
 
   .search-results > .results-list li {
@@ -211,13 +234,6 @@
     font-size: 18px;
     font-weight: 300;
     padding: 0 10px 5px 10px;
-  }
-
-  .just-added-results {
-    width: 220px;
-    padding: 10px;
-    float: right;
-    border: 1px solid #444;
   }
 
   .page-basics {

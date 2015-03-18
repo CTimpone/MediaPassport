@@ -8,7 +8,10 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
     this._shows = options.shows;
 
     this._apiResults = new MediaPassport.Collections.ApiShows({title: this.query});
-    this._localResults = new MediaPassport.Collections.Search({query: this.query});
+    this._localResults = new MediaPassport.Collections.Search({
+      query: this.query,
+      page: 1
+    });
 
     this._apiResults.fetch({
       success: function () {
@@ -53,14 +56,8 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
     if (this._apiLoaded === true) {
       this._apiResults.each(function (show) {
         var match = this._localResults.where({maze_id: parseInt(show.escape('maze_id'))});
-        console.log(match);
         if (match.length === 0) {
-          $('.just-added-results').removeClass('invis');
           var dbShow = this._shows.CRU(_.clone(show.attributes), {});
-          var subview = new MediaPassport.Views.ApiSearchResult({
-            model: show
-          });
-          this.addSubview('.just-added-results', subview);
         }
       }.bind(this));
     }
