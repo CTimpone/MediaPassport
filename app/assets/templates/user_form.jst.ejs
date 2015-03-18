@@ -5,25 +5,39 @@
 <% } else { %>
 
   <h1>Sign Up</h1>
-  <ul class="errors"></ul>  
-  <label>
+  <ul class="errors"></ul>
+  <label for="user_email">
     Email
-    <input type="text" name="email">
   </label>
+  <input id="user_email" type="text" name="email">
   <br>
 
 <% } %>
 
-<label>
+<label for="user_username">
   Username
-  <input type="text" name="username">
+  <% if (!signing_in) { %>
+    <br>
+    <p>
+      (Length: 5 minimum, 18 maximum)
+    </p>
+  <% } %>
 </label>
+<input id="user_username" type="text" name="username">
+
 <br>
 
-<label>
+<label for="user_password">
   Password
-  <input type="password" name="password">
+  <% if (!signing_in) { %>
+    <br>
+    <p>
+      (Length: 6 minimum, 30 maximum)
+    </p>
+  <% } %>
 </label>
+<input id="user_password" type="password" name="password">
+
 <br>
 
 <button>Submit</button>

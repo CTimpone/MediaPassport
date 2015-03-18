@@ -1,6 +1,8 @@
 MediaPassport.Views.NewSession = Backbone.CompositeView.extend({
   tagName: "form",
 
+  className: "user-form group",
+
   events: {
     "submit": "createSession"
   },
