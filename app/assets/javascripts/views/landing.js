@@ -24,7 +24,7 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
       }.bind(this)
     });
 
-    this._style = "grid";
+    this._style = "list";
     this.listenTo(this.session, "change create", this.render)
   },
 
@@ -37,7 +37,10 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
     if (this.subviews('.schedule-container').length === 0) {
       this.removeSubviews();
     }
-    $('.schedule-tabs button[type="' + this._style +'"]').addClass('active-schedule-view');
+    var timer = setInterval(function() {
+      $('.schedule-tabs button[type="' + this._style +'"]').addClass('active-schedule-view');
+      clearInterval(timer);
+    }.bind(this), 1);
     if (this._style === "grid") {
       var scheduleView = new MediaPassport.Views.ScheduleView({
         shows: this.shows,
