@@ -23,6 +23,12 @@ class ApplicationController < ActionController::Base
     params.require(:user).permit(:username, :password, :email)
   end
 
+  def ensure_signed_in
+    if !signed_in?
+      render json: {errors: ["Must be signed-in to complete that action"]}, status: 422
+    end
+  end
+
   def escape_ampersands(string)
     string = string.gsub('_', ' ')
     string = URI.decode_www_form_component(string)

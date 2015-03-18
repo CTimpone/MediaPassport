@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_action :ensure_signed_in, only: [:create, :update, :endorse]
+
   def new
     @comment = Comment.new
     render :new

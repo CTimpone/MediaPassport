@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :ensure_signed_in, only: [:create, :endorse]
+
   def create
     @post = current_user.posts.new(post_params)
     if @post.save
@@ -14,7 +16,9 @@ class PostsController < ApplicationController
     @post.comment_tree.each do |key, val|
       @tree[key] = val;
       val.each do |comment|
-        if current_user.endorsements.find_by({endorsable_id: comment[:id], endorsable_type: "Comment"})
+        if !signed_in?
+          comment["endorsed"] = false
+        elsif current_user.endorsements.find_by({endorsable_id: comment[:id], endorsable_type: "Comment"})
           comment["endorsed"] = true
         else
           comment["endorsed"] = false
