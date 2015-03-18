@@ -7,24 +7,25 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
 
   initialize: function (options) {
     this.shows = options.shows;
-    this._loaded = 0;
-    this.shows.fetch();
+    this.localLoad = options.localLoad;
+    this.apiLoad = options.apiLoad;
 
-    var callback = function () {
-      this._loaded += 1;
+    this.listenToOnce(this.collection, "sync", function () {
+      this.apiLoad = true;
       this.render();
-      this.generateSchedule();
-    }.bind(this);
+    }.bind(this));
 
-    this.listenToOnce(this.collection, "sync", callback)
-    this.listenToOnce(this.shows, "sync", callback)
+    this.listenToOnce(this.shows, "sync", function () {
+      this.localLoad = true;
+      this.render();
+    }.bind(this));
   },
 
   render: function () {
     var content = this.template();
     this.$el.html(content);
 
-    if (this._loaded >= 2) {
+    if (this.localLoad && this.apiLoad) {
       this.networks = this.collection.map(function (model) {
         return model.show().escape('network').replace(/&amp;/g, '&');
       });
@@ -54,13 +55,15 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
         var col = "<th>" + USTime + "</th>";
         $('.grid-header').append($(col));
       });
+
+      this.generateSchedule();
     }
 
     return this;
   },
 
   generateSchedule: function () {
-    if (this._loaded >= 2) {
+    if (this.localLoad && this.apiLoad) {
       var count = 0;
       var len = this.collection.length;
       col = this.collection;

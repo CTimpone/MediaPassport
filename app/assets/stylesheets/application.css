@@ -168,12 +168,14 @@
    font-size: 24px;
    font-weight: 300;
    border-right: 3px solid #444;
+   border-top: 1px solid #444;
   }
 
   button:hover {
    background: #444;
    color: #FEFFF5;
-   border-right: 3px solid #BDBDBD;;
+   border-right: 3px solid #BDBDBD;
+   border-top: 1px solid #BDBDBD;;
   }
 
   button:focus {
@@ -415,7 +417,6 @@
     border-radius: 0;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    background: #2EB3DB;
   }
 
   .schedule {
