@@ -4,7 +4,7 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
     this.session = options.session;
 
     this._episodes = this.model.episodes();
-
+    console.log(this._episodes);
     this._apiEpisodes = new MediaPassport.Collections.ApiEpisodes({maze_id: this.model.escape('maze_id')});
 
     this._apiEpisodes.fetch({success: function () {
@@ -15,6 +15,7 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
 
     this.subviews();
 
+    this.listenTo(this._episodes, "change", function () {console.log('x');})
     this.listenTo(this._previewEpisode, "change", this.renderPreview)
     this.listenToOnce(this.model, "sync", this.render);
     this.listenTo(this.session, "create change", this.render)
@@ -92,10 +93,11 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
     if (this.previewView) {
       this.previewView.remove();
     } else {
+
       var encodedEpisode = encodeURIComponent(this._previewEpisode.get('title').replace(/ /g,'_'));
       var encodedShow = encodeURIComponent(this.model.get('title').replace(/ /g,'_'));
       var link = "#shows/" + encodedShow + "/episodes/" + encodedEpisode;
-      console.log(link);
+
       $('.most-recent').attr("href", link)
     }
     var previewSubview = new MediaPassport.Views.EpisodePreview({

@@ -62,10 +62,18 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
 
   appendNew: function () {
     if (this._apiLoaded === true) {
+      var count = 0;
+      var len = this._apiResults.length;
       this._apiResults.each(function (show) {
+        count += 1;
         var match = this._localResults.where({maze_id: parseInt(show.escape('maze_id'))});
         if (match.length === 0) {
           var dbShow = this._shows.CRU(_.clone(show.attributes), {});
+        }
+
+        if (len === count) {
+          this._localResults.fetch();
+          this._apiLoaded = false;
         }
       }.bind(this));
     }
