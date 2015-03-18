@@ -43,7 +43,7 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
 
     if (this._localLoaded === true) {
       this.renderItems();
-      if (this._localResults.length < 10) {
+      if (this._localResults.length < 10 && this.page === 1) {
         $('.paginators').addClass('invis');
       }
     }
@@ -92,7 +92,7 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
 
   changePage: function (event) {
     var dir = parseInt($(event.currentTarget).attr("dir"));
-
+    console.log(this.page);
     this.page += dir;
     this._localResults.page = this.page;
 
