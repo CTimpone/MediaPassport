@@ -97,8 +97,9 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
     this._style = $(event.currentTarget).attr('type');
     $('.schedule-tabs button').removeClass('active-schedule-view');
 
-    this.apiLoad = this.currentView.apiLoad
-    this.localLoad = this.currentView.localLoad
+    this.apiLoad = this.currentView.apiLoad;
+    this.localLoad = this.currentView.localLoad;
+    this.skipCRU = this.currentView.skipCRU;
 
     if (this.currentView.watchlistLoad) {
       this.watchlistLoad = this.currentView.watchlistLoad;

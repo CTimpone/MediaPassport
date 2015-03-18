@@ -8,9 +8,12 @@ MediaPassport.Views.UserSchedule = Backbone.CompositeView.extend({
   initialize: function (options) {
     this.shows = options.shows;
     this.watchlist = options.watchlist;
+
     this.localLoad = options.localLoad;
     this.apiLoad = options.apiLoad;
     this.watchlistLoad = options.watchlistLoad;
+
+    this.skipCRU = options.skipCRU;
 
     this.listenToOnce(this.collection, "sync", function () {
       this.apiLoad = true;
@@ -31,7 +34,9 @@ MediaPassport.Views.UserSchedule = Backbone.CompositeView.extend({
     var content = this.template();
     this.$el.html(content);
 
-    if (this.localLoad && this.apiLoad) {
+    if (this.skipCRU) {
+      this.developList();
+    } else if (this.localLoad && this.apiLoad) {
       this.generateSchedule();
     }
 
@@ -76,6 +81,7 @@ MediaPassport.Views.UserSchedule = Backbone.CompositeView.extend({
   },
 
   developList: function () {
+    this.skipCRU = true;
     this.watchlist.each(function (item) {
       var watchedEpisodes = this.collection.where({show_maze_id: item.get('show_maze_id')})
       if (watchedEpisodes.length > 0) {
