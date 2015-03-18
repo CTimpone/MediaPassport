@@ -512,7 +512,7 @@
 
   .new-post {
     float: right;
-    width: 390px;
+    width: 350px;
     background: #E0E0E0;
     border: 3px solid #444;
     border-radius: 10px;
@@ -542,6 +542,13 @@
     left: 9px;
     width: 256px;
     margin: 10px 0;
+    padding: 5px;
+  }
+
+  .new-post > textarea {
+    font-size: 14px;
+    padding: 5px;
+    width: 256px;
   }
 
   .body-label {
@@ -550,6 +557,20 @@
 
   .new-post > .create-post {
     float: right;
+  }
+
+  .post-list {
+    background: red;
+    float: left;
+    width: 500px;
+  }
+
+  .post-list a,
+  .post-list p,
+  .post-list strong {
+    display: block;
+    width: 500px;
+    overflow: hidden;
   }
 
 
