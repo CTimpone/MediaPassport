@@ -33,7 +33,7 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
 
       _.each(this.networks, function (network) {
         var row = "<tr class='grid-row' network=" +
-                  network.replace(/ /g, '_') + "><td class='network-name'>" +
+                  network.replace(/[^\w]/gi, '') + "><td class='network-name'>" +
                   network + "</td></tr>";
         $('.schedule').append($(row));
       });
@@ -96,7 +96,7 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
       var newEpisodes = this.collection.where({network: network});
       var tempCollection = new MediaPassport.Collections.ApiEpisodes(newEpisodes)
       var selector = '.grid-row[network="' +
-                      network.replace(/&amp;/g, '&').replace(/ /g, '_') +
+                      network.replace(/[^\w]/gi, '') +
                       '"]';
       var skips = 1;
       _.each(this.times, function (time) {
