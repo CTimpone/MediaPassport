@@ -34,6 +34,17 @@ class ShowsController < ApplicationController
     end
   end
 
+  def batch_create
+    data = params["shows"]
+    arr = []
+    data.each do |key, show|
+      show.delete('year')
+      arr.push(show)
+    end
+    Show.create!(arr)
+    render json: arr
+  end
+
   def watchlist_toggle
     show = Show.find_by(title: escape_ampersands(params[:id]))
     @item = WatchlistItem.find_by(user_id: current_user.id, show_id: show.id)

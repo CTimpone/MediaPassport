@@ -89,10 +89,12 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
 
     this._apiEpisodes.each(function (episode) {
       this._episodes.CRU(_.clone(episode.attributes), {});
-
+      
       count += 1;
 
       if (count === this._apiEpisodes.length) {
+        var that = this;
+        this._episodes.batchSave({}, that);
         this.render();
         if (!this.previewView) {
           this._apiEpisodes.mostRecentlyAired(this._previewEpisode);

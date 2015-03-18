@@ -58,7 +58,6 @@ MediaPassport.Views.EpisodeLanding = Backbone.CompositeView.extend({
     })
     var current_rating = this.model.escape("current_user_rating");
     if (current_rating && current_rating !== newVal && newVal) {
-      console.log('a');
       rating.set({id: parseInt(this.model.escape('current_rating_id'))});
       rating.save({}, {
         success: function () {
@@ -66,7 +65,6 @@ MediaPassport.Views.EpisodeLanding = Backbone.CompositeView.extend({
         }.bind(this)
       });
     } else if (newVal) {
-      console.log('b');
       rating.save({}, {
         success: function () {
           this.model.set({

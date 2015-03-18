@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     member do
       post "watchlist_toggle"
     end
+    collection do
+      post "batch_create"
+    end
     resources :episodes, only: [:show, :create, :update] do
       member do
         get "verify"

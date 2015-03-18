@@ -3,6 +3,11 @@ MediaPassport.Collections.Shows = Backbone.Collection.extend({
 
   url: "/shows",
 
+  initialize: function () {
+    this.toCreate = [];
+    this.newTitles = [];
+  },
+
   CRU: function (attributes, options) {
     var exactShow = this.where({title: attributes.title, maze_id: attributes.maze_id});
 
@@ -11,6 +16,14 @@ MediaPassport.Collections.Shows = Backbone.Collection.extend({
     }
 
     var sameTitle = this.where({title: attributes.title});
+
+    if (sameTitle.length === 0) {
+      _.each(this.newTitles, function (title) {
+        if (attributes.title === title) {
+          sameTitle.push(title)
+        }
+      });
+    }
 
     if (!attributes.description) {
       attributes.description = "No available description";
@@ -50,21 +63,33 @@ MediaPassport.Collections.Shows = Backbone.Collection.extend({
     } else {
       show = new this.model(attributes);
       if (exactShow.length === 0 && sameTitle.length === 0) {
-        show = this.create(attributes, {
-          success: function () {
-            options.success && options.success();
-          }
-        });
+        this.toCreate.push(attributes);
+        this.newTitles.push(attributes.title);
+        this.newTitles = _.uniq(this.newTitles);
       } else if (exactShow.length === 0 && sameTitle.length > 0){
+        console.log('same title');
         attributes.title += " (" + attributes.year + ")"
-        show = this.create(attributes, {
-          success: function () {
-            options.success && options.success();
-          }
-        });
+        this.toCreate.push(attributes);
+        this.newTitles.push(attributes.title);
+        this.newTitles = _.uniq(this.newTitles);
       }
     }
 
     return show;
+  },
+
+  batchSave: function (options, context) {
+    var toCreate = (_.uniq(this.toCreate));
+    console.log(toCreate);
+    $.ajax({
+      type: "POST",
+      url: '/shows/batch_create',
+      data: {shows: toCreate},
+      dataType: 'json',
+      success: function () {
+        options.success && options.success();
+        this.toCreate = [];
+      }.bind(this)
+    });
   }
 })

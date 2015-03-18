@@ -72,6 +72,11 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
         }
 
         if (len === count) {
+          if (this._shows.toCreate.length > 0) {
+            var that = this;
+            this._shows.batchSave({}, that);
+          }
+          
           this._localResults.fetch();
           this._apiLoaded = false;
         }
