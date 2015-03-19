@@ -2,7 +2,8 @@ class SearchController < ApplicationController
   def index
     total = PgSearch.multisearch(params["query"]).page(1).total_count
     if total != 0
-      realPage = Integer(params["page"]) % ((total / 10.0).ceil + 1)
+      realPage = (((Integer(params["page"]) - 1) % (total / 10.0).ceil)) + 1
+      p realPage
       @results = PgSearch.multisearch(params["query"]).page(realPage).per(10);
       @final = []
       @results.each do |result|
