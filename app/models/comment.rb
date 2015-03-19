@@ -30,4 +30,8 @@ class Comment < ActiveRecord::Base
   )
 
   has_many :endorsements, as: :endorsable
+
+  def total_points
+    endorsements.length
+  end
 end

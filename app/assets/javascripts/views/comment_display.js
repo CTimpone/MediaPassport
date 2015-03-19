@@ -99,11 +99,26 @@ MediaPassport.Views.CommentDisplay = Backbone.CompositeView.extend({
       endorsements.create({}, {
         success: function () {
           if (this.comment.escape('endorsed') === "true") {
-            this.comment.set({endorsed: false});
-            parent.html('<a class="endorse" href="javascript:void(0)">Endorse</a>')
+
+            this.comment.set({
+              endorsed: false,
+              total_points: parseInt(this.comment.escape('total_points')) - 1
+            });
+
+            var str='<strong>' + this.comment.escape('total_points') +'</strong>' +
+              '<a class="endorse" href="javascript:void(0)">Endorse</a>';
+
+            parent.html(str)
           } else {
-            this.comment.set({endorsed: true});
-            parent.html('<a class="endorse" href="javascript:void(0)">Un-Endorse</a>')
+            this.comment.set(
+              {endorsed: true,
+              total_points: parseInt(this.comment.escape('total_points')) + 1
+            });
+
+            var str = '<strong>' + this.comment.escape('total_points') +'</strong>' +
+              '<a class="endorse" href="javascript:void(0)">Endorse</a>';
+
+            parent.html(str)
           }
         }.bind(this)
       })

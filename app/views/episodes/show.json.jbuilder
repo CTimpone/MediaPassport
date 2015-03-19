@@ -4,6 +4,7 @@ json.set! :current_rating_id, @rating_id
 json.set! :posts do
   json.array! (@episode.posts) do |post|
     json.extract! post, :title, :id, :content
+    json.set! :total_points, post.total_points
     json.set! :author, post.author.username
   end
 end

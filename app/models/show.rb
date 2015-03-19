@@ -1,6 +1,6 @@
 class Show < ActiveRecord::Base
   include PgSearch
-  multisearchable against: :title
+  multisearchable against: {title: 'A'}
 
   validates :title, :description, :network, presence: true
   validates :maze_id, uniqueness: true, allow_nil: true

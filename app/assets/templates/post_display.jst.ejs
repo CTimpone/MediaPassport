@@ -3,6 +3,7 @@
 <% } %>
 <% if (!session.isNew()) {%>
   <div class="endorsement" data-post-id="<%=post.id%>">
+    <strong><%= post.escape('total_points') %></strong>
     <% if (post.escape("endorsed") === "true") {%>
       <a class="endorse" href="javascript:void(0)">Un-Endorse</a>
     <%} else {%>
