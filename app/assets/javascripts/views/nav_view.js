@@ -54,6 +54,8 @@ MediaPassport.Views.NavView = Backbone.CompositeView.extend({
     var data = $(event.target).serializeJSON();
     data.query = data.query.replace(/ /g, '_');
     var destination = "search?q=" + data.query
-    Backbone.history.navigate(destination, {trigger: true})
+    if (data.query !== "") {
+      Backbone.history.navigate(destination, {trigger: true})
+    }
   }
 })
