@@ -7,6 +7,9 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
     this._apiEpisodes = new MediaPassport.Collections.ApiEpisodes({maze_id: this.model.escape('maze_id')});
 
     this._apiEpisodes.fetch({success: function () {
+      if (!this.previewView) {
+        this._apiEpisodes.mostRecentlyAired(this._previewEpisode);
+      }
       this.addNew();
     }.bind(this)});
 
@@ -51,10 +54,6 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
       };
 
       this.getItems();
-
-      if (!this.previewView) {
-        this._apiEpisodes.mostRecentlyAired(this._previewEpisode);
-      }
     }
 
     return this;
