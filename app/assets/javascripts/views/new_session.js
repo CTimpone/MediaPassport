@@ -28,9 +28,10 @@ MediaPassport.Views.NewSession = Backbone.CompositeView.extend({
         Backbone.history.navigate(MediaPassport.previousLoc, {trigger: true});
       }.bind(this),
 
-      error: function (response) {
+      error: function (obj, response) {
+        $('.errors').empty();
         this.render();
-        _.each(response.get('errors'), function (error) {
+        _.each(response.responseJSON.errors, function (error) {
           $('.errors').append($("<li>" + error + "</li>"))
         }.bind(this))
       }.bind(this)

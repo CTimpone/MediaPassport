@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   root 'static_pages#root'
 
-  resources :users, only: [:new, :create, :show]
+  resources :users, only: [:new, :create, :show] do
+    member do
+      get "activate", as: :activate
+    end
+  end
   resource :session, only: [:new, :create, :destroy, :show]
   resources :shows, only: [:show, :index, :create, :update] do
     member do

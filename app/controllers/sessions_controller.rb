@@ -15,11 +15,13 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by_credentials(user_params)
-    if @user
+    if (@user && @user.active)
       sign_in!(@user)
       render "show.json.jbuilder"
-    else
+    elsif (@user == nil)
       render json: {errors: ["Invalid credentials"]}, status: 422
+    elsif !@user.active
+      render json: {errors: ["You must first activate your account"]}, status: 422
     end
   end
 

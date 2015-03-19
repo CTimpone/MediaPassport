@@ -25,6 +25,7 @@ group :development do
   gem 'pry-rails'
   gem 'quiet_assets'
   gem 'annotate'
+  gem "letter_opener"
 end
 
 group :development, :test do
