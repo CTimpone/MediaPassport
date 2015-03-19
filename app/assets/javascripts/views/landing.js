@@ -33,8 +33,18 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
     this._style = "grid";
     this.listenTo(this.session, "destroy", function () {
       this.signedIn = false;
+      if (this.style = "personal") {
+        this.style = "list";
+      }
       this.render();
     }.bind(this));
+
+    this.listenToOnce(this.session, "sync", function () {
+      this.signedIn = !this.session.isNew();
+      this.render();
+    }.bind(this));
+
+    this.session.on
   },
 
   render: function () {
@@ -51,7 +61,7 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
       $('.schedule-tabs button[type="' + this._style +'"]').addClass('active-schedule-view');
       $('.schedule-tabs button').prop('disabled', false);
       $('.schedule-tabs button[type="' + this._style +'"]').prop('disabled', true);
-      if (this.signedIn) {
+      if (this.signedIn && !this.watchlistLoad) {
         this.watchlist.fetch({
           success: function () {
             this.watchlistLoad = true;

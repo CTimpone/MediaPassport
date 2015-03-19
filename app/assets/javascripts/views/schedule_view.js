@@ -22,8 +22,6 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
     this.listenTo(this.session, "destroy", function () {
       this.render();
     }.bind(this));
-
-    this.count = 1;
   },
 
   render: function () {
@@ -78,9 +76,7 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
   },
 
   generateSchedule: function () {
-    if (this.localLoad && this.apiLoad && this.count === 1) {
-      this.count = 100;
-      this.localLoad = false;
+    if (this.localLoad && this.apiLoad) {
       var count = 0;
       var len = this.collection.length;
       col = this.collection;
@@ -104,16 +100,10 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
                 url: '/episodes/batch_verify',
                 data: {episodes: data},
                 dataType: 'json',
-                success: function () {
-                  that.localLoad = true;
-                }
               });
 
 
               that.developGrid();
-
-
-
 
             }
           }, that);

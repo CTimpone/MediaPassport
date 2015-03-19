@@ -50,32 +50,41 @@ MediaPassport.Views.UserSchedule = Backbone.CompositeView.extend({
       col = this.collection;
       this.collection.each(function (episode) {
         var dbEpisode;
-        var dbShow = this.shows.CRU(_.clone(episode.show().attributes), {
-          success: function () {
-            var checkExistence = new MediaPassport.Collections.Episodes([], {
-              verify: true,
-              show_title: encodeURIComponent(episode.show().get('title').replace(/ /g, '_')),
-              episode_title: encodeURIComponent(episode.get('title').replace(/ /g, '_'))
-            });
-            checkExistence.fetch({
-              success: function () {
-                count += 1;
-                dbEpisode = checkExistence.CRU(_.clone(episode.attributes));
-                if (count === len) {
-                  if (this.watchlistLoad) {
-                    this.developList();
-                  } else {
-                    this.stopListening(this.watchlist);
-                    this.listenToOnce(this.watchlist, "sync", function () {
-                      this.watchlistLoad = true;
-                      this.developList();
-                    }.bind(this));
-                  }
-                }
-              }.bind(this)
-            })
-          }.bind(this)
-        });
+        this.shows.CRU(_.clone(episode.show().attributes), {})
+        count += 1;
+        if (count === this.collection.length) {
+
+          var that = this;
+
+          this.shows.batchSave({
+            success: function () {
+              var data = that.collection.map(function (model) {
+                return _.clone(model.attributes);
+              });
+
+
+              $.ajax({
+                type: "POST",
+                url: '/episodes/batch_verify',
+                data: {episodes: data},
+                dataType: 'json',
+              });
+
+
+              if (this.watchlistLoad) {
+                this.developList();
+              } else {
+                this.stopListening(this.watchlist);
+                this.listenToOnce(this.watchlist, "sync", function () {
+                  this.watchlistLoad = true;
+                  this.developList();
+                }.bind(this));
+              }
+
+
+            }
+          }, that);
+        }
       }.bind(this));
     }
   },
