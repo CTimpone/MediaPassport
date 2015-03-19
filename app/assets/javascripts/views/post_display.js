@@ -100,7 +100,7 @@ MediaPassport.Views.PostDisplay = Backbone.CompositeView.extend({
           });
 
           var str='<strong>' + this.model.escape('total_points') +'</strong>' +
-            '<a class="endorse" href="javascript:void(0)">Endorse</a>';
+            '<a class="endorse" href="javascript:void(0)">+</a>';
 
           parent.html(str)
         } else {
@@ -110,7 +110,7 @@ MediaPassport.Views.PostDisplay = Backbone.CompositeView.extend({
           });
 
           var str = '<strong>' + this.model.escape('total_points') +'</strong>' +
-            '<a class="endorse" href="javascript:void(0)">Endorse</a>';
+            '<a class="endorse" href="javascript:void(0)">-</a>';
 
           parent.html(str)
         }

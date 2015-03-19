@@ -4,7 +4,8 @@ MediaPassport.Views.NewUser = Backbone.CompositeView.extend({
   className: "user-form group",
 
   events: {
-    "submit": "createUser"
+    "submit": "createUser",
+    "change #user_avatar": "setAvatar"
   },
 
   template: JST["user_form"],
@@ -16,13 +17,18 @@ MediaPassport.Views.NewUser = Backbone.CompositeView.extend({
     return this;
   },
 
+  initialize: function () {
+    this.user = new MediaPassport.Models.User();
+  },
+
   createUser: function (event) {
     event.preventDefault();
     var data = this.$el.serializeJSON();
 
-    var user = new MediaPassport.Models.User(data);
+    this.user.set(data);
+    debugger
     this.model.clear({silent: true});
-    user.save({}, {
+    this.user.save({}, {
       success: function () {
         this.model.fetch();
         Backbone.history.navigate("", {trigger: true});
@@ -35,5 +41,18 @@ MediaPassport.Views.NewUser = Backbone.CompositeView.extend({
         }.bind(this))
       }.bind(this)
     });
+  },
+
+  setAvatar: function (event) {
+    var file = event.currentTarget.files[0];
+
+    var fileReader = new FileReader();
+
+    fileReader.onloadend = function () {
+      this.user.set("avatar", fileReader.result);
+      console.log('x');
+    }.bind(this)
+
+    fileReader.readAsDataURL(file);
   }
 })

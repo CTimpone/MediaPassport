@@ -106,7 +106,7 @@ MediaPassport.Views.CommentDisplay = Backbone.CompositeView.extend({
             });
 
             var str='<strong>' + this.comment.escape('total_points') +'</strong>' +
-              '<a class="endorse" href="javascript:void(0)">Endorse</a>';
+              '<a class="endorse" href="javascript:void(0)">+</a>';
 
             parent.html(str)
           } else {
@@ -116,7 +116,7 @@ MediaPassport.Views.CommentDisplay = Backbone.CompositeView.extend({
             });
 
             var str = '<strong>' + this.comment.escape('total_points') +'</strong>' +
-              '<a class="endorse" href="javascript:void(0)">Endorse</a>';
+              '<a class="endorse" href="javascript:void(0)">-</a>';
 
             parent.html(str)
           }

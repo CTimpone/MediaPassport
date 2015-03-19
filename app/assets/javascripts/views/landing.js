@@ -49,7 +49,8 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
 
   render: function () {
     var content = this.template({
-      signedIn: this.signedIn
+      signedIn: this.signedIn,
+      session: this.session
     });
     this.$el.html(content);
 

@@ -12,5 +12,3 @@ Post.delete_all
 Comment.delete_all
 PgSearch::Document.delete_all(searchable_type: "Episode")
 PgSearch::Document.delete_all(searchable_type: "Show")
-PgSearch::Multisearch.rebuild(Episode)
-PgSearch::Multisearch.rebuild(Show)

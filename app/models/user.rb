@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  has_attached_file :avatar, styles: { thumb: "100x100>", medium: "300x300>" }
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+  
   validates :username, :password_digest, :email, :session_token, presence: true
   validates :username, :email, uniqueness: true
   validates :password, length: {minimum: 6, maximum: 30}, allow_nil: true
@@ -131,6 +134,49 @@ class User < ActiveRecord::Base
     SQL
 
     Show.find_by_sql([query, {user_id: self.id, top_half: User.all.length / 2, matches: 2}])
+  end
+
+  def relevant_posts
+    query = <<-SQL
+    SELECT
+      posts.*, count(endorsements.*)
+    FROM
+      posts
+    JOIN (
+      SELECT
+        episodes.*
+      FROM
+        episodes
+      JOIN
+        watchlist_items
+        ON episodes.show_id = watchlist_items.show_id
+      WHERE
+        watchlist_items.user_id = :current_id
+      ) as relevant_episodes
+      ON posts.episode_id = relevant_episodes.id
+    JOIN
+      endorsements
+      ON posts.id = endorsements.endorsable_id
+    WHERE
+      created_at > :three_days_ago AND endorsements.endorsable_type = "Post"
+    GROUP BY
+      posts.id
+    SQL
+
+    query = <<-SQL
+      SELECT
+        post.*
+      FROM
+        posts
+      JOIN (
+        SELECT
+          endorsements.*
+        FROM
+          endorsements
+        WHERE
+          endorsable_type = "Post"
+      )
+    SQL
   end
 
   private
