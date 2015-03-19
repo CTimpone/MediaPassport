@@ -42,14 +42,22 @@ class Episode < ActiveRecord::Base
   end
 
   def average_rating
-    rated = self.ratings.pluck(:score)
-    if rated.length > 0
-      summed = rated.inject {|sum, rating| sum + rating}
-      avg = summed / rated.length
+    avg = average_score
+    if avg > 0
       bucket = SCORES.keys.min_by { |val| (avg - val).abs }
       return SCORES[bucket]
     else
       return "-"
+    end
+  end
+
+  def average_score
+    rated = self.ratings.pluck(:score)
+    if rated.length > 0
+      summed = rated.inject {|sum, rating| sum + rating}
+      return summed / rated.length
+    else
+      return 0
     end
   end
 

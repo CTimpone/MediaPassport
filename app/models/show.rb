@@ -29,6 +29,32 @@ class Show < ActiveRecord::Base
            sorted.last.airdate.strftime('%a %d %b %Y')
   end
 
+  def average_episode_rating
+    query = <<-SQL
+        SELECT
+          ratings.*
+        FROM
+          ratings
+        JOIN (
+          SELECT
+            episodes.*
+          FROM
+            episodes
+          WHERE
+            episodes.show_id = ?
+        ) as current_episodes
+        ON current_episodes.id = ratings.episode_id
+      SQL
+    scores = (Rating.find_by_sql([query, self.id])).map {|rating| rating.score}
+    if scores.length > 0
+      avg = scores.inject(:+) / scores.length
+      bucket = Episode::SCORES.keys.min_by { |val| (avg - val).abs }
+      return Episode::SCORES[bucket]
+    else
+      return '-'
+    end
+  end
+
   def seasons
     episodes.pluck(:season).max
   end
