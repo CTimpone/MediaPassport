@@ -25,6 +25,7 @@ MediaPassport.Models.ApiEpisode = Backbone.Model.extend({
       if (response.show) {
         data.network = response.show.network.name;
         data.show_maze_id = response.show.id;
+        data.year = response.show.premiered.slice(0, 4);
         this.show().set(this.show().parse(response));
       }
     }

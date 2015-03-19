@@ -6,6 +6,7 @@ MediaPassport.Collections.Shows = Backbone.Collection.extend({
   initialize: function () {
     this.toCreate = [];
     this.newTitles = [];
+    this.saved = false;
   },
 
   CRU: function (attributes, options) {
@@ -81,18 +82,20 @@ MediaPassport.Collections.Shows = Backbone.Collection.extend({
 
   batchSave: function (options, context) {
     var toCreate = (_.uniq(this.toCreate));
-    console.log(toCreate);
-    console.log(this);
 
-    $.ajax({
-      type: "POST",
-      url: '/shows/batch_create',
-      data: {shows: toCreate},
-      dataType: 'json',
-      success: function () {
-        options.success && options.success();
-        this.toCreate = [];
-      }.bind(this)
-    });
+    if (toCreate.length === 0) {
+      options.success && options.success();
+    } else {
+      $.ajax({
+        type: "POST",
+        url: '/shows/batch_create',
+        data: {shows: toCreate},
+        dataType: 'json',
+        success: function () {
+          options.success && options.success();
+          this.toCreate = [];
+        }.bind(this)
+      });
+    }
   }
 })

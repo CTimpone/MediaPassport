@@ -21,6 +21,39 @@ class EpisodesController < ApplicationController
     end
   end
 
+  def batch_verify
+    data = params["episodes"]
+    arr = []
+    data.each do |key, episode|
+      show_maze = episode["show_maze_id"]
+      show = Show.find_by({maze_id: Integer(show_maze)})
+
+      year = episode["year"]
+
+      episode.delete('year')
+      episode.delete('show_maze_id')
+      episode.delete('network')
+      episode.delete('airtime')
+      episode.delete('runtime')
+
+      actual = show.episodes.find_by({maze_id: episode["maze_id"]})
+
+      if !actual
+        title_check = show.episodes.find_by({title: episode["title"]})
+
+        if !title_check
+          show.episodes.create(episode)
+
+        else
+          episode.title += " (" + year + ")"
+          show.episodes.create(episode)
+        end
+      end
+    end
+
+    render json: arr
+  end
+
   def create
     @episode = current_show.episodes.new(episode_params)
     @episode.airdate = Date.parse(episode_params[:airdate])
