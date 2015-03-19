@@ -26,7 +26,7 @@ MediaPassport.Views.NewUser = Backbone.CompositeView.extend({
     var data = this.$el.serializeJSON();
 
     this.user.set(data);
-    debugger
+    
     this.model.clear({silent: true});
     this.user.save({}, {
       success: function () {

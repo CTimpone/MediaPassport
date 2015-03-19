@@ -1,7 +1,9 @@
 class User < ActiveRecord::Base
-  has_attached_file :avatar, styles: { thumb: "100x100>", medium: "300x300>" }
+  has_attached_file :avatar,
+    styles: { thumb: "100x100>", medium: "300x300>" },
+    default_url: "missing.:style.gif"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
-  
+
   validates :username, :password_digest, :email, :session_token, presence: true
   validates :username, :email, uniqueness: true
   validates :password, length: {minimum: 6, maximum: 30}, allow_nil: true
