@@ -2,10 +2,10 @@
 
 <article class="schedule-container">
   <div class="schedule-tabs">
-    <% if (!session.isNew()) { %>
-      <button class=".user-switch" type="personal">Your List</button>
+    <% if (signedIn) { %>
+      <button class="user-switch" type="personal">Your List</button>
     <% } %>
-    <button class=".list-switch" type="list">Full List</button>
-    <button class=".grid-switch" type="grid">Full Grid</button>
+    <button class="list-switch" type="list">Full List</button>
+    <button class="grid-switch" type="grid">Full Grid</button>
   </div>
 </article>

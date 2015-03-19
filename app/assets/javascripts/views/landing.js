@@ -12,7 +12,7 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
     this.apiLoad = false;
     this.skipCRU = false;
 
-    this.initial = true;
+    this.signedIn = !options.initial;
 
     this.watchlist = new MediaPassport.Collections.Watchlist();
     this.watchlistLoad = false;
@@ -31,73 +31,74 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
     });
 
     this._style = "grid";
-    this.listenTo(this.session, "change create", this.render)
+    this.listenTo(this.session, "destroy", function () {
+      this.signedIn = false;
+      this.render();
+    }.bind(this));
   },
 
   render: function () {
-    if (this.initial) {
-      this.initial = false;
-      return this;
-    } else {
-      var content = this.template({
-        session: this.session
-      });
-      this.$el.html(content);
+    var content = this.template({
+      signedIn: this.signedIn
+    });
+    this.$el.html(content);
 
-      if (!this.session.isNew()) {
+    if (this.subviews('.schedule-container').length === 0) {
+      this.removeSubviews();
+    }
+
+    var timer = setInterval(function() {
+      $('.schedule-tabs button[type="' + this._style +'"]').addClass('active-schedule-view');
+      $('.schedule-tabs button').prop('disabled', false);
+      $('.schedule-tabs button[type="' + this._style +'"]').prop('disabled', true);
+      if (this.signedIn) {
         this.watchlist.fetch({
           success: function () {
             this.watchlistLoad = true;
           }.bind(this)
         });
       }
+      clearInterval(timer);
+    }.bind(this), 1);
 
-      if (this.subviews('.schedule-container').length === 0) {
-        this.removeSubviews();
-      }
-      var timer = setInterval(function() {
-        $('.schedule-tabs button[type="' + this._style +'"]').addClass('active-schedule-view');
-        $('.schedule-tabs button').prop('disabled', false);
-        $('.schedule-tabs button[type="' + this._style +'"]').prop('disabled', true);
-        clearInterval(timer);
-      }.bind(this), 1);
+    if (this._style === "grid") {
+      var scheduleView = new MediaPassport.Views.ScheduleView({
+        shows: this.shows,
+        collection: this.collection,
+        apiLoad: this.apiLoad,
+        localLoad: this.localLoad,
+        skipCRU: this.skipCRU,
+        session: this.session
+      });
 
-      if (this._style === "grid") {
-        var scheduleView = new MediaPassport.Views.ScheduleView({
-          shows: this.shows,
-          collection: this.collection,
-          apiLoad: this.apiLoad,
-          localLoad: this.localLoad,
-          skipCRU: this.skipCRU
-        });
+    } else if (this._style === "list"){
+      var scheduleView = new MediaPassport.Views.ScheduleList({
+        shows: this.shows,
+        collection: this.collection,
+        apiLoad: this.apiLoad,
+        localLoad: this.localLoad,
+        skipCRU: this.skipCRU,
+        session: this.session
+      });
 
-      } else if (this._style === "list"){
-        var scheduleView = new MediaPassport.Views.ScheduleList({
-          shows: this.shows,
-          collection: this.collection,
-          apiLoad: this.apiLoad,
-          localLoad: this.localLoad,
-          skipCRU: this.skipCRU
-        });
+    } else if (this._style === "personal" && this.signedIn) {
+      var scheduleView = new MediaPassport.Views.UserSchedule({
+        shows: this.shows,
+        collection: this.collection,
+        watchlist: this.watchlist,
+        apiLoad: this.apiLoad,
+        localLoad: this.localLoad,
+        watchlistLoad: this.watchlistLoad,
+        skipCRU: this.skipCRU,
+        session: this.session
+      });
 
-      } else if (this._style === "personal" && !this.session.isNew()) {
-        var scheduleView = new MediaPassport.Views.UserSchedule({
-          shows: this.shows,
-          collection: this.collection,
-          watchlist: this.watchlist,
-          apiLoad: this.apiLoad,
-          localLoad: this.localLoad,
-          watchlistLoad: this.watchlistLoad,
-          skipCRU: this.skipCRU
-        });
-
-      }
-
-      this.currentView = scheduleView;
-      this.addSubview('.schedule-container', scheduleView);
-
-      return this;
     }
+
+    this.currentView = scheduleView;
+    this.addSubview('.schedule-container', scheduleView);
+
+    return this;
   },
 
   switchView: function (event) {

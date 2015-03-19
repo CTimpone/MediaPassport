@@ -30,9 +30,11 @@ MediaPassport.Routers.Router = Backbone.Router.extend({
   },
 
   primaryLanding: function () {
+    var initial = this.session.isNew();
     var view = new MediaPassport.Views.Landing({
       shows: this._shows,
-      session: this.session
+      session: this.session,
+      initial: initial
     })
     this._swapView(view);
   },
