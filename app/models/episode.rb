@@ -34,11 +34,35 @@ class Episode < ActiveRecord::Base
             100 => 'A+'}
 
   def self.this_week
-    self.all.where("airdate >= ?", Date.today - 7)
+    self.where("airdate >= ?", Date.today - 7)
   end
 
   def self.today
-    self.all.where("airdate = ?", Date.today)
+    self.where("airdate = ?", Date.today)
+  end
+
+  def self.recent_best
+    query = <<-SQL
+      SELECT
+        episodes.*, avg(ratings.score) as average
+      FROM
+        episodes
+      JOIN
+        ratings
+        ON episodes.id = ratings.episode_id
+      WHERE
+        episodes.airdate >= :three_days_ago AND episodes.airdate <= :today
+      GROUP BY
+        episodes.id
+      HAVING
+        avg(ratings.score) >= 77
+      ORDER BY
+        avg(ratings.score)
+      LIMIT 4
+    SQL
+
+
+    Episode.find_by_sql([query, {three_days_ago: Date.today - 3, today: Date.today}])
   end
 
   def average_rating

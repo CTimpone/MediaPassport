@@ -18,6 +18,9 @@ MediaPassport.Views.UpdateComment = Backbone.View.extend({
     event.preventDefault();
     var data = this.$el.serializeJSON();
     this.model.save(data, {
+      success: function () {
+        this.remove();
+      }.bind(this),
       error: function (obj, response) {
         this.render();
         _.each(response.responseJSON.errors, function (error) {

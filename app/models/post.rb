@@ -25,6 +25,26 @@ class Post < ActiveRecord::Base
 
   has_many :endorsements, as: :endorsable
 
+  def self.top_posts
+    query = <<-SQL
+    SELECT
+      posts.*, count(endorsements.*) as num_endorse
+    FROM
+      posts
+    JOIN
+      endorsements
+      ON posts.id = endorsements.endorsable_id
+    WHERE
+      posts.created_at > :three_days_ago AND endorsements.endorsable_type = 'Post'
+    GROUP BY
+      posts.id
+    ORDER BY
+      num_endorse desc
+    LIMIT
+      4
+    SQL
+  end
+
   def comment_tree
     tree = Hash.new { |h, k| h[k] = [] }
 

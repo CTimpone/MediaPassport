@@ -141,7 +141,7 @@ class User < ActiveRecord::Base
   def relevant_posts
     query = <<-SQL
     SELECT
-      posts.*, count(endorsements.*)
+      posts.*, count(endorsements.*) as num_endorse
     FROM
       posts
     JOIN (
@@ -153,32 +153,40 @@ class User < ActiveRecord::Base
         watchlist_items
         ON episodes.show_id = watchlist_items.show_id
       WHERE
-        watchlist_items.user_id = :current_id
+        watchlist_items.user_id = :user_id
       ) as relevant_episodes
       ON posts.episode_id = relevant_episodes.id
     JOIN
       endorsements
       ON posts.id = endorsements.endorsable_id
     WHERE
-      created_at > :three_days_ago AND endorsements.endorsable_type = "Post"
+      posts.created_at > :three_days_ago AND endorsements.endorsable_type = 'Post'
     GROUP BY
       posts.id
+    ORDER BY
+      num_endorse desc
+    LIMIT
+      4
     SQL
 
+    Post.find_by_sql([query, {user_id: self.id, three_days_ago: Date.today - 3}])
+  end
+
+  def recent_posts
     query = <<-SQL
-      SELECT
-        post.*
-      FROM
-        posts
-      JOIN (
-        SELECT
-          endorsements.*
-        FROM
-          endorsements
-        WHERE
-          endorsable_type = "Post"
-      )
+    SELECT
+      posts.*
+    FROM
+      posts
+    WHERE
+      posts.user_id = :user
+    ORDER BY
+      posts.created_at DESC
+    LIMIT
+      4
     SQL
+
+    Post.find_by_sql([query, {user: self.id}])
   end
 
   private
