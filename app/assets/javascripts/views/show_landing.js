@@ -14,6 +14,7 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
     }.bind(this)});
 
     this._previewEpisode = new MediaPassport.Models.ApiEpisode();
+    this.previewView = null;
 
     this.subviews();
 
@@ -40,6 +41,10 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
     });
 
     this.$el.html(content);
+
+    if (this.previewView) {
+      this.$('.episode-preview').append(this.previewView.render().$el);
+    }
 
 
     if (this._localLoaded === true) {
@@ -108,6 +113,9 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
               that._apiLoaded = true;
               that._localLoaded = false;
               that.model.fetch();
+              if (!that.previewView) {
+                that._apiEpisodes.mostRecentlyAired(that._previewEpisode);
+              }
             }.bind(that)
           }, that);
         }

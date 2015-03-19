@@ -27,7 +27,7 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
     });
 
     this.listenToOnce(this._shows, "sync", this.render);
-    this.listenToOnce(this._apiResults, "sync", this.render);
+    this.listenTo(this._apiResults, "sync", this.render);
     this.listenTo(this._localResults, "sync", this.render);
   },
 
@@ -47,6 +47,10 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
         $('.paginators').addClass('invis');
       }
     }
+
+    if (this._apiLoaded === true) {
+      this.appendNew();
+    }
     return this;
   },
 
@@ -57,7 +61,6 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
       });
       this.addSubview('.results-list', subView)
     }.bind(this));
-    this.appendNew();
   },
 
   appendNew: function () {
