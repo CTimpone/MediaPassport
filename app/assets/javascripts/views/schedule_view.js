@@ -37,10 +37,13 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
       this.networks = _.uniq(this.networks).sort();
 
       _.each(this.networks, function (network) {
-        var row = "<tr class='grid-row' network=" +
-                  network.replace(/[^\w]/gi, '') + "><td class='network-name'>" +
-                  network + "</td></tr>";
-        $('.schedule').append($(row));
+
+        if ($('.grid-row[network="' + network.replace(/[^\w]/gi, '') +'"]').length === 0) {
+          var row = "<tr class='grid-row' network=" +
+                    network.replace(/[^\w]/gi, '') + "><td class='network-name'>" +
+                    network + "</td></tr>";
+          $('.schedule').append($(row));
+        }
       });
 
       this.times = this.collection.pluck("airtime");
@@ -113,35 +116,37 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
   },
 
   developGrid: function () {
-    this.skipCRU = true;
 
-    _.each(this.networks, function (network) {
+    if (!this.developed && !this.skipCRU) {
+      this.developed = true;
+      this.skipCRU = true;
+      _.each(this.networks, function (network) {
 
-      var newEpisodes = this.collection.where({network: network});
-      var tempCollection = new MediaPassport.Collections.ApiEpisodes(newEpisodes)
-      var selector = '.grid-row[network="' +
-                      network.replace(/[^\w]/gi, '') +
-                      '"]';
-      var skips = 1;
-      _.each(this.times, function (time) {
-        if (skips === 1) {
-          var episode = tempCollection.where({airtime: time});
-          if (episode.length !== 0) {
-            skips =  Math.floor(parseInt(episode[0].get('runtime')) / 30);
-            var subview = new MediaPassport.Views.ScheduleGridItem({
-              model: episode[0]
-            });
+        var newEpisodes = this.collection.where({network: network});
+        var tempCollection = new MediaPassport.Collections.ApiEpisodes(newEpisodes)
+        var selector = '.grid-row[network="' +
+                        network.replace(/[^\w]/gi, '') +
+                        '"]';
+        var skips = 1;
+        _.each(this.times, function (time) {
+          if (skips === 1) {
+            var episode = tempCollection.where({airtime: time});
+            if (episode.length !== 0) {
+              skips =  Math.floor(parseInt(episode[0].get('runtime')) / 30);
+              var subview = new MediaPassport.Views.ScheduleGridItem({
+                model: episode[0]
+              });
+            } else {
+              var subview = new MediaPassport.Views.ScheduleGridItem({
+                model: null
+              });
+            }
+            this.addSubview(selector, subview);
           } else {
-            var subview = new MediaPassport.Views.ScheduleGridItem({
-              model: null
-            });
+            skips -= 1;
           }
-          this.addSubview(selector, subview);
-        } else {
-          skips -= 1;
-        }
+        }.bind(this));
       }.bind(this));
-    }.bind(this));
-
+    }
   }
 })
