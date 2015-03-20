@@ -35,6 +35,7 @@ MediaPassport.Views.NewComment = Backbone.View.extend({
         if (data.parent_id !== null) {
           this.remove();
         }
+        this.post.fetch();
       }.bind(this),
       error: function (obj, response) {
         this.render();
