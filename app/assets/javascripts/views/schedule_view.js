@@ -14,6 +14,10 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
 
     this.skipCRU = options.skipCRU;
 
+    if (this.skipCRU) {
+      this.developGrid();
+    }
+
     this.listenToOnce(this.collection, "sync", function () {
       this.apiLoad = true;
       this.render();
@@ -122,36 +126,34 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
 
   developGrid: function () {
 
-    if (!this.developed && !this.skipCRU) {
-      this.developed = true;
-      this.skipCRU = true;
-      _.each(this.networks, function (network) {
+    this.developed = true;
+    this.skipCRU = true;
+    _.each(this.networks, function (network) {
 
-        var newEpisodes = this.collection.where({network: network});
-        var tempCollection = new MediaPassport.Collections.ApiEpisodes(newEpisodes)
-        var selector = '.grid-row[network="' +
-                        network.replace(/[^\w]/gi, '') +
-                        '"]';
-        var skips = 1;
-        _.each(this.times, function (time) {
-          if (skips === 1) {
-            var episode = tempCollection.where({airtime: time});
-            if (episode.length !== 0) {
-              skips =  Math.floor(parseInt(episode[0].get('runtime')) / 30);
-              var subview = new MediaPassport.Views.ScheduleGridItem({
-                model: episode[0]
-              });
-            } else {
-              var subview = new MediaPassport.Views.ScheduleGridItem({
-                model: null
-              });
-            }
-            this.addSubview(selector, subview);
+      var newEpisodes = this.collection.where({network: network});
+      var tempCollection = new MediaPassport.Collections.ApiEpisodes(newEpisodes)
+      var selector = '.grid-row[network="' +
+                      network.replace(/[^\w]/gi, '') +
+                      '"]';
+      var skips = 1;
+      _.each(this.times, function (time) {
+        if (skips === 1) {
+          var episode = tempCollection.where({airtime: time});
+          if (episode.length !== 0) {
+            skips =  Math.floor(parseInt(episode[0].get('runtime')) / 30);
+            var subview = new MediaPassport.Views.ScheduleGridItem({
+              model: episode[0]
+            });
           } else {
-            skips -= 1;
+            var subview = new MediaPassport.Views.ScheduleGridItem({
+              model: null
+            });
           }
-        }.bind(this));
+          this.addSubview(selector, subview);
+        } else {
+          skips -= 1;
+        }
       }.bind(this));
-    }
+    }.bind(this));
   }
 })
