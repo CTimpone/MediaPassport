@@ -1001,6 +1001,24 @@
     color: #444;
   }
 
+  .search-episode-tag {
+    display: inline-block;
+    padding: 5px;
+    background: #A89D12;
+    border-radius: 5px;
+    font-style: italic;
+    font-weight: 700;
+  }
+
+  .search-show-tag {
+    display: inline-block;
+    padding: 5px;
+    background: #E14673;
+    border-radius: 5px;
+    font-style: italic;
+    font-weight: 700;
+  }
+
 
   .invis {
     display: none;
