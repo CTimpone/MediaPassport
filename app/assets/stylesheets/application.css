@@ -417,17 +417,35 @@
     height: auto
   }
 
-  .preview > .rating-info {
-    float: right;
+  .rating-info {
     background: #FEFFF5;
     border: 3px solid #444;
     padding: 5px;
     border-radius: 5px;
-    position: relative;
-    top: -28px;
+    margin-bottom: 10px;
   }
 
-  .rating-info > p {
+  .preview > .rating-info {
+    float: right;
+  }
+
+  .page-info > .rating-info {
+    float: left;
+  }
+
+  .show-rating-info {
+    display: block;
+    background: #FEFFF5;
+    border: 3px solid #444;
+    padding: 5px;
+    border-radius: 5px;
+    width: 100px;
+    position: relative;
+    left: 100px;
+  }
+
+  .rating-info > p,
+  .show-rating-info > p {
     font-style: italic;
     text-align: center;
   }
@@ -436,13 +454,19 @@
     font-size: 12px;
   }
 
-  .rating-info > strong {
+  .rating-info > strong,
+  .show-rating-info > strong {
     font-size: 24px;
     text-align: center;
     display: block;
     margin: 5px 0;
     color: #2EB3DB;
     font-weight: 700;
+  }
+
+  .rating-info > .rating select{
+    margin: auto;
+    display: block;
   }
 
   .show-return,
@@ -562,22 +586,51 @@
   }
 
   .post-list {
-    background: red;
     float: left;
-    width: 500px;
+  }
+  .post-list li {
+    margin: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    min-height: 50px;
   }
 
   .post-list a,
   .post-list p,
   .post-list strong {
     display: block;
-    width: 500px;
     overflow: hidden;
   }
+
+  .post-list .post-item-container span {
+    float: left;
+    display: block;
+    background: #444;
+    font-size: 20px;
+    font-weight: 300;
+    color: #FEFFF5;
+    padding: 5px;
+  }
+
+  .post-list .post-item-container strong {
+    float: left;
+    font-size: 20px;
+    margin: 5px;
+  }
+
+  .post-list .post-item-container p {
+    float: left;
+  }
+
+
 
   .post-display {
     width: 800px;
     margin: 0 auto;
+  }
+
+  .post-form .new-post {
+    float: right;
   }
 
   .post-details {
@@ -586,7 +639,7 @@
     float: left;
     width: 780px;
     min-height: 60px;
-    padding: 10px;
+    padding: 10px 0 10px 10px;
     border: 1px solid #444;
     border-radius: 5px;
     position: relative;
@@ -600,13 +653,16 @@
 
   .post-details > .author {
     background: #2EB3DB;
+    padding-left: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+
   }
 
   .author {
-    position: absolute;
+    float: right;
+    display: block;
     padding: 5px;
-    top: 0;
-    right: 0;
     height: 100%;
   }
 

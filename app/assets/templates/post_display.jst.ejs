@@ -1,7 +1,7 @@
 <% if (post.get('show_title') && post.get('episode_title')) { %>
   <a class="episode-return" href="#shows/<%=encodeURIComponent(post.get('show_title').replace(/ /g,'_'))%>/episodes/<%= encodeURIComponent(post.get('episode_title').replace(/ /g,'_'))%>">Return to: <%= post.escape('episode_title') %></a>
 <% } %>
-<div class="post-details">
+<div class="post-details group">
   <% if (!session.isNew()) {%>
     <h1><%=post.escape('title')%></h1>
 

@@ -16,27 +16,37 @@
         <img src="<%=episode.escape('image_url') %>"/>
       </div>
     <% } %>
-    <% if (!session.isNew()) { %>
-      <div class="rating">
-        <select class="current-user-rating">
-          <option></option>
-          <option value="100">A+</option>
-          <option value="93">A</option>
-          <option value="90">A-</option>
-          <option value="87">B+</option>
-          <option value="83">B</option>
-          <option value="80">B-</option>
-          <option value="77">C+</option>
-          <option value="73">C</option>
-          <option value="70">C-</option>
-          <option value="67">D+</option>
-          <option value="63">D</option>
-          <option value="60">D-</option>
-          <option value="59">F</option>
-        </select>
-        <strong class="average"></strong>
-      </div>
-    <% } %>
+
+    <div class="rating-info group">
+      <p>Average Rating</p>
+      <strong><%= episode.escape('overall_rating') %></strong>
+      <% if (episode.escape('voters') !== "1") {%>
+        <p><%= episode.escape('voters')%> Votes</p>
+      <% } else { %>
+        <p><%= episode.escape('voters')%> Vote</p>
+      <% } %>
+      <% if (!session.isNew()) { %>
+        <div class="rating">
+          <select class="current-user-rating">
+            <option></option>
+            <option value="100">A+</option>
+            <option value="93">A</option>
+            <option value="90">A-</option>
+            <option value="87">B+</option>
+            <option value="83">B</option>
+            <option value="80">B-</option>
+            <option value="77">C+</option>
+            <option value="73">C</option>
+            <option value="70">C-</option>
+            <option value="67">D+</option>
+            <option value="63">D</option>
+            <option value="60">D-</option>
+            <option value="59">F</option>
+          </select>
+          <strong class="average"></strong>
+        </div>
+      <% } %>
+
   </section>
 </article>
 

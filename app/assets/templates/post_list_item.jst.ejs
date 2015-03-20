@@ -1,7 +1,11 @@
-<%= post.escape('total_points') %>
-<a href="#posts/<%=post.id%>">
-<strong><%=post.escape('title')%></strong>
-<p>
-  <%= post.escape('content') %>
-</p>
-</a>
+<div class="post-item-container group">
+  <span><%= post.escape('total_points') %></span>
+  <a href="#posts/<%=post.id%>">
+    <strong><%=post.escape('title')%></strong>
+    <br>
+    <br>
+    <p>
+      <%= post.escape('content') %>
+    </p>
+  </a>
+</div>
