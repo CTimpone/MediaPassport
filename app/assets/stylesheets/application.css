@@ -187,6 +187,14 @@
     outline: 0;
   }
 
+  h1.landing-title {
+    margin: 20px 0;
+    font-size: 32px;
+    display: block;
+    text-align: center;
+    font-weight: 700;
+  }
+
   .user-form {
     width: 400px;
     background: #E0E0E0;
@@ -277,6 +285,12 @@
     font-size: 18px;
     font-weight: 300;
     padding: 0 10px 5px 10px;
+  }
+
+  .results-list > li.no-results{
+    border-bottom: none;
+    margin: 20px;
+    font-size: 20px;
   }
 
   .page-basics {
@@ -493,9 +507,10 @@
     border-right: 3px solid #BDBDBD;
   }
 
-  section.schedule-section {
+  section.schedule-section,
+  section.schedule-list-section {
     width: 725px;
-    height: 660px;
+    height: 645px;
     overflow: scroll;
     background: #FEFFF5;
     margin: 0 auto;
@@ -567,10 +582,59 @@
     text-align: center;
   }
 
-  .schedule-cell-new strong {
+  .schedule-cell-new:hover,
+  .episode-schedule-item a:hover {
+    color: #FEFFF5;
+    background: #444;
+  }
+
+  .schedule-cell-new:hover strong,
+  .episode-schedule-item a:hover strong {
+    color: #73C8E1;
+  }
+
+  .schedule-cell-new strong,
+  .episode-schedule-item strong {
     color: #FEFFF5;
     text-shadow: -1px 0 #444, 0 1px #444, 1px 0 #444, 0 -1px #444;
     font-size: 18px;
+  }
+
+  .network-container {
+    float: left;
+    width: 200px;
+    margin: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+  }
+
+  .network-container .network-title {
+    text-align: center;
+    color: #FEFFF5;
+    background: #2F515B;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 5px 0;
+    border-bottom: 1px solid #444;
+  }
+
+  .episode-schedule-item {
+    margin: 0 5px 0 5px;
+  }
+
+  .episode-schedule-item a {
+    padding: 5px 0;
+    display: block;
+  }
+
+  .episode-schedule-item strong {
+    text-align: center;
+    display: block;
+  }
+
+  ul.network-schedule {
+    background: #73C8E1;
+    padding: 5px 0;
   }
 
   .new-post {
@@ -855,6 +919,33 @@
     border: 1px solid #444;
     margin: 10px 0;
   }
+
+  footer {
+    margin: auto;
+    width: 900px;
+    border-right: 3px solid #444;
+    border-left: 3px solid #444;
+    border-bottom: 3px solid #444;
+    background: #FEFFF5;
+    color: #ccc;
+  }
+
+  footer strong {
+    float: left;
+    display: block;
+    padding: 10px;
+  }
+
+  footer p {
+    float: right;
+    display: block;
+    padding: 10px;
+  }
+
+  footer a:hover {
+    color: #444;
+  }
+
 
   .invis {
     display: none;

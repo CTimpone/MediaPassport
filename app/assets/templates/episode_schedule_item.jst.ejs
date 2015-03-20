@@ -1,4 +1,6 @@
 <a href="#shows/<%=encodeURIComponent(episode._show.get('title').replace(/ /g, '_'))%>/episodes/<%=encodeURIComponent(episode.get('title').replace(/ /g, '_'))%>">
-  <%= episode.escape('title') %>
-  <%= episode._show.escape('title') %>
+  <strong><%= episode.escape('title') %></strong>
+  <p>
+    <%= episode._show.escape('title') %>(S<%=episode.escape('season')%>E<%=episode.escape('position')%>)
+  </p>
 </a>

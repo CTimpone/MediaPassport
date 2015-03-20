@@ -9,7 +9,7 @@ MediaPassport.Views.EpisodeScheduleItem = Backbone.CompositeView.extend({
     var content = this.template({
       episode: this.model
     });
-    
+
     this.$el.html(content);
     return this;
   }

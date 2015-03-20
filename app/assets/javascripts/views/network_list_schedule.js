@@ -1,7 +1,7 @@
 MediaPassport.Views.NetworkListSchedule = Backbone.CompositeView.extend({
   template: JST["network_list"],
 
-  className: "group",
+  className: "network-container",
 
   render: function () {
     var content = this.template({

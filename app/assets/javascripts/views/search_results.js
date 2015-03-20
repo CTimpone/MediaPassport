@@ -55,12 +55,17 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
   },
 
   renderItems: function () {
-    this._localResults.each(function (result) {
-      var subView = new MediaPassport.Views.SearchResultItem({
-        model: result
-      });
-      this.addSubview('.results-list', subView)
-    }.bind(this));
+    if (this._localResults.length > 0) {
+      this._localResults.each(function (result) {
+        var subView = new MediaPassport.Views.SearchResultItem({
+          model: result
+        });
+        this.addSubview('.results-list', subView)
+      }.bind(this));
+    } else {
+      $('.results-list').append($("<li class='no-results'>No results found for that query</li>"))
+    }
+
   },
 
   appendNew: function () {
