@@ -750,19 +750,16 @@
     text-align: center;
   }
 
-  .post-details > .author {
-    background: #2EB3DB;
-    padding-left: 20px;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-
-  }
-
   .author {
     float: right;
     display: block;
     padding: 5px;
     height: 100%;
+    background: #2EB3DB;
+    padding-left: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin-bottom: 5px;
   }
 
   .author > p {
@@ -799,7 +796,7 @@
     display: block;
     width: calc(100% - 20px);
     min-height: 60px;
-    padding: 10px;
+    padding: 10px 0 10px 10px;
     border: 1px solid #444;
     margin-bottom: 10px;
     border-radius: 5px;
