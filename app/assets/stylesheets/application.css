@@ -861,40 +861,46 @@
     font-weight: 700;
   }
 
-  .watchlist-items {
+  .watchlist-items,
+  .recommendations {
     border: 1px solid #444;
     margin: auto;
   }
 
-  .watchlist-items button {
+  .watchlist-items button,
+  .recommendations button {
     margin: 0;
   }
 
-  .watchlist-items a {
+  .watchlist-items a,
+  .recommendations a {
     padding: 20px;
     font-size: 20px;
     display: block;
     font-weight: 700;
   }
 
-  .watchlist-items a:hover {
+  .watchlist-items a:hover,
+  .recommendations a:hover {
     background: #444;
     color: #E0E0E0;
   }
 
-  .watchlist-items td {
+  .watchlist-items td,
+  .recommendations td {
     text-align: center;
     border: 1px solid #444;
   }
 
-  .watchlist-items th {
+  .watchlist-items th,
+  .recommendations th {
     border-bottom: 1px solid #444;
     background: #444;
     color: #2EB3DB;
     padding: 5px;
   }
 
-  .watchlist-items .personal-average {
+  .personal-average {
     font-size: 24px;
     font-weight: 700;
     color: #2EB3DB;
@@ -905,7 +911,7 @@
     font-size: 28px;
     font-weight: 700;
   }
-
+  
   .errors {
     width: 100%;
     background: orange;

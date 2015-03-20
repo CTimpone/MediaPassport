@@ -1,2 +1,12 @@
-<a href="#shows/<%= encodeURIComponent(item.get('title'))%>"><%= item.escape('title') %></a>
-<button class="add-to-list">Add</button>
+<td>
+  <a href="#shows/<%= encodeURIComponent(item.get('title').replace(/ /g,'_'))%>"><%= item.escape('title') %></a>
+</td>
+<td>
+  <a href="#shows/<%= encodeURIComponent(item.get('title').replace(/ /g,'_'))%>/episodes/<%= encodeURIComponent(item.get('most_recent').replace(/ /g,'_'))%>"><%= (item.escape('most_recent')) %></a>
+</td>
+<td>
+  <strong class="personal-average"><%= item.escape('your_average')%></strong>
+</td>
+<td>
+  <button class="add-to-list">Add</button>
+</td>

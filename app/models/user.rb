@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
         GROUP BY
           watchlist_items.show_id
         HAVING
-          count(watchlist_items.user_id) > :matches
+          count(watchlist_items.user_id) >= :matches
         ORDER BY
           count(watchlist_items.user_id) desc
         ) AS rec_ids
@@ -133,9 +133,11 @@ class User < ActiveRecord::Base
       ON shows.id = user_items.show_id) as already_watched
     ON already_watched.id = potentials.id
     WHERE already_watched.id IS null
+    LIMIT
+      5
     SQL
 
-    Show.find_by_sql([query, {user_id: self.id, top_half: User.all.length / 2, matches: 2}])
+    Show.find_by_sql([query, {user_id: self.id, top_half: User.all.length / 2, matches: User.all.length / 4}])
   end
 
   def relevant_posts

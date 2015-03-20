@@ -11,6 +11,7 @@ MediaPassport.Views.EpisodeLanding = Backbone.CompositeView.extend({
     this.session = options.session;
     this.listenTo(this.session, "change create", this.render)
     this.listenTo(this.model.posts(), "add", this.addPost)
+    this.listenTo(this.model, "sync", this.render)
   },
 
   render: function () {
@@ -62,6 +63,7 @@ MediaPassport.Views.EpisodeLanding = Backbone.CompositeView.extend({
       rating.save({}, {
         success: function () {
           this.model.set({current_user_rating: parseInt(newVal)});
+          this.model.fetch();
         }.bind(this)
       });
     } else if (newVal) {
@@ -71,6 +73,7 @@ MediaPassport.Views.EpisodeLanding = Backbone.CompositeView.extend({
             current_user_rating: parseInt(newVal),
             current_rating_id: rating.id
           });
+          this.model.fetch();
         }.bind(this)
       });
     }

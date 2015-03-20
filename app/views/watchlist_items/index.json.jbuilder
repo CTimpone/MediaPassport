@@ -9,5 +9,7 @@ end
 
 json.array! (current_user.recommendations) do |rec|
   json.set! :title, rec.title
+  json.set! :most_recent, rec.most_recent_episode[0].title
+  json.set! :your_average, current_user.personal_show_average(rec.id)
   json.set! :rec, true
 end

@@ -1,7 +1,7 @@
 MediaPassport.Views.RecommendationItem = Backbone.View.extend({
   template: JST["recommendation_item"],
 
-  tagName: "li",
+  tagName: "tr",
 
   className: "recommendation-item",
 
