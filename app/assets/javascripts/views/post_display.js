@@ -24,7 +24,6 @@ MediaPassport.Views.PostDisplay = Backbone.CompositeView.extend({
     this.$el.html(content);
 
     if (this.model.comment_tree) {
-      console.log(this.model.comment_tree);
 
       this.children = this.model.comment_tree[""];
 

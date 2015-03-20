@@ -53,7 +53,7 @@
   }
 
   body {
-   background: #E0E0E0;
+   background: #73C8E1;
    color: #444;
    margin: 0;
   }
@@ -508,7 +508,8 @@
   }
 
   section.schedule-section,
-  section.schedule-list-section {
+  section.schedule-list-section,
+  section.user-schedule-section {
     width: 725px;
     height: 645px;
     overflow: scroll;
@@ -583,18 +584,21 @@
   }
 
   .schedule-cell-new:hover,
-  .episode-schedule-item a:hover {
+  .episode-schedule-item a:hover,
+  .personal-item a:hover {
     color: #FEFFF5;
     background: #444;
   }
 
   .schedule-cell-new:hover strong,
-  .episode-schedule-item a:hover strong {
+  .episode-schedule-item a:hover strong,
+  .personal-item a:hover strong {
     color: #73C8E1;
   }
 
   .schedule-cell-new strong,
-  .episode-schedule-item strong {
+  .episode-schedule-item strong,
+  .personal-item strong {
     color: #FEFFF5;
     text-shadow: -1px 0 #444, 0 1px #444, 1px 0 #444, 0 -1px #444;
     font-size: 18px;
@@ -635,6 +639,54 @@
   ul.network-schedule {
     background: #73C8E1;
     padding: 5px 0;
+  }
+
+  .personal-item {
+    position: relative;
+    border-bottom: 1px solid #444;
+    border-top: 1px solid #444;
+
+  }
+
+  .personal-item a {
+    display: block;
+    float: left;
+    width: 278px;
+    background: #73C8E1;
+    font-size: 20px;
+    height: 100%;
+    border-left: 1px solid #444;
+    border-right: 1px solid #444;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+  }
+
+  .personal-item strong {
+    text-align: center;
+    display: block;
+    font-size: 24px;
+    margin-top: 10px;
+  }
+
+  .personal-item p {
+    margin-left: 10px;
+    display: block;
+  }
+
+  .extra-info {
+    width: 390px;
+    float: right;
+    padding: 10px;
+  }
+
+  .extra-info span {
+    font-style: italic;
+    font-weight: 700;
+  }
+
+  .extra-info p {
+    display: block;
   }
 
   .new-post {

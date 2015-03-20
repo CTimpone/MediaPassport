@@ -51,7 +51,7 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
       });
 
       this.times = this.collection.pluck("airtime");
-      this.times = ["20:00", "20:30", "21:00", "21:30", "22:00"].concat(this.times);
+      this.times = ["20:00", "20:30", "21:00", "21:30", "22:00", "22:30"].concat(this.times);
       this.times = this.times.sort();
       this.times = _.uniq(this.times);
       if ($('.time-col').length === 0) {

@@ -84,7 +84,7 @@ MediaPassport.Views.UserSchedule = Backbone.CompositeView.extend({
 
             }
           }, that);
-        }
+        }x
       }.bind(this));
     }
   },
@@ -95,7 +95,7 @@ MediaPassport.Views.UserSchedule = Backbone.CompositeView.extend({
       var watchedEpisodes = this.collection.where({show_maze_id: item.get('show_maze_id')})
       if (watchedEpisodes.length > 0) {
         _.each(watchedEpisodes, function (episode) {
-          var subview = new MediaPassport.Views.EpisodeScheduleItem({
+          var subview = new MediaPassport.Views.EpisodePersonalItem({
             model: episode
           });
           this.addSubview('.watched-show-episodes', subview);

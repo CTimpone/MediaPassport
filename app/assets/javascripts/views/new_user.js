@@ -47,7 +47,7 @@ MediaPassport.Views.NewUser = Backbone.CompositeView.extend({
   setAvatar: function (event) {
     var file = event.currentTarget.files[0];
     $('.errors').html("<li>Processing File</li>");
-    console.log(file);
+
     var fileReader = new FileReader();
 
     fileReader.onloadend = function () {

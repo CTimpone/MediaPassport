@@ -69,7 +69,7 @@ MediaPassport.Views.CommentDisplay = Backbone.CompositeView.extend({
     if ($(event.currentTarget).data("id") === this.comment.id) {
       var signedIn = !this.session.isNew();
       var creator = this.session.escape('username') === this.comment.escape('author');
-      console.log(this.parentView);
+
       this.parentView.regexRemoveAllFromSelector(/nested-comment-form/);
       if (signedIn && !creator) {
         var newCommentSubview = new MediaPassport.Views.NewComment({

@@ -100,7 +100,7 @@ MediaPassport.Views.SearchResults = Backbone.CompositeView.extend({
 
   changePage: function (event) {
     var dir = parseInt($(event.currentTarget).attr("dir"));
-    console.log(this.page);
+
     this.page += dir;
     this._localResults.page = this.page;
 

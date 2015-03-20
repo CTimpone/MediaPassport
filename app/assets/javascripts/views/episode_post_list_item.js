@@ -6,7 +6,6 @@ MediaPassport.Views.EpisodePostListItem = Backbone.View.extend({
   className: "post-item",
 
   render: function () {
-    console.log(this.model);
     var content = this.template({post: this.model});
     this.$el.html(content);
 
