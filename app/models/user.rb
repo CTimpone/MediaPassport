@@ -172,6 +172,36 @@ class User < ActiveRecord::Base
     Post.find_by_sql([query, {user_id: self.id, three_days_ago: Date.today - 3}])
   end
 
+  def personal_show_average(show_id)
+    query = <<-SQL
+        SELECT
+          ratings.*
+        FROM
+          ratings
+        JOIN (
+          SELECT
+            episodes.*
+          FROM
+            episodes
+          WHERE
+            episodes.show_id = ?
+        ) as current_episodes
+        ON current_episodes.id = ratings.episode_id
+        WHERE
+          ratings.user_id = ?
+      SQL
+    scores = (Rating.find_by_sql([query, show_id, self.id])).map {|rating| rating.score}
+    if scores.length > 0
+      avg = scores.inject(:+) / scores.length
+      bucket = Episode::SCORES.keys.min_by { |val| (avg - val).abs }
+      return Episode::SCORES[bucket]
+    else
+      return '-'
+    end
+  end
+
+
+
   def recent_posts
     query = <<-SQL
     SELECT
@@ -188,6 +218,8 @@ class User < ActiveRecord::Base
 
     Post.find_by_sql([query, {user: self.id}])
   end
+
+
 
   private
   def ensure_session_token

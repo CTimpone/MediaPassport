@@ -795,6 +795,13 @@
     border-bottom: 1px solid #444;
     background: #444;
     color: #2EB3DB;
+    padding: 5px;
+  }
+
+  .watchlist-items .personal-average {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2EB3DB;
   }
 
   .watchlist-header {
