@@ -23,10 +23,11 @@ MediaPassport.Views.NewUser = Backbone.CompositeView.extend({
 
   createUser: function (event) {
     event.preventDefault();
+    $('.errors').empty();
     var data = this.$el.serializeJSON();
 
     this.user.set(data);
-    
+
     this.model.clear({silent: true});
     this.user.save({}, {
       success: function () {
@@ -45,14 +46,18 @@ MediaPassport.Views.NewUser = Backbone.CompositeView.extend({
 
   setAvatar: function (event) {
     var file = event.currentTarget.files[0];
-
+    $('.errors').html("<li>Processing File</li>");
+    console.log(file);
     var fileReader = new FileReader();
 
     fileReader.onloadend = function () {
       this.user.set("avatar", fileReader.result);
-      console.log('x');
+      $('.errors').empty();
     }.bind(this)
-
-    fileReader.readAsDataURL(file);
+    if (file !== undefined) {
+      fileReader.readAsDataURL(file);
+    } else {
+      $('.errors').empty();
+    }
   }
 })

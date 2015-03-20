@@ -781,9 +781,20 @@
     margin: auto;
   }
 
+  .watchlist-items button {
+    margin: 0;
+  }
+
   .watchlist-items a {
-    padding: 10px;
+    padding: 20px;
     font-size: 20px;
+    display: block;
+    font-weight: 700;
+  }
+
+  .watchlist-items a:hover {
+    background: #444;
+    color: #E0E0E0;
   }
 
   .watchlist-items td {
