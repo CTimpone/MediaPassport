@@ -45,6 +45,7 @@ MediaPassport.Views.CommentDisplay = Backbone.CompositeView.extend({
         var commentSubview = new MediaPassport.Views.CommentDisplay({
           post: this.post,
           session: this.session,
+          collection: this.collection,
           comment: new MediaPassport.Models.Comment(comment),
           parentView: this.parentView
         });
@@ -90,7 +91,7 @@ MediaPassport.Views.CommentDisplay = Backbone.CompositeView.extend({
   toggleEndorse: function (event) {
     var parent = $($(event.currentTarget).parent());
     if (parent.data("id") === this.comment.id) {
-      parent.html("<p>Processing</p>")
+      parent.html("<p>P</p>")
       var endorsements = new MediaPassport.Collections.Endorsements({
         comment_id: this.comment.id,
         post_id: this.comment.escape('post_id')
@@ -105,8 +106,8 @@ MediaPassport.Views.CommentDisplay = Backbone.CompositeView.extend({
               total_points: parseInt(this.comment.escape('total_points')) - 1
             });
 
-            var str='<strong>' + this.comment.escape('total_points') +'</strong>' +
-              '<a class="endorse" href="javascript:void(0)">+</a>';
+            var str='<a class="endorse" href="javascript:void(0)">+</a>'+
+              '<strong> ' + this.comment.escape('total_points') +'</strong>';
 
             parent.html(str)
           } else {
@@ -115,8 +116,8 @@ MediaPassport.Views.CommentDisplay = Backbone.CompositeView.extend({
               total_points: parseInt(this.comment.escape('total_points')) + 1
             });
 
-            var str = '<strong>' + this.comment.escape('total_points') +'</strong>' +
-              '<a class="endorse" href="javascript:void(0)">-</a>';
+            var str = '<a class="endorse" href="javascript:void(0)">-</a>' +
+              '<strong> ' + this.comment.escape('total_points') +'</strong>';
 
             parent.html(str)
           }

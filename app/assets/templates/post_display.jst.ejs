@@ -1,21 +1,30 @@
 <% if (post.get('show_title') && post.get('episode_title')) { %>
-  <a href="#shows/<%=encodeURIComponent(post.get('show_title').replace(/ /g,'_'))%>/episodes/<%= encodeURIComponent(post.get('episode_title').replace(/ /g,'_'))%>">Return to: <%= post.escape('episode_title') %></a>
+  <a class="episode-return" href="#shows/<%=encodeURIComponent(post.get('show_title').replace(/ /g,'_'))%>/episodes/<%= encodeURIComponent(post.get('episode_title').replace(/ /g,'_'))%>">Return to: <%= post.escape('episode_title') %></a>
 <% } %>
-<% if (!session.isNew()) {%>
-  <div class="endorsement" data-post-id="<%=post.id%>">
-    <strong><%= post.escape('total_points') %></strong>
-    <% if (post.escape("endorsed") === "true") {%>
-      <a class="endorse" href="javascript:void(0)">-</a>
-    <%} else {%>
-      <a class="endorse" href="javascript:void(0)">+</a>
-    <% } %>
-  </div>
-<% } %>
-<h1><%=post.escape('title')%></h1>
-<p> By: <%= post.escape('author')%>
-  <br>
-  <%= post.escape('content') %>
-</p>
+<div class="post-details">
+  <% if (!session.isNew()) {%>
+    <h1><%=post.escape('title')%></h1>
+
+    <div class="endorsement" data-post-id="<%=post.id%>">
+      <% if (post.escape("endorsed") === "true") {%>
+        <a class="endorse" href="javascript:void(0)">-</a>
+      <%} else {%>
+        <a class="endorse" href="javascript:void(0)">+</a>
+      <% } %>
+      <strong><%= post.escape('total_points') %></strong>
+    </div>
+  <% } %>
+  <span class="author">
+    <p>
+      <%= post.escape('author')%>
+    </p>
+    <img src="<%=post.escape('author_avatar')%>" alt="" />
+  </span>
+  <p>
+    <%= post.escape('content') %>
+  </p>
+</div>
+
 
 <ul class="comment-list" data-parent-id="nil">
 
@@ -24,4 +33,5 @@
 <br>
 <br>
 
+<h3 class="form-title">New Comment</h3>
 <div class="new-comment"></div>

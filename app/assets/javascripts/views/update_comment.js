@@ -1,6 +1,8 @@
 MediaPassport.Views.UpdateComment = Backbone.View.extend({
   tagName: "form",
 
+  className: "group",
+
   events: {
     "submit": "updateComment"
   },

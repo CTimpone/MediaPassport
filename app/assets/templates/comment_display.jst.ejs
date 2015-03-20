@@ -1,21 +1,28 @@
-<% if (!session.isNew()) {%>
-  <div class="endorsement" data-id="<%=comment.id%>">
-    <strong><%= comment.escape('total_points') %></strong>
-    <% if (comment.escape("endorsed") === "true") {%>
-      <a class="endorse" href="javascript:void(0)">-</a>
-    <%} else {%>
-      <a class="endorse" href="javascript:void(0)">+</a>
+<div class="comment-container">
+  <% if (!session.isNew()) {%>
+    <div class="endorsement" data-id="<%=comment.id%>">
+      <% if (comment.escape("endorsed") === "true") {%>
+        <a class="endorse" href="javascript:void(0)">-</a>
+      <%} else {%>
+        <a class="endorse" href="javascript:void(0)">+</a>
+      <% } %>
+      <strong><%= comment.escape('total_points') %></strong>
+    </div>
     <% } %>
-  </div>
-  <% } %>
-By: <%= comment.escape('author')%>
-<br>
-<p>
-  <div class="content" data-id="<%=comment.id%>">
-    <%= comment.escape('content') %>
-  </div>
-</p>
+  <span class="author">
+    <p>
+      <%= comment.escape('author')%>
+    </p>
+    <!-- <img src="<%=comment.escape('author_avatar')%>" alt="" /> -->
+  </span>
+  <br>
+  <p>
+    <div class="content" data-id="<%=comment.id%>">
+      <%= comment.escape('content') %>
+    </div>
+  </p>
 
-<a class="show-stuff" data-id="<%=comment.id%>" href="javascript:void(0)"><%=actionText%></a>
-<div class="nested-comment-form" data-id="<%=comment.id%>"></div>
-<ul class="comment-list-<%=comment.id%>"></ul>
+  <a class="show-stuff" data-id="<%=comment.id%>" href="javascript:void(0)"><%=actionText%></a>
+  <div class="nested-comment-form" data-id="<%=comment.id%>"></div>
+  <ul class="nested-list comment-list-<%=comment.id%>"></ul>
+</div>

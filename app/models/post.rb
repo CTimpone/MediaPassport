@@ -57,7 +57,7 @@ class Post < ActiveRecord::Base
         parent_id: comment.parent_id,
         created_at: comment.created_at,
         total_points: comment.total_points,
-        author: comment.author.username
+        author: comment.author.username,
       }
       tree[comment.parent_id] << tmp
     end
