@@ -2,7 +2,7 @@
 
 [Heroku link][heroku]
 
-[heroku]: http://fake-url.herokuapp.com
+[heroku]: http://media-passport.herokuapp.com/
 
 ## Minimum Viable Product
 Media Passport is a pseudo-GoodReads clone for television, on which users can:
@@ -13,11 +13,11 @@ Media Passport is a pseudo-GoodReads clone for television, on which users can:
 - [x] Create sessions (log in)
 - [x] Write posts
 - [x] Comment on posts
-- [ ] View program listings
-- [ ] Rate episodes
-- [ ] Create a personal show watch list
-- [ ] Can endorse user generated comment
-- [ ] Search for shows and episodes via title
+- [x] View program listings
+- [x] Rate episodes
+- [x] Create a personal show watch list
+- [x] Can endorse user generated comment
+- [x] Search for shows and episodes via title
 - [x] Actions will fetch data from API to fill database
 
 ## Design Docs
@@ -62,7 +62,7 @@ I will also add recommendations based on comparison of the 'current_user' watchl
 [Details][phase-six]
 
 ### Bonus Features (TBD)
-- [ ] Add ActiveMailer user registration
+- [x] Add ActiveMailer user registration
 - [ ] Add JQuery UI elements for dragging and dropping
 - [x] Improve URL legibility (titles rather than IDs)
 - [ ] More powerful content generation rather than plain-text
@@ -70,7 +70,7 @@ I will also add recommendations based on comparison of the 'current_user' watchl
 - [ ] Separate reviews from posts into distinct model
 - [ ] More in-depth privacy options
 - [ ] Multiple sessions/session management
-- [ ] User avatars/gravatars
+- [x] User avatars/gravatars
 - [ ] Integrate other media APIs
 
 [phase-one]: ./docs/phases/phase1.md
