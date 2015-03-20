@@ -10,7 +10,6 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require_self
  */
   h1, h2, h3, h4, nav, strong, form,
@@ -41,9 +40,10 @@
    list-style: none;
   }
 
-  table {
+  table, td, th {
     border-spacing: 0 !important;
     border-collapse: separate !important;
+    padding: 0;
   }
 
   .group:after {
@@ -494,7 +494,7 @@
   }
 
   section.schedule-section {
-    width: 730px;
+    width: 725px;
     height: 660px;
     overflow: scroll;
     background: #FEFFF5;
@@ -536,6 +536,12 @@
     margin: 0;
   }
 
+  table.schedule th {
+    background: #444;
+    color: #2EB3DB;
+    border: 1px solid #FEFFF5;
+  }
+
   .network-name {
     padding: 0;
     border-spacing: 0;
@@ -546,8 +552,25 @@
   }
 
   .schedule-cell-new > div {
-    border: 1px solid #444;
-    height: 150px;
+    height: 100px;
+  }
+
+  .schedule-cell-new {
+    background: #73C8E1;
+  }
+
+  .schedule-cell-new a {
+    padding-top: 20px;
+    display: block;
+    width: 100%;
+    height: calc(100% - 20px);
+    text-align: center;
+  }
+
+  .schedule-cell-new strong {
+    color: #FEFFF5;
+    text-shadow: -1px 0 #444, 0 1px #444, 1px 0 #444, 0 -1px #444;
+    font-size: 18px;
   }
 
   .new-post {
@@ -635,8 +658,6 @@
   .post-list .post-item-container p {
     float: left;
   }
-
-
 
   .post-display {
     width: 800px;

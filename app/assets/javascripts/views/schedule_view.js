@@ -44,8 +44,8 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
 
         if ($('.grid-row[network="' + network.replace(/[^\w]/gi, '') +'"]').length === 0) {
           var row = "<tr class='grid-row' network=" +
-                    network.replace(/[^\w]/gi, '') + "><td class='network-name'>" +
-                    network + "</td></tr>";
+                    network.replace(/[^\w]/gi, '') + "><th class='network-name'>" +
+                    network + "</th></tr>";
           $('.schedule').append($(row));
         }
       });
@@ -135,6 +135,7 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
       var selector = '.grid-row[network="' +
                       network.replace(/[^\w]/gi, '') +
                       '"]';
+
       var skips = 1;
       _.each(this.times, function (time) {
         if (skips === 1) {
