@@ -42,8 +42,8 @@
   }
 
   table {
-    border-spacing: 0;
-    border-collapse: separate;
+    border-spacing: 0 !important;
+    border-collapse: separate !important;
   }
 
   .group:after {
@@ -497,7 +497,7 @@
     width: 730px;
     height: 660px;
     overflow: scroll;
-    background: #E0E0E0;
+    background: #FEFFF5;
     margin: 0 auto;
     border: 3px solid #444;
   }
@@ -525,6 +525,15 @@
     table-layout: fixed;
     margin: auto;
     overflow: scroll;
+  }
+
+  table.schedule td,
+  table.schedule th {
+    border: 1px solid #444;
+  }
+
+  table.schedule div {
+    margin: 0;
   }
 
   .network-name {
