@@ -41,6 +41,11 @@
    list-style: none;
   }
 
+  table {
+    border-spacing: 0;
+    border-collapse: separate;
+  }
+
   .group:after {
    content: "";
    display: block;
@@ -759,6 +764,33 @@
 
   .form-title {
     font-size: 24px;
+    font-weight: 700;
+  }
+
+  .watchlist-items {
+    border: 1px solid #444;
+    margin: auto;
+  }
+
+  .watchlist-items a {
+    padding: 10px;
+    font-size: 20px;
+  }
+
+  .watchlist-items td {
+    text-align: center;
+    border: 1px solid #444;
+  }
+
+  .watchlist-items th {
+    border-bottom: 1px solid #444;
+    background: #444;
+    color: #2EB3DB;
+  }
+
+  .watchlist-header {
+    padding: 20px;
+    font-size: 28px;
     font-weight: 700;
   }
 

@@ -2,7 +2,6 @@ MediaPassport.Views.WatchlistDisplay = Backbone.CompositeView.extend({
   template: JST["watchlist_display"],
 
   initialize: function () {
-    console.log(this.collection);
     this.listenTo(this.collection, "sync", this.renderItems)
     this.listenTo
   },
@@ -13,6 +12,7 @@ MediaPassport.Views.WatchlistDisplay = Backbone.CompositeView.extend({
     this.$el.html(content);
 
     this.renderItems();
+    k=this.collection;
     return this;
   },
 

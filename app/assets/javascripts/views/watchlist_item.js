@@ -1,7 +1,7 @@
 MediaPassport.Views.WatchlistItem = Backbone.View.extend({
   template: JST["watchlist_item"],
 
-  tagName: "li",
+  tagName: "tr",
 
   className: "watchlist_item",
 
