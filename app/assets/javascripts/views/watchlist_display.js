@@ -12,12 +12,19 @@ MediaPassport.Views.WatchlistDisplay = Backbone.CompositeView.extend({
     this.$el.html(content);
 
     this.renderItems();
-    k=this.collection;
     return this;
   },
 
   renderItems: function (event) {
     this.subviews && this.removeSubviews();
+
+    if (this.collection.where({rec: false}).length === 0) {
+      $('.watchlist-items').addClass('invis');
+    }
+
+    if (this.collection.where({rec: true}).length === 0) {
+      $('.recommendations').addClass('invis');
+    }
 
     this.collection.each(function (item) {
       if (item.escape('rec') === "false") {
@@ -32,6 +39,7 @@ MediaPassport.Views.WatchlistDisplay = Backbone.CompositeView.extend({
         });
         this.addSubview('.recommendations', subview);
       }
+
     }.bind(this));
   }
 });
