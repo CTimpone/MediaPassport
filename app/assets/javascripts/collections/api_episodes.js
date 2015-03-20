@@ -2,7 +2,7 @@ MediaPassport.Collections.ApiEpisodes = Backbone.Collection.extend({
   model: MediaPassport.Models.ApiEpisode,
 
   url: function () {
-    return "https://api.tvmaze.com/shows/" + this.maze_id + "/episodes";
+    return "//api.tvmaze.com/shows/" + this.maze_id + "/episodes";
   },
 
   initialize: function (options) {

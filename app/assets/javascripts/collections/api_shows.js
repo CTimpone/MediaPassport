@@ -2,7 +2,7 @@ MediaPassport.Collections.ApiShows = Backbone.Collection.extend({
   model: MediaPassport.Models.ApiShow,
 
   url: function () {
-    return "https://api.tvmaze.com/search/shows?q=" + this.titleConvert();;
+    return "//api.tvmaze.com/search/shows?q=" + this.titleConvert();;
   },
 
   initialize: function (options) {
