@@ -7,6 +7,43 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Cheat Sheet
+# Chris
+# Breaking Bad
+# Deadwood
+# Justified
+# Slings & Arrows
+# Arrow
+# Sherlock
+# Game of Thrones
+#
+# RealUser
+# Breaking Bad
+# Deadwood
+# Arrow
+# The Flash
+# Agents of Shield
+#
+# JJJSchmidt
+# Deadwood
+# Justified
+# Grimm
+# 12 Monkeys
+# Helix
+#
+# MoveableObject
+# Elementary
+# Sherlock
+# Doctor Who
+# The Fades
+# Black Mirror
+
+# CrazyPerson
+# Last Man Standing
+# Cristela
+# Hart of Dixie
+# Paw Patrol
+
+# Hendrix
 #
 # User1 - password
 # Arrow
