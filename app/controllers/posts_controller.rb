@@ -12,19 +12,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.includes(:episode).find(params[:id])
-    @tree = {};
-    @post.comment_tree.each do |key, val|
-      @tree[key] = val;
-      val.each do |comment|
-        if !signed_in?
-          comment["endorsed"] = false
-        elsif current_user.endorsements.find_by({endorsable_id: comment[:id], endorsable_type: "Comment"})
-          comment["endorsed"] = true
-        else
-          comment["endorsed"] = false
-        end
-      end
-    end
+    @tree = @post.comment_tree
     if !current_user
       @endorsed = false
     else
