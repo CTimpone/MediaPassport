@@ -39,6 +39,8 @@ MediaPassport.Views.UserSchedule = Backbone.CompositeView.extend({
     var content = this.template();
     this.$el.html(content);
 
+    this.developList();
+
     return this;
   },
 
