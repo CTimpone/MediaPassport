@@ -7,15 +7,25 @@ MediaPassport.Views.ScheduleList = Backbone.CompositeView.extend({
 
   initialize: function (options) {
     this.shows = options.shows;
+    this.localSchedule = options.localSchedule;
+    console.log(this.localSchedule);
 
     this.localLoad = options.localLoad;
     this.apiLoad = options.apiLoad;
 
     this.skipCRU = options.skipCRU;
 
+    if (this.skipCRU) {
+      this.developLists();
+    }
+
+    this.listenTo(this.localSchedule, "sync", function () {
+      this.developLists();
+    }.bind(this));
+
     this.listenToOnce(this.collection, "sync", function () {
       this.apiLoad = true;
-      this.render();
+      this.generateLists();
     }.bind(this));
 
     this.listenToOnce(this.shows, "sync", function () {
@@ -28,18 +38,18 @@ MediaPassport.Views.ScheduleList = Backbone.CompositeView.extend({
     var content = this.template();
     this.$el.html(content);
 
-    if (this.localLoad && this.apiLoad) {
-      this.networks = this.collection.map(function (model) {
-        return model.show().escape('network').replace(/&amp;/g, '&');
-      });
-      this.networks = _.uniq(this.networks).sort();
-
-      if (this.skipCRU) {
-        this.developLists();
-      } else {
-        this.generateSchedule();
-      }
-    }
+    // if (this.localLoad && this.apiLoad) {
+    //   this.networks = this.collection.map(function (model) {
+    //     return model.show().escape('network').replace(/&amp;/g, '&');
+    //   });
+    //   this.networks = _.uniq(this.networks).sort();
+    //
+    //   if (this.skipCRU) {
+    //     this.developLists();
+    //   } else {
+    //     this.generateSchedule();
+    //   }
+    // }
 
     return this;
   },
@@ -63,19 +73,18 @@ MediaPassport.Views.ScheduleList = Backbone.CompositeView.extend({
                 return _.clone(model.attributes);
               });
 
+              that.developed = true;
+              that.skipCRU = true;
 
               $.ajax({
                 type: "POST",
                 url: '/episodes/batch_verify',
                 data: {episodes: data},
                 dataType: 'json',
+                success: function () {
+                  that.localSchedule.fetch();
+                }
               });
-
-
-              that.developLists();
-
-
-
 
             }
           }, that);
@@ -85,10 +94,14 @@ MediaPassport.Views.ScheduleList = Backbone.CompositeView.extend({
   },
 
   developLists: function () {
-    this.skipCRU = true;
+    console.log('b');
+    this.networks = this.localSchedule.map(function (model) {
+      return model.escape('network').replace(/&amp;/g, '&');
+    });
+    this.networks = _.uniq(this.networks).sort();
 
     _.each(this.networks, function (network) {
-      var newEpisodes = this.collection.where({network: network});
+      var newEpisodes = this.localSchedule.where({network: network});
       var networkSubview = new MediaPassport.Views.NetworkListSchedule({
         collection: newEpisodes,
         model: network
