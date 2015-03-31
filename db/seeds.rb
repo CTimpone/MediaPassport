@@ -90,5 +90,8 @@ Show.delete_all
 Episode.delete_all
 Post.delete_all
 Comment.delete_all
+Endorsement.delete_all
+Rating.delete_all
+WatchlistItem.delete_all
 PgSearch::Document.delete_all(searchable_type: "Episode")
 PgSearch::Document.delete_all(searchable_type: "Show")
