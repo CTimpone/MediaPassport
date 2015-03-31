@@ -17,7 +17,7 @@ MediaPassport.Collections.Episodes = Backbone.Collection.extend({
   },
 
   initialize: function (models, options) {
-    this.show_title = options.show_title;
+    if (options.show_title) this.show_title = options.show_title;
     if (options.verify) this.verify = options.verify;
     if (options.episode_title) this.episode_title = options.episode_title;
 

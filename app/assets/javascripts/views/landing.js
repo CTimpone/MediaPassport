@@ -30,6 +30,9 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
       }.bind(this)
     });
 
+    this.localSchedule = new MediaPassport.Collections.Schedule();
+    this.localSchedule.fetch();
+
     this._style = "grid";
     this.listenTo(this.session, "destroy", function () {
       this.signedIn = false;
@@ -79,7 +82,8 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
         apiLoad: this.apiLoad,
         localLoad: this.localLoad,
         skipCRU: this.skipCRU,
-        session: this.session
+        session: this.session,
+        localSchedule: this.localSchedule
       });
 
     } else if (this._style === "list"){
@@ -89,7 +93,8 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
         apiLoad: this.apiLoad,
         localLoad: this.localLoad,
         skipCRU: this.skipCRU,
-        session: this.session
+        session: this.session,
+        localSchedule: this.localSchedule
       });
 
     } else if (this._style === "personal" && this.signedIn) {
@@ -101,7 +106,8 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
         localLoad: this.localLoad,
         watchlistLoad: this.watchlistLoad,
         skipCRU: this.skipCRU,
-        session: this.session
+        session: this.session,
+        localSchedule: this.localSchedule
       });
 
     }

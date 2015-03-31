@@ -1,10 +1,10 @@
 <div style="width: <%= cols * 150 %>px;">
   <% if (episode) {%>
-    <a href="#shows/<%=encodeURIComponent(episode._show.get('title').replace(/ /g,'_'))%>/episodes/<%= encodeURIComponent(episode.get('title').replace(/ /g,'_'))%>">
+    <a href="#shows/<%=encodeURIComponent(episode.get('show_title').replace(/ /g,'_'))%>/episodes/<%= encodeURIComponent(episode.get('title').replace(/ /g,'_'))%>">
       <strong><%= episode.escape('title').replace(/&amp;/, '&') %></strong>
       <br>
       <p>
-        <%= episode._show.escape('title') %>
+        <%= episode.escape('show_title') %>
         (S<%=episode.escape('season')%>E<%=episode.escape('position')%>)
       </p>
     </a>

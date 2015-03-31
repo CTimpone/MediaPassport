@@ -32,7 +32,6 @@ class EpisodesController < ApplicationController
 
       episode.delete('year')
       episode.delete('show_maze_id')
-      episode.delete('runtime')
 
       actual = show.episodes.find_by({maze_id: episode["maze_id"]})
 
@@ -66,7 +65,6 @@ class EpisodesController < ApplicationController
     data = params["episodes"]
     arr = []
     data.each do |key, episode|
-      episode.delete("runtime")
       arr.push(episode)
     end
     current_show.episodes.create!(arr)
@@ -83,7 +81,8 @@ class EpisodesController < ApplicationController
   end
 
   def schedule
-
+    @schedule = Episode.today.includes(:show)
+    render "schedule.json.jbuilder"
   end
 
   private
@@ -97,7 +96,8 @@ class EpisodesController < ApplicationController
     :maze_id,
     :image_url,
     :airtime,
-    :network
+    :network,
+    :runtime
   )
   end
 

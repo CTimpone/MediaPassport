@@ -33,9 +33,9 @@ Rails.application.routes.draw do
       end
     end
   end
-  resources :networks, only: :show
   resources :search, only: :index
   resources :ratings, only: [:create, :update]
   resources :watchlist_items, only: :index
   post "episodes/batch_verify", to: "episodes#batch_verify"
+  get "episodes/schedule", to: "episodes#schedule"
 end
