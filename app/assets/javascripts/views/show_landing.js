@@ -16,7 +16,7 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
     this._previewEpisode = new MediaPassport.Models.ApiEpisode();
     this.previewView = null;
 
-    this.subviews();
+    this.recentLink = "#";
 
     this.listenTo(this._previewEpisode, "change", this.renderPreview);
     this.listenTo(this.model, "sync", function () {
@@ -37,7 +37,8 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
   render: function () {
     var content = this.template({
       show: this.model,
-      session: this.session
+      session: this.session,
+      link: this.recentLink
     });
 
     this.$el.html(content);
@@ -140,9 +141,10 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
       var encodedEpisode = encodeURIComponent(this._previewEpisode.get('title').replace(/ /g,'_'));
       var encodedShow = encodeURIComponent(this.model.get('title').replace(/ /g,'_'));
       var link = "#shows/" + encodedShow + "/episodes/" + encodedEpisode;
-      $('.most-recent').attr("href", link)
+      $('.most-recent').attr("href", link);
+      this.recentLink = link;
     }
-    
+
     var previewSubview = new MediaPassport.Views.EpisodePreview({
       model: this._previewEpisode
     });
