@@ -82,6 +82,10 @@ class EpisodesController < ApplicationController
     end
   end
 
+  def schedule
+
+  end
+
   private
   def episode_params
     params.require(:episode).permit(

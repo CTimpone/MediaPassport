@@ -38,7 +38,7 @@ class Episode < ActiveRecord::Base
   end
 
   def self.today
-    self.where("airdate = ?", Date.today)
+    Episode.where("airdate = ?", Date.today.to_s)
   end
 
   def self.recent_best
