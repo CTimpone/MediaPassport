@@ -51,9 +51,9 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
     if (this._localLoaded === true) {
       $('.season-selector').empty();
       var season = Math.max.apply(null, this._episodes.pluck("season"));
-
+      var min = Math.min.apply(null, this._episodes.pluck("season"));
       var $selector = $('.season-selector');
-      for (var i = season; i > 0; i--) {
+      for (var i = season; i >= min; i--) {
         var option = '<option value="' + i + '">Season '+ i +
                      '</option>'
         $selector.append($(option))

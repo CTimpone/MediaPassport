@@ -36,6 +36,7 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
   developGrid: function () {
     var timer = setInterval(function () {
       this.times = this.localSchedule.pluck("airtime");
+      console.log(this.times);
       this.times = ["20:00", "20:30", "21:00", "21:30", "22:00", "22:30"].concat(this.times);
       this.times = this.times.sort();
       this.times = _.uniq(this.times);
