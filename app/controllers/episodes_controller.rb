@@ -32,8 +32,6 @@ class EpisodesController < ApplicationController
 
       episode.delete('year')
       episode.delete('show_maze_id')
-      episode.delete('network')
-      episode.delete('airtime')
       episode.delete('runtime')
 
       actual = show.episodes.find_by({maze_id: episode["maze_id"]})
@@ -68,7 +66,6 @@ class EpisodesController < ApplicationController
     data = params["episodes"]
     arr = []
     data.each do |key, episode|
-      episode.delete("airtime")
       episode.delete("runtime")
       arr.push(episode)
     end
@@ -87,7 +84,17 @@ class EpisodesController < ApplicationController
 
   private
   def episode_params
-    params.require(:episode).permit(:season, :position, :airdate, :title, :description, :maze_id, :image_url)
+    params.require(:episode).permit(
+    :season,
+    :position,
+    :airdate,
+    :title,
+    :description,
+    :maze_id,
+    :image_url,
+    :airtime,
+    :network
+  )
   end
 
   def current_show
