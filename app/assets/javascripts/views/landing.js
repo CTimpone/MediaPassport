@@ -10,7 +10,6 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
     this.shows = options.shows;
     this.localLoad = false;
     this.apiLoad = false;
-    this.skipCRU = false;
 
     this.signedIn = !options.initial;
 
@@ -76,12 +75,11 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
     }.bind(this), 1);
 
     if (this._style === "grid") {
-      var scheduleView = new MediaPassport.Views.ScheduleView({
+      var scheduleView = new MediaPassport.Views.ScheduleGrid({
         shows: this.shows,
         collection: this.collection,
         apiLoad: this.apiLoad,
         localLoad: this.localLoad,
-        skipCRU: this.skipCRU,
         session: this.session,
         localSchedule: this.localSchedule
       });
@@ -92,7 +90,6 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
         collection: this.collection,
         apiLoad: this.apiLoad,
         localLoad: this.localLoad,
-        skipCRU: this.skipCRU,
         session: this.session,
         localSchedule: this.localSchedule
       });
@@ -105,7 +102,6 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
         apiLoad: this.apiLoad,
         localLoad: this.localLoad,
         watchlistLoad: this.watchlistLoad,
-        skipCRU: this.skipCRU,
         session: this.session,
         localSchedule: this.localSchedule
       });
@@ -124,7 +120,6 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
 
     this.apiLoad = this.currentView.apiLoad;
     this.localLoad = this.currentView.localLoad;
-    this.skipCRU = this.currentView.skipCRU;
 
     if (this.currentView.watchlistLoad) {
       this.watchlistLoad = this.currentView.watchlistLoad;

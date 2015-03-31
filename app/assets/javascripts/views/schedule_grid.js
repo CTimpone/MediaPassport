@@ -1,4 +1,4 @@
-MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
+MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
   template: JST["schedule"],
 
   tagName: "section",
@@ -12,8 +12,6 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
     this.localLoad = true;
     this.apiLoad = options.apiLoad;
     this.session = options.session;
-
-    this.skipCRU = options.skipCRU;
 
     this.listenTo(this.localSchedule, "sync", function () {
       this.developGrid();
@@ -33,48 +31,6 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
     this.developGrid();
 
     return this;
-  },
-
-  generateSchedule: function () {
-    if (this.localLoad && this.apiLoad) {
-      var count = 0;
-      var len = this.collection.length;
-      col = this.collection;
-      this.collection.each(function (episode) {
-        var dbEpisode;
-        this.shows.CRU(_.clone(episode.show().attributes), {})
-        count += 1;
-        if (count === this.collection.length) {
-
-          var that = this;
-
-          this.shows.batchSave({
-            success: function () {
-              var data = that.collection.map(function (model) {
-                return _.clone(model.attributes);
-              });
-
-              that.skipCRU = true;
-
-
-              $.ajax({
-                type: "POST",
-                url: '/episodes/batch_verify',
-                data: {episodes: data},
-                dataType: 'json',
-                success: function () {
-                  that.localSchedule.fetch();
-                }
-              });
-
-
-              that.developGrid();
-
-            }
-          }, that);
-        }
-      }.bind(this));
-    }
   },
 
   developGrid: function () {
