@@ -130,6 +130,8 @@ MediaPassport.Views.Landing = Backbone.CompositeView.extend({
       this.watchlistLoad = this.currentView.watchlistLoad;
     }
 
+    this.currentView.stopListening();
+
     this.currentView.remove();
     this.render();
   }

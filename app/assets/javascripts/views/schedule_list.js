@@ -8,7 +8,6 @@ MediaPassport.Views.ScheduleList = Backbone.CompositeView.extend({
   initialize: function (options) {
     this.shows = options.shows;
     this.localSchedule = options.localSchedule;
-    console.log(this.localSchedule);
 
     this.localLoad = options.localLoad;
     this.apiLoad = options.apiLoad;
@@ -25,7 +24,7 @@ MediaPassport.Views.ScheduleList = Backbone.CompositeView.extend({
 
     this.listenToOnce(this.collection, "sync", function () {
       this.apiLoad = true;
-      this.generateLists();
+      this.generateSchedule();
     }.bind(this));
 
     this.listenToOnce(this.shows, "sync", function () {
@@ -94,7 +93,6 @@ MediaPassport.Views.ScheduleList = Backbone.CompositeView.extend({
   },
 
   developLists: function () {
-    console.log('b');
     this.networks = this.localSchedule.map(function (model) {
       return model.escape('network').replace(/&amp;/g, '&');
     });
