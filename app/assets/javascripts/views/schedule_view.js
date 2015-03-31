@@ -15,10 +15,6 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
 
     this.skipCRU = options.skipCRU;
 
-    if (this.skipCRU) {
-      this.developGrid();
-    }
-
     this.listenTo(this.localSchedule, "sync", function () {
       this.developGrid();
     }.bind(this));

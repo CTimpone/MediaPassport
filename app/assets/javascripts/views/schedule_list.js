@@ -14,10 +14,6 @@ MediaPassport.Views.ScheduleList = Backbone.CompositeView.extend({
 
     this.skipCRU = options.skipCRU;
 
-    if (this.skipCRU) {
-      this.developLists();
-    }
-
     this.listenTo(this.localSchedule, "sync", function () {
       this.developLists();
     }.bind(this));
@@ -81,6 +77,7 @@ MediaPassport.Views.ScheduleList = Backbone.CompositeView.extend({
   },
 
   developLists: function () {
+    $('.lists-container').empty();
     this.networks = this.localSchedule.map(function (model) {
       return model.escape('network').replace(/&amp;/g, '&');
     });
