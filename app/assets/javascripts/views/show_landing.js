@@ -134,12 +134,15 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
   renderPreview: function () {
     if (this.previewView) {
       this.previewView.remove();
-    } else {
+    }
+
+    if ($(".most-recent").attr("href") === "#") {
       var encodedEpisode = encodeURIComponent(this._previewEpisode.get('title').replace(/ /g,'_'));
       var encodedShow = encodeURIComponent(this.model.get('title').replace(/ /g,'_'));
       var link = "#shows/" + encodedShow + "/episodes/" + encodedEpisode;
       $('.most-recent').attr("href", link)
     }
+    
     var previewSubview = new MediaPassport.Views.EpisodePreview({
       model: this._previewEpisode
     });
