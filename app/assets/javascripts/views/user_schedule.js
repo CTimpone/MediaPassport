@@ -61,6 +61,7 @@ MediaPassport.Views.UserSchedule = Backbone.CompositeView.extend({
                 return _.clone(model.attributes);
               });
 
+              that.skipCRU = true;
 
               $.ajax({
                 type: "POST",

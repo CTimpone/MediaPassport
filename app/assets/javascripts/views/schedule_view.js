@@ -35,7 +35,7 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
     this.$el.html(content);
 
     this.developGrid();
-    
+
     return this;
   },
 
@@ -58,7 +58,6 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
                 return _.clone(model.attributes);
               });
 
-              that.developed = true;
               that.skipCRU = true;
 
 
