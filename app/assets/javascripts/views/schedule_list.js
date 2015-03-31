@@ -87,12 +87,14 @@ MediaPassport.Views.ScheduleList = Backbone.CompositeView.extend({
     this.networks = _.uniq(this.networks).sort();
 
     _.each(this.networks, function (network) {
-      var newEpisodes = this.localSchedule.where({network: network});
-      var networkSubview = new MediaPassport.Views.NetworkListSchedule({
-        collection: newEpisodes,
-        model: network
-      });
-      this.addSubview('.lists-container', networkSubview);
+      if (network !== "") {
+        var newEpisodes = this.localSchedule.where({network: network});
+        var networkSubview = new MediaPassport.Views.NetworkListSchedule({
+          collection: newEpisodes,
+          model: network
+        });
+        this.addSubview('.lists-container', networkSubview);
+      }
     }.bind(this));
   }
 })
