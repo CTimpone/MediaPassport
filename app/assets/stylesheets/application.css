@@ -676,6 +676,7 @@
 
   .extra-info {
     width: 390px;
+    min-height: 100px;
     float: right;
     padding: 10px;
   }

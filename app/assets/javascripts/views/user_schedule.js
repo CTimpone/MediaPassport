@@ -8,6 +8,7 @@ MediaPassport.Views.UserSchedule = Backbone.CompositeView.extend({
   initialize: function (options) {
     this.shows = options.shows;
     this.watchlist = options.watchlist;
+    this.localSchedule = options.localSchedule;
 
     this.localLoad = options.localLoad;
     this.apiLoad = options.apiLoad;
@@ -15,30 +16,26 @@ MediaPassport.Views.UserSchedule = Backbone.CompositeView.extend({
 
     this.skipCRU = options.skipCRU;
 
+    if (this.skipCRU) {
+      this.developList();
+    }
+
     this.listenToOnce(this.collection, "sync", function () {
       this.apiLoad = true;
-      this.render();
+      this.generateSchedule();
     }.bind(this));
 
-    this.listenToOnce(this.shows, "sync", function () {
-      this.localLoad = true;
-      this.render();
-    }.bind(this));
+    this.listenTo(this.localSchedule, "sync", this.developList);
 
     this.listenToOnce(this.watchlist, "sync", function () {
       this.watchlistLoad = true;
+      this.developList();
     }.bind(this));
   },
 
   render: function () {
     var content = this.template();
     this.$el.html(content);
-
-    if (this.skipCRU) {
-      this.developList();
-    } else if (this.localLoad && this.apiLoad) {
-      this.generateSchedule();
-    }
 
     return this;
   },
@@ -70,18 +67,6 @@ MediaPassport.Views.UserSchedule = Backbone.CompositeView.extend({
                 dataType: 'json',
               });
 
-
-              if (this.watchlistLoad) {
-                this.developList();
-              } else {
-                this.stopListening(this.watchlist);
-                this.listenToOnce(this.watchlist, "sync", function () {
-                  this.watchlistLoad = true;
-                  this.developList();
-                }.bind(this));
-              }
-
-
             }
           }, that);
         }x
@@ -90,17 +75,19 @@ MediaPassport.Views.UserSchedule = Backbone.CompositeView.extend({
   },
 
   developList: function () {
-    this.skipCRU = true;
-    this.watchlist.each(function (item) {
-      var watchedEpisodes = this.collection.where({show_maze_id: item.get('show_maze_id')})
-      if (watchedEpisodes.length > 0) {
-        _.each(watchedEpisodes, function (episode) {
-          var subview = new MediaPassport.Views.EpisodePersonalItem({
-            model: episode
-          });
-          this.addSubview('.watched-show-episodes', subview);
-        }.bind(this));
-      }
-    }.bind(this));
+    $('.watched-show-episodes').empty();
+    if (this.watchlistLoad) {
+      this.watchlist.each(function (item) {
+        var watchedEpisodes = this.collection.where({show_maze_id: item.get('show_maze_id')})
+        if (watchedEpisodes.length > 0) {
+          _.each(watchedEpisodes, function (episode) {
+            var subview = new MediaPassport.Views.EpisodePersonalItem({
+              model: episode
+            });
+            this.addSubview('.watched-show-episodes', subview);
+          }.bind(this));
+        }
+      }.bind(this));
+    }
   }
 })
