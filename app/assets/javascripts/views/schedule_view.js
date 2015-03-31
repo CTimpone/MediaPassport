@@ -28,15 +28,14 @@ MediaPassport.Views.ScheduleView = Backbone.CompositeView.extend({
       this.generateSchedule();
     }.bind(this));
 
-    this.listenTo(this.session, "destroy", function () {
-      this.render();
-    }.bind(this));
   },
 
   render: function () {
     var content = this.template();
     this.$el.html(content);
 
+    this.developGrid();
+    
     return this;
   },
 

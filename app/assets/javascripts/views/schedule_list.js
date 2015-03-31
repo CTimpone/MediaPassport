@@ -37,19 +37,6 @@ MediaPassport.Views.ScheduleList = Backbone.CompositeView.extend({
     var content = this.template();
     this.$el.html(content);
 
-    // if (this.localLoad && this.apiLoad) {
-    //   this.networks = this.collection.map(function (model) {
-    //     return model.show().escape('network').replace(/&amp;/g, '&');
-    //   });
-    //   this.networks = _.uniq(this.networks).sort();
-    //
-    //   if (this.skipCRU) {
-    //     this.developLists();
-    //   } else {
-    //     this.generateSchedule();
-    //   }
-    // }
-
     return this;
   },
 
