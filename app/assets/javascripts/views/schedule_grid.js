@@ -61,7 +61,6 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
           return 1;
         }
       });
-      this.times = _.uniq(this.times);
 
       this.networks = this.localSchedule.map(function (model) {
         return model.escape('network').replace(/&amp;/g, '&');
@@ -80,7 +79,7 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
           addedRows += 1;
 
           if (addedRows === this.networks.length) {
-
+            this.times = _.uniq(this.times);
             if ($('.time-col').length === 0) {
               console.log(this.times);
               _.each(this.times, function (time) {
