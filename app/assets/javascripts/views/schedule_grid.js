@@ -80,6 +80,7 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
 
           if (addedRows === this.networks.length) {
             this.times = _.uniq(this.times);
+            console.log(this.times);
             if ($('.time-col').length === 0) {
               console.log(this.times);
               _.each(this.times, function (time) {
