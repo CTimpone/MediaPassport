@@ -36,16 +36,24 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
   developGrid: function () {
     var timer = setInterval(function () {
       this.times = this.localSchedule.pluck("airtime");
+      if (this.times.indexOf("23:35") !== -1) {
+        this.times = this.times.concat(["00:00"]);
+      }
       this.times = ["19:00", "19:30", "20:00", "20:30", "21:00", "21:30",
                     "22:00", "22:30"].concat(this.times);
 
+
       this.times = this.times.sort(function (a, b) {
-        hourA = parseInt(a.slice(0,2));
-        hourB = parseInt(b.slice(0,2));
+        hourA = parseInt(a.slice(0, 2));
+        hourB = parseInt(b.slice(0, 2));
+        minA = parseInt(a.slice(3, 5));
+        minB = parseInt(b.slice(3, 5));
 
         if (hourA === 0) {
           return 1;
         } else if (hourB === 0 && hourA !== 0) {
+          return -1;
+        } else if (hourA === hourB && minA < minB) {
           return -1;
         } else if (hourA < hourB) {
           return -1;
