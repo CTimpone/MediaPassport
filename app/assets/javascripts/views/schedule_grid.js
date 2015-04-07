@@ -36,7 +36,9 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
   developGrid: function () {
     var timer = setInterval(function () {
       this.times = this.localSchedule.pluck("airtime");
+
       var blankIdx = this.times.indexOf("");
+
       if (blankIdx !== -1) {
         this.times[blankIdx] = "00:00";
       }
@@ -55,7 +57,7 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
         minA = parseInt(a.slice(3, 5));
         minB = parseInt(b.slice(3, 5));
 
-        if (hourA === 0) {
+        if (hourA === 0 && hourB !== 0) {
           return 1;
         } else if (hourB === 0 && hourA !== 0) {
           return -1;
@@ -88,7 +90,7 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
             this.times = _.uniq(this.times);
 
             if ($('.time-col').length === 0) {
-              console.log(this.times);
+
               _.each(this.times, function (time) {
                 if (time !== null) {
                   var base = parseInt(time.slice(0, 2));
@@ -118,6 +120,11 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
               _.each(this.times, function (time) {
                 if (skips === 1) {
                   var episode = tempCollection.where({airtime: time});
+
+                  if (time === "00:00" && episode.length === 0) {
+                    episode = tempCollection.where({airtime: ""});
+                  }
+
                   if (episode.length !== 0) {
                     skips =  Math.floor(parseInt(episode[0].get('runtime')) / 30);
                     var subview = new MediaPassport.Views.ScheduleGridItem({
@@ -128,7 +135,9 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
                       model: null
                     });
                   }
+
                   this.addSubview(selector, subview);
+                  
                 } else {
                   skips -= 1;
                 }
