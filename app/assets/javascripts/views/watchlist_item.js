@@ -38,7 +38,7 @@ MediaPassport.Views.WatchlistItem = Backbone.View.extend({
       });
       items.create({}, {
         success: function () {
-          this.remove();
+          this.collection.fetch();
           $('.modal').css("display", "none");
         }.bind(this)
       });

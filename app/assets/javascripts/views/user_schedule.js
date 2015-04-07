@@ -23,12 +23,15 @@ MediaPassport.Views.UserSchedule = MediaPassport.Views.ScheduleView.extend({
 
     this.listenToOnce(this.watchlist, "sync", function () {
       this.watchlistLoad = true;
-      this.developList();
+      this.render();
     }.bind(this));
   },
 
   render: function () {
-    var content = this.template();
+    var content = this.template({
+      watchlist: this.watchlist
+    });
+
     this.$el.html(content);
 
     this.developList();

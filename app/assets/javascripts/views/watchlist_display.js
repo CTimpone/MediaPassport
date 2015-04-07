@@ -23,6 +23,7 @@ MediaPassport.Views.WatchlistDisplay = Backbone.CompositeView.extend({
 
     if (this.collection.where({rec: false}).length === 0) {
       $('.watchlist-items').addClass('invis');
+      $('.info.invis').toggleClass('invis');
     }
 
     if (this.collection.where({rec: true}).length === 0) {
@@ -32,7 +33,8 @@ MediaPassport.Views.WatchlistDisplay = Backbone.CompositeView.extend({
     this.collection.each(function (item) {
       if (item.escape('rec') === "false") {
         var subview = new MediaPassport.Views.WatchlistItem({
-          model: item
+          model: item,
+          collection: this.collection
         });
         this.addSubview('.watchlist-items', subview);
       } else {

@@ -176,6 +176,10 @@
    border-top: 1px solid #444;
   }
 
+  button:disabled {
+    color: #444;
+  }
+
   button:hover {
    background: #444;
    color: #FEFFF5;
@@ -1064,6 +1068,24 @@
 
   .buttons button {
     margin-right: 10px;
+  }
+
+  .info {
+    display: block;
+    width: 725px;
+    margin: auto;
+  }
+
+  .disclaimer {
+    width: 80%;
+    display: block;
+    padding: 10%;
+    font-size: 24px;
+    color: #FEFFF5;
+    text-shadow: -1px 0 #444, 0 1px #444, 1px 0 #444, 0 -1px #444;
+    background: #73C8E1;
+    text-align: center;
+    font-weight: 700;
   }
 
 
