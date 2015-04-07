@@ -1,9 +1,12 @@
 MediaPassport.Views.WatchlistDisplay = Backbone.CompositeView.extend({
   template: JST["watchlist_display"],
 
+  events: {
+    "click .modal-cancel": "hideModal",
+  },
+
   initialize: function () {
     this.listenTo(this.collection, "sync", this.renderItems)
-    this.listenTo
   },
 
   render: function () {
@@ -41,5 +44,9 @@ MediaPassport.Views.WatchlistDisplay = Backbone.CompositeView.extend({
       }
 
     }.bind(this));
+  },
+
+  hideModal: function (event) {
+    $('.modal').css("display", "none");
   }
 });
