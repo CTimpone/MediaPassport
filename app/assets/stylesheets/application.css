@@ -832,6 +832,7 @@
   .author > img {
     border: 1px solid #444;
     margin-bottom: 10px;
+    float: right;
   }
 
   .endorsement a {
