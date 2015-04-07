@@ -1,4 +1,4 @@
-json.extract! @show, :title, :description, :image_url, :id
+json.extract! @show, :title, :description, :network, :image_url, :id
 json.set! :seasons, @show.seasons
 json.set! :watching, @endorsed
 json.set! :overall_rating, @show.average_episode_rating

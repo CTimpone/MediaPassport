@@ -100,7 +100,9 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
     var count = 0;
 
     this._apiEpisodes.each(function (episode) {
-      this._episodes.CRU(_.clone(episode.attributes), {});
+      var attrs = _.clone(episode.attributes);
+      attrs.network = this.model.escape("network");
+      this._episodes.CRU(attrs, {});
 
       count += 1;
 
