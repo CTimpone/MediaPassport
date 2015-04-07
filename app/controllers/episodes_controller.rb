@@ -42,7 +42,7 @@ class EpisodesController < ApplicationController
           show.episodes.create(episode)
 
         else
-          episode.title += " (" + year + ")"
+          episode["title"] += " (" + year + ")"
           show.episodes.create(episode)
         end
       end

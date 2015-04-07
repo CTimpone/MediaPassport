@@ -36,29 +36,24 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
   developGrid: function () {
     var timer = setInterval(function () {
       this.times = this.localSchedule.pluck("airtime");
-      console.log(this.times);
-      this.times = ["20:00", "20:30", "21:00", "21:30", "22:00", "22:30"].concat(this.times);
-      this.times = this.times.sort();
-      this.times = _.uniq(this.times);
-      if ($('.time-col').length === 0) {
-        _.each(this.times, function (time) {
-          if (time !== null) {
-            var base = parseInt(time.slice(0, 2));
-            if (base > 12) {
-              var USTime = String(Math.abs(base - 12)) + time.slice(2, 5);
-            } else if (base === 0) {
-              var USTime = "12" + time.slice(2, 5);
-            } else if (time === "") {
-              var USTime = "12:00";
-            } else {
-              var USTime = time.slice(1, 5);
-            }
-            var col = "<th class='time-col'>" + USTime + "</th>";
+      this.times = ["19:00", "19:30", "20:00", "20:30", "21:00", "21:30",
+                    "22:00", "22:30"].concat(this.times);
 
-            $('.grid-header').append($(col));
-          }
-        });
-      }
+      this.times = this.times.sort(function (a, b) {
+        hourA = parseInt(a.slice(0,2));
+        hourB = parseInt(b.slice(0,2));
+
+        if (hourA === 0) {
+          return 1;
+        } else if (hourB === 0 && hourA !== 0) {
+          return -1;
+        } else if (hourA < hourB) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
+      this.times = _.uniq(this.times);
 
       this.networks = this.localSchedule.map(function (model) {
         return model.escape('network').replace(/&amp;/g, '&');
@@ -76,8 +71,28 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
 
           addedRows += 1;
 
-
           if (addedRows === this.networks.length) {
+
+            if ($('.time-col').length === 0) {
+              console.log(this.times);
+              _.each(this.times, function (time) {
+                if (time !== null) {
+                  var base = parseInt(time.slice(0, 2));
+                  if (base > 12) {
+                    var USTime = String(Math.abs(base - 12)) + time.slice(2, 5);
+                  } else if (base === 0) {
+                    var USTime = "12" + time.slice(2, 5);
+                  } else if (time === "") {
+                    var USTime = "12:00";
+                  } else {
+                    var USTime = time.slice(1, 5);
+                  }
+                  var col = "<th class='time-col'>" + USTime + "</th>";
+
+                  $('.grid-header').append($(col));
+                }
+              });
+            }
 
             _.each(this.networks, function (network) {
 
