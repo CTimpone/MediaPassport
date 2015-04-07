@@ -31,7 +31,9 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
   events: {
     "change .season-selector": "getItems",
     "mouseover .episode-link": "choosePreviewEpisode",
-    "click .watchlist-toggle": "toggleWatchlistItem"
+    "click .watchlist-toggle": "toggleWatchlistItem",
+    "click .modal-cancel": "hideModal",
+    "click .modal-confirm": "removeItem"
   },
 
   render: function () {
@@ -165,26 +167,15 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
     var items;
     var $button = $(event.currentTarget);
     if (!$button.prop("disabled")) {
-      $button.html("Processing");
-      $button.prop("disabled", true)
       items = new MediaPassport.Collections.WatchlistItems({
         show_title: encodeURIComponent(this.model.get('title'))
       });
       if (this.model.escape("watching") === "true") {
-        if (window.confirm("Are you sure you want to remove " +
-                            this.model.escape('title') + " from your watchlist?")) {
-          items.create({}, {
-            success: function () {
-              $button.html("Add to your Watchlist");
-              $button.prop("disabled", false);
-              this.model.set({watching: false})
-            }.bind(this)
-          });
-        } else {
-          $button.prop("disabled", false)
-          $button.html("Remove from Watchlist");
-        }
+        this.showModal();
       } else {
+        $button.html("Processing");
+        $button.prop("disabled", true)
+
         items.create({}, {
           success: function () {
             $button.html("Remove from Watchlist");
@@ -193,6 +184,37 @@ MediaPassport.Views.ShowLanding = Backbone.CompositeView.extend({
           }.bind(this)
         });
       }
+    }
+  },
+
+  showModal: function (event) {
+    $('.modal').css("display", "block");
+  },
+
+  hideModal: function (event) {
+    $('.modal').css("display", "none");
+  },
+
+  removeItem: function (event) {
+    var items;
+
+    var $button = this.$('.watchlist-toggle');
+
+    if (!$button.prop("disabled")) {
+      $button.html("Processing");
+      $button.prop("disabled", true)
+      items = new MediaPassport.Collections.WatchlistItems({
+        show_title: encodeURIComponent(this.model.get('title'))
+      });
+      items.create({}, {
+        success: function () {
+          $('.modal').css("display", "none");
+          $button.html("Add to your Watchlist");
+          $button.prop("disabled", false);
+
+          this.model.set({watching: false});
+        }.bind(this)
+      });
     }
   }
 })

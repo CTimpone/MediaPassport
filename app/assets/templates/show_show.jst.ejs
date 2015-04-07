@@ -31,3 +31,17 @@
   <ul class="episodes-list"></ul>
   <div class="episode-preview"></div>
 </section>
+
+<div class="modal">
+  <div class="watchlist-remove-confirm">
+    <h1>Removal Confirmation</h1>
+    <p>
+      Are you sure you want to remove <strong><%=show.escape('title')%></strong>
+      from your watchlist?
+    </p>
+    <div class="buttons group">
+      <button class="modal-cancel">Cancel</button>
+      <button class="modal-confirm">Confirm</button>
+    </div>
+  </div>
+</div>

@@ -1051,9 +1051,12 @@
   }
 
   .watchlist-remove-confirm .buttons {
-    width: 200px;
+    width: 220px;
     margin: 10px auto;
+  }
 
+  .buttons button {
+    margin-right: 10px;
   }
 
 
