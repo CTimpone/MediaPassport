@@ -36,9 +36,15 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
   developGrid: function () {
     var timer = setInterval(function () {
       this.times = this.localSchedule.pluck("airtime");
+      var blankIdx = this.times.indexOf("");
+      if (blankIdx !== -1) {
+        this.times[blankIdx] = "00:00";
+      }
+
       if (this.times.indexOf("23:35") !== -1 && this.times.indexOf("00:00") === -1) {
         this.times = this.times.concat(["00:00"]);
       }
+
       this.times = ["19:00", "19:30", "20:00", "20:30", "21:00", "21:30",
                     "22:00", "22:30"].concat(this.times);
 
@@ -80,7 +86,7 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
 
           if (addedRows === this.networks.length) {
             this.times = _.uniq(this.times);
-            console.log(this.times);
+
             if ($('.time-col').length === 0) {
               console.log(this.times);
               _.each(this.times, function (time) {
@@ -90,8 +96,6 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
                     var USTime = String(Math.abs(base - 12)) + time.slice(2, 5);
                   } else if (base === 0) {
                     var USTime = "12" + time.slice(2, 5);
-                  } else if (time === "") {
-                    var USTime = "12:00";
                   } else {
                     var USTime = time.slice(1, 5);
                   }
