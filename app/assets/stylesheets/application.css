@@ -518,6 +518,10 @@
     border: 3px solid #444;
   }
 
+  .js-masonry {
+    height: 645px;
+  }
+
   .schedule-container {
     width: 721px;
     margin: 0 auto;
@@ -601,12 +605,15 @@
     font-size: 18px;
   }
 
+  .lists-container {
+    height: 645px;
+  }
+
   .network-container {
-    float: left;
     width: 200px;
-    margin: 10px;
     border: 1px solid #444;
     border-radius: 5px;
+    margin: 10px 15px;
   }
 
   .network-container .network-title {
