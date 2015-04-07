@@ -6,7 +6,7 @@ json.set! :voters, @episode.num_ratings
 
 json.set! :posts do
   json.array! (@episode.posts) do |post|
-    json.extract! post, :title, :id, :content
+    json.extract! post, :title, :id, :content, :created_at
     json.set! :total_points, post.total_points
     json.set! :author, post.author.username
   end
