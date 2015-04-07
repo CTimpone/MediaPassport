@@ -548,10 +548,6 @@
     border: 1px solid #444;
   }
 
-  table.schedule div {
-    margin: 0;
-  }
-
   table.schedule th {
     background: #444;
     color: #2EB3DB;
@@ -567,7 +563,8 @@
     border: 3px solid #444;
   }
 
-  .schedule-cell-new > div {
+  .schedule-cell-new div {
+    margin: auto;
     height: 100px;
   }
 

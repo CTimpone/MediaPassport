@@ -1,12 +1,14 @@
-<div style="width: <%= cols * 150 %>px;">
-  <% if (episode) {%>
-    <a href="#shows/<%=encodeURIComponent(episode.get('show_title').replace(/ /g,'_'))%>/episodes/<%= encodeURIComponent(episode.get('title').replace(/ /g,'_'))%>">
-      <strong><%= episode.escape('title').replace(/&amp;/, '&') %></strong>
-      <br>
-      <p>
-        <%= episode.escape('show_title') %>
-        (S<%=episode.escape('season')%>E<%=episode.escape('position')%>)
-      </p>
-    </a>
-  <% } %>
-</div>
+<% if (episode) {%>
+  <a href="#shows/<%=encodeURIComponent(episode.get('show_title').replace(/ /g,'_'))%>/episodes/<%= encodeURIComponent(episode.get('title').replace(/ /g,'_'))%>">
+  <div style="width: <%= cols * 150 %>px;">
+    <strong><%= episode.escape('title').replace(/&amp;/, '&') %></strong>
+    <br>
+    <p>
+      <%= episode.escape('show_title') %>
+      (S<%=episode.escape('season')%>E<%=episode.escape('position')%>)
+    </p>
+  </div>
+</a>
+<% } else {%>
+  <div style="width: <%= cols * 150 %>px;" \>
+<% } %>
