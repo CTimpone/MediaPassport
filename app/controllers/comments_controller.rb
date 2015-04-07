@@ -9,6 +9,7 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.new(new_comment_params)
     if @comment.save
+      @comment.post.touch
       render json: @comment
     else
       render json: {errors: @comment.errors.full_messages}, status: 422

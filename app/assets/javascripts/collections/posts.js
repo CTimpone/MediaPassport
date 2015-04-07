@@ -4,7 +4,7 @@ MediaPassport.Collections.Posts = Backbone.Collection.extend({
   url: "/posts",
 
   comparator: function (a) {
-    var date = new Date(a.get("created_at"));
+    var date = new Date(a.get("updated_at"));
     return -date.getTime();
   },
 
