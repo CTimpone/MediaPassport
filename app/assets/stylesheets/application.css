@@ -573,7 +573,7 @@
 
   .schedule-cell-new div {
     margin: auto;
-    height: 100px;
+    min-height: 100px;
   }
 
   .schedule-cell-new {
@@ -584,7 +584,7 @@
     padding-top: 20px;
     display: block;
     width: 100%;
-    height: calc(100% - 20px);
+    min-height: calc(100% - 20px);
     text-align: center;
   }
 

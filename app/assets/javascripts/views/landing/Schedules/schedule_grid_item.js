@@ -11,6 +11,10 @@ MediaPassport.Views.ScheduleGridItem = Backbone.View.extend({
       this.cols = 1;
       var pop = "schedule-cell-none"
     }
+
+    if (this.cols === 0) {
+      this.cols = 1;
+    }
     return {
       colspan: this.cols,
       class: pop
