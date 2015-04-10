@@ -69,7 +69,6 @@ MediaPassport.Views.ScheduleList = MediaPassport.Views.ScheduleView.extend({
           });
 
           this.addSubview('.lists-container', networkSubview);
-          console.log(this._subviews);
         }
       }.bind(this));
     }

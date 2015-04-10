@@ -47,7 +47,6 @@ MediaPassport.Views.EpisodeLanding = Backbone.CompositeView.extend({
   addPost: function (event) {
     var post = this.model.posts().first();
     post.set({total_points: 0})
-    console.log(this.model.posts());
     var subView = new MediaPassport.Views.EpisodePostListItem({model: post});
     this.addSubviewFirst('.post-list', subView)
   },

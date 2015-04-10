@@ -18,7 +18,6 @@ MediaPassport.Views.NewSession = Backbone.CompositeView.extend({
 
   createSession: function (event) {
     event.preventDefault();
-    console.log($(event.currentTarget));
 
     if ($(event.currentTarget)[0].className === 'demo') {
       var data = {username: "Guest", password: "password"};
