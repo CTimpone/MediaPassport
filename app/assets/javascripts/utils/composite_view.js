@@ -5,12 +5,30 @@ Backbone.CompositeView = Backbone.View.extend({
     this.attachSubview(selector, subview.render());
   },
 
+  addSubviewFirst: function (selector, subview) {
+    this.subviews(selector).push(subview);
+    // Try to attach the subview. Render it as a convenience.
+    this.prependSubview(selector, subview.render());
+  },
+
   attachSubview: function (selector, subview) {
     this.$(selector).append(subview.$el);
-    
+
     if ($('.lists-container').length === 1) {
       $('.lists-container').masonry();
     }
+    // Bind events in case `subview` has previously been removed from
+    // DOM.
+    subview.delegateEvents();
+
+    if (subview.attachSubviews) {
+      subview.attachSubviews();
+    }
+  },
+
+  prependSubview: function (selector, subview) {
+    this.$(selector).prepend(subview.$el);
+
     // Bind events in case `subview` has previously been removed from
     // DOM.
     subview.delegateEvents();

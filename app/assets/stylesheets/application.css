@@ -784,6 +784,10 @@
     float: left;
   }
 
+  .post-item-container {
+    width: 444px;
+  }
+
   .post-display {
     width: 800px;
     margin: 0 auto;
