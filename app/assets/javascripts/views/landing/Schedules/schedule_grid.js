@@ -40,7 +40,11 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
       var blankIdx = this.times.indexOf("");
 
       if (blankIdx !== -1) {
-        this.times[blankIdx] = "00:00";
+        for (var i = 0; i < this.times.length; i++) {
+          if (this.times[i] === "") {
+            this.times[i] = "00:00";
+          }
+        }
       }
 
       if (this.times.indexOf("23:35") !== -1 && this.times.indexOf("00:00") === -1) {
@@ -50,26 +54,6 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
       this.times = ["19:00", "19:30", "20:00", "20:30", "21:00", "21:30",
                     "22:00", "22:30"].concat(this.times);
 
-
-      this.times = this.times.sort(function (a, b) {
-        hourA = parseInt(a.slice(0, 2));
-        hourB = parseInt(b.slice(0, 2));
-        minA = parseInt(a.slice(3, 5));
-        minB = parseInt(b.slice(3, 5));
-
-        if (hourA === 0 && hourB !== 0) {
-          return 1;
-        } else if (hourB === 0 && hourA !== 0) {
-          return -1;
-        } else if (hourA === hourB && minA < minB) {
-          return -1;
-        } else if (hourA < hourB) {
-          return -1;
-        } else {
-          return 1;
-        }
-      });
-
       this.networks = this.localSchedule.map(function (model) {
         return model.escape('network').replace(/&amp;/g, '&');
       });
@@ -77,6 +61,24 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
 
       var addedRows = 0;
       _.each(this.networks, function (network) {
+        this.times = this.times.sort(function (a, b) {
+          hourA = parseInt(a.slice(0, 2));
+          hourB = parseInt(b.slice(0, 2));
+          minA = parseInt(a.slice(3, 5));
+          minB = parseInt(b.slice(3, 5));
+
+          if (hourA === 0 && hourB !== 0) {
+            return 1;
+          } else if (hourB === 0 && hourA !== 0) {
+            return -1;
+          } else if (hourA === hourB && minA < minB) {
+            return -1;
+          } else if (hourA < hourB) {
+            return -1;
+          } else {
+            return 1;
+          }
+        });
 
         if ($('.grid-row[network="' + network.replace(/[^\w]/gi, '') +'"]').length === 0) {
           var row = "<tr class='grid-row' network=" +
@@ -87,6 +89,7 @@ MediaPassport.Views.ScheduleGrid = MediaPassport.Views.ScheduleView.extend({
           addedRows += 1;
 
           if (addedRows === this.networks.length) {
+
             this.times = _.uniq(this.times);
 
             if ($('.time-col').length === 0) {
