@@ -59,7 +59,7 @@ MediaPassport.Views.UserSchedule = MediaPassport.Views.ScheduleView.extend({
 
         if (count === this.watchlist.length && this.subviews('.watched-show-episodes').length === 0) {
           this.$el.append(
-            '<h2 class="disclaimer">There are no shows on your Watchlist that air' +
+            '<h2 class="disclaimer">There are no shows on your Watchlist that air ' +
             'today, so why don\'t you add some more!</h2>'
           )
         }
