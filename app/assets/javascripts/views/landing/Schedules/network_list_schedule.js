@@ -10,7 +10,7 @@ MediaPassport.Views.NetworkListSchedule = Backbone.CompositeView.extend({
     this.$el.html(content);
 
     var selector = '.network-schedule[network=' + this.model.replace(/[^\w]/gi, '') + ']';
-    _.each(this.collection, function (episode) {
+    this.collection.each(function (episode) {
       var subview = new MediaPassport.Views.EpisodeScheduleItem({
         model: episode
       });

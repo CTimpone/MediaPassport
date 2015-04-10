@@ -64,7 +64,7 @@ MediaPassport.Views.ScheduleList = MediaPassport.Views.ScheduleView.extend({
         if (network !== "") {
           var newEpisodes = this.localSchedule.where({network: network});
           var networkSubview = new MediaPassport.Views.NetworkListSchedule({
-            collection: newEpisodes,
+            collection: new MediaPassport.Collections.Episodes(newEpisodes, {}),
             model: network
           });
 

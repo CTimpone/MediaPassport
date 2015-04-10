@@ -1,7 +1,7 @@
 <a href="#shows/<%=encodeURIComponent(episode.get('show_title').replace(/ /g, '_'))%>/episodes/<%=encodeURIComponent(episode.get('title').replace(/ /g, '_'))%>">
   <strong><%= episode.escape('title') %></strong>
   <p>
-    <%= episode.escape('show_title') %>(S<%=episode.escape('season')%>E<%=episode.escape('position')%>)
+    <%= episode.escape('show_title') %> (S<%=episode.escape('season')%>E<%=episode.escape('position')%>)
   </p>
 </a>
 <% $('.lists-container').masonry() %>
