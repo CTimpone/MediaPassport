@@ -4,7 +4,7 @@ MediaPassport.Views.NewSession = Backbone.CompositeView.extend({
   className: "user-form group",
 
   events: {
-    "submit": "createSession"
+    "click button": "createSession"
   },
 
   template: JST["user_form/user_form"],
@@ -18,7 +18,14 @@ MediaPassport.Views.NewSession = Backbone.CompositeView.extend({
 
   createSession: function (event) {
     event.preventDefault();
-    var data = this.$el.serializeJSON();
+    console.log($(event.currentTarget));
+
+    if ($(event.currentTarget)[0].className === 'demo') {
+      var data = {username: "Guest", password: "password"};
+    } else {
+      var data = this.$el.serializeJSON();
+    }
+
     if (!MediaPassport.previousLoc) {
       MediaPassport.previousLoc = "";
     }
