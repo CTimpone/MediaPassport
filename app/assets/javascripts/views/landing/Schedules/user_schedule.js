@@ -41,7 +41,8 @@ MediaPassport.Views.UserSchedule = MediaPassport.Views.ScheduleView.extend({
 
   developList: function () {
     $('.watched-show-episodes').empty();
-    if (this.watchlistLoad.length > 0) {
+    if (this.watchlistLoad && this.watchlist.length > 0) {
+      console.log('a');
       var count = 0;
       this.watchlist.each(function (item) {
         count += 1;
@@ -64,6 +65,7 @@ MediaPassport.Views.UserSchedule = MediaPassport.Views.ScheduleView.extend({
         }
       }.bind(this));
     } else {
+      console.log('b');
       this.$el.append(
         '<h2 class="disclaimer">There are no shows on your Watchlist that air' +
         'today, so why don\'t you add some more!</h2>'
