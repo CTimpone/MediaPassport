@@ -41,9 +41,12 @@ MediaPassport.Views.UserSchedule = MediaPassport.Views.ScheduleView.extend({
 
   developList: function () {
     $('.watched-show-episodes').empty();
-    if (this.watchlistLoad) {
+    if (this.watchlistLoad.length > 0) {
+      var count = 0;
       this.watchlist.each(function (item) {
+        count += 1;
         var watchedEpisodes = this.localSchedule.where({show_id: item.get('show_id')});
+
         if (watchedEpisodes.length > 0) {
           _.each(watchedEpisodes, function (episode) {
             var subview = new MediaPassport.Views.EpisodePersonalItem({
@@ -52,7 +55,19 @@ MediaPassport.Views.UserSchedule = MediaPassport.Views.ScheduleView.extend({
             this.addSubview('.watched-show-episodes', subview);
           }.bind(this));
         }
+
+        if (count === this.watchlist.length && this.subviews('.watched-show-episodes').length === 0) {
+          this.$el.append(
+            '<h2 class="disclaimer">There are no shows on your Watchlist that air' +
+            'today, so why don\'t you add some more!</h2>'
+          )
+        }
       }.bind(this));
+    } else {
+      this.$el.append(
+        '<h2 class="disclaimer">There are no shows on your Watchlist that air' +
+        'today, so why don\'t you add some more!</h2>'
+      )
     }
   }
 })
