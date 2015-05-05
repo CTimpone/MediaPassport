@@ -1,81 +1,26 @@
 # Media Passport
 
-[Heroku link][heroku]
+[Live Page][live]
 
-[heroku]: http://media-passport.herokuapp.com/
+[live]: http://media-passport.com/
 
-## Minimum Viable Product
-Media Passport is a pseudo-GoodReads clone for television, on which users can:
+## Summary
+Media Passport is a collection and discussion platform for television inspired by GoodReads and AVClub.  It polls a third-party RESTful API to populate the television program information.  It is a single-page web application built on Ruby on Rails with Backbone.js.
 
-<!-- This is a Markdown checklist. Use it to keep track of your progress! -->
+## Details
 
-- [x] Create accounts
-- [x] Create sessions (log in)
-- [x] Write posts
-- [x] Comment on posts
-- [x] View program listings
-- [x] Rate episodes
-- [x] Create a personal show watch list
-- [x] Can endorse user generated comment
-- [x] Search for shows and episodes via title
-- [x] Actions will fetch data from API to fill database
+### API Interfacing
+The program and episode data for the programs is populated from the API at TVMaze.  It utilizes three separate points of entry for Media Passport: today's schedule, show search, and episodes for a specific show.
 
-## Design Docs
-* [View Wireframes][views]
-* [DB schema][schema]
+The schedule point of entry is used for the daily schedule landing page of Media Passport.  If necessary, after polling the foreign data, it performs two types of batch creation.  As episodes cannot exist independently from a show, it first verifies whether or not the show itself is in the database.  Afterwards, it also creates a local entry for the actual episode.  Custom routes are employed so that, regardless of the number of entries on the schedule from the API, it only sends two batch requests, at most, to the Media Passport servers.
 
-[views]: ./docs/views.md
-[schema]: ./docs/schema.md
+The two other points of entry use very similar logic locally.  The API show search is accessed only on a local search (facilitated primarily through the gem pg_search).  The episodes entry point is utilized when a user visits a specific show page on Media Passport.  In each instance, all listed shows and episodes, respectively, get run through a custom Create/Read/Update functionality.  If the data does not exist at all locally, it is created.  If it matches exactly, no changes are made.  If some aspects of the local data, however, are generic defaults, and the foreign data is not, it instead performs an update.
 
-## Implementation Timeline
+### Accounts
+Media Passport has a custom built account system.  Accounts, on creation, allow the user to upload a user avatar (functionality provided by Paperclip in conjunction with AWS).  Accounts require an email, and can only be used once they use the activation link sent by the ActiveMailer.  Being logged in allows users to rate episodes.
 
-### Phase 1: User Authentication, Model/Schema Generation (<= 1 days)
-User authentication will initially be setup traditionally per App Academy experience, entirely in Rails. Necessary model methods and associations to serve content to users/non-users will be created in this phase.  By end of phase, sample user should be able to navigate around a non-dynamic HTML version of the site, using show data manually generated in console.
+### Watchlist/Recommendations
+Users with accounts can follow specific shows by adding them to their Watchlist.  This allows for quicker access to some information on those desired shows.  In addition, Media Passport uses a custom recommendation methodology to dynamically compare shows on a user's Watchlist with other users' Watchlists to recommend additional shows to add to the Watchlist.  This is accomplished almost entirely in a custom SQL query that examines their followed shows to find users with common tastes, and then of those users finds the most common followed shows, above a certain threshold, to recommend.
 
-[Details][phase-one]
-
-### Phase 2: API Consumption and Searching (<= 2 days)
-In this phase I will integrate the TVMaze API, in order to serve pertinent show and episode pages to user.  When navigating around the site, it will first attempt to access representative data from this projects database.  If no such page exists, it will check with the 3rd-Party API if there is valid data.  If there is, it will dynamically create the required page.
-
-[Details][phase-two]
-
-### Phase 3: Viewing Content/Creating Posts (~ 1.5 days)
-This phase will the transition of the application to a Backbone front-end.  I will create the Backbone router to serve all routes up to this point in a single application, including authentication.
-
-[Details][phase-three]
-
-### Phase 4: Content Endorsement/Evaluation (~ 1 days)
-In this phase I will add a polymorphic implementation to promote user generated content, including both posts and comments.  This will exist exclusively as a endorsement (there will be no equivalent downvote).  In addition, I will add the letter grading of a specific episode of a program.  Both actions are binary for content; one user cannot endorse or rate one piece of content repeatedly.
-
-[Details][phase-four]
-
-### Phase 5: Show Schedule (~ 1 days)
-I will refactor the composite view on the landing page to focus on the schedule, which will show the new programs for the same day by default.  It will also allow for date changes, and network sorting entirely through Backbone.
-
-[Details][phase-five]
-
-### Phase 6: User WatchList & Recommendations (<= 2.5 days)
-I'll add the ability for user's to favorite shows, which will be used to curate the landing page for the user with content primarily relevant to their favorites.  This will include posts (based on recommendations implemented in phase 4) and also upcoming episodes/specials (based on schedule implementation in phase 5).
-
-I will also add recommendations based on comparison of the 'current_user' watchlist to other users watchlists, to improve discoverability.
-
-[Details][phase-six]
-
-### Bonus Features (TBD)
-- [x] Add ActiveMailer user registration
-- [ ] Add JQuery UI elements for dragging and dropping
-- [x] Improve URL legibility (titles rather than IDs)
-- [ ] More powerful content generation rather than plain-text
-- [ ] Pagination/infinite scroll for user-content
-- [ ] Separate reviews from posts into distinct model
-- [ ] More in-depth privacy options
-- [ ] Multiple sessions/session management
-- [x] User avatars/gravatars
-- [ ] Integrate other media APIs
-
-[phase-one]: ./docs/phases/phase1.md
-[phase-two]: ./docs/phases/phase2.md
-[phase-three]: ./docs/phases/phase3.md
-[phase-four]: ./docs/phases/phase4.md
-[phase-five]: ./docs/phases/phase5.md
-[phase-six]: ./docs/phases/phase6.md
+### Posting, Commenting, and Voting
+Every episode for every show allows users to create text posts.  Other users can then comment on that post, comment on the other comments, or simply edit their own comments all on the same page.  The post display page uses regex functionality to ensure that only a single form is present.  In addition to posting and commenting, users can also interact with this content by endorsing, or liking, the posts and comments. 
